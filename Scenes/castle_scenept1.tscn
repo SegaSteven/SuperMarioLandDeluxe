@@ -1,0 +1,238 @@
+[gd_scene load_steps=36 format=3 uid="uid://dh2w33oro61vc"]
+
+[ext_resource type="Script" path="res://Scripts/Cutscene/castle_scenept_1.gd" id="1_1s0ca"]
+[ext_resource type="Script" path="res://Scripts/Cutscene/cutscene_camera.gd" id="1_g4ayr"]
+[ext_resource type="Texture2D" uid="uid://dlo3d5vp4wtjg" path="res://Assets/Sprites/Mario/Small_run1.png" id="2_13u66"]
+[ext_resource type="AudioStream" uid="uid://5vlvsco8sfnx" path="res://Assets/Audio/16 Princess Daisy.mp3" id="2_pgy0j"]
+[ext_resource type="Texture2D" uid="uid://baul2ukxp5a13" path="res://Assets/Sprites/Mario/Small_run2.png" id="3_botfc"]
+[ext_resource type="AudioStream" uid="uid://r5ishxy1kuiu" path="res://Assets/Audio/Original/Oh! Daisy.wav" id="3_kxyh4"]
+[ext_resource type="Texture2D" uid="uid://c72udcuclb0v2" path="res://Assets/Cutscenes/WindowBroken.png" id="3_xflxq"]
+[ext_resource type="Texture2D" uid="uid://cs076i1d5hi2a" path="res://Assets/Sprites/Mario/Small_run3.png" id="4_2yijf"]
+[ext_resource type="AudioStream" uid="uid://cskaf0mi7grl" path="res://Assets/Audio/New/Chase Down Tatanga_1.wav" id="4_kheby"]
+[ext_resource type="Texture2D" uid="uid://dygjakn7haglm" path="res://Assets/Cutscenes/Window.png" id="4_q0idq"]
+[ext_resource type="Script" path="res://Scripts/Cutscene/window.gd" id="5_bc232"]
+[ext_resource type="Texture2D" uid="uid://cyuh0q46q7ju2" path="res://Assets/Cutscenes/FlightCS01BG2.png" id="5_g7gtq"]
+[ext_resource type="Texture2D" uid="uid://kb7btcj6dykb" path="res://Assets/Sprites/Mario/Big_idle.png" id="5_yhoif"]
+[ext_resource type="Texture2D" uid="uid://hokinmv5swdi" path="res://Assets/Cutscenes/Glass_Piece.png" id="6_jur44"]
+[ext_resource type="Texture2D" uid="uid://bvwqxyamt1lvg" path="res://Assets/Sprites/Mario/Big_run1.png" id="6_k0d37"]
+[ext_resource type="Texture2D" uid="uid://b5k1qxur5qnvy" path="res://Assets/Sprites/Mario/Big_run2.png" id="7_jnqcv"]
+[ext_resource type="Script" path="res://Scripts/Cutscene/gpu_particles_2d.gd" id="7_vutth"]
+[ext_resource type="Texture2D" uid="uid://ytb4na58nwxk" path="res://Assets/Sprites/Mario/Big_run3.png" id="8_xkp7g"]
+[ext_resource type="Texture2D" uid="uid://bu1r2nm12uem4" path="res://Assets/Sprites/Mario/Small_Idle.png" id="9_6g65j"]
+[ext_resource type="Script" path="res://Scripts/Cutscene/mario_cutscene.gd" id="10_vehbo"]
+[ext_resource type="Texture2D" uid="uid://du4pkan1qfg1i" path="res://Assets/Cutscenes/Daisy_arms.png" id="14_fl7no"]
+[ext_resource type="Texture2D" uid="uid://dfuqivwe7q30g" path="res://Assets/Cutscenes/Daisy_idle.png" id="15_tasg6"]
+[ext_resource type="Script" path="res://Scripts/Cutscene/daisy.gd" id="16_el021"]
+[ext_resource type="Texture2D" uid="uid://cha4v7eqvgjae" path="res://Assets/Cutscenes/Tatanga.png" id="16_q58xt"]
+[ext_resource type="Script" path="res://Scripts/Cutscene/tatanga_1.gd" id="19_vte8e"]
+[ext_resource type="FontFile" uid="uid://jiobqv87vkb1" path="res://Assets/Fonts/super-mario-land-gb-doublecase.ttf" id="20_3fv6k"]
+[ext_resource type="Script" path="res://Scripts/Cutscene/text_behind.gd" id="20_8h6rw"]
+[ext_resource type="Script" path="res://Scripts/Cutscene/label.gd" id="21_ni1yd"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bm4xo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_xflxq")
+}],
+"loop": true,
+"name": &"Broken",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_q0idq")
+}],
+"loop": true,
+"name": &"full",
+"speed": 5.0
+}]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_on4qm"]
+particle_flag_disable_z = true
+direction = Vector3(0, 0, 0)
+spread = 180.0
+initial_velocity_min = 160.0
+initial_velocity_max = 160.0
+gravity = Vector3(0, 98, 0)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_81d12"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_yhoif")
+}],
+"loop": true,
+"name": &"big_idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_k0d37")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_jnqcv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_xkp7g")
+}],
+"loop": true,
+"name": &"big_run",
+"speed": 14.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_6g65j")
+}],
+"loop": true,
+"name": &"small_idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_13u66")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_botfc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_2yijf")
+}],
+"loop": true,
+"name": &"small_run",
+"speed": 14.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0qsfo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("14_fl7no")
+}],
+"loop": true,
+"name": &"arms_out",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("15_tasg6")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5e8mt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("16_q58xt")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="LabelSettings" id="LabelSettings_q052m"]
+font = ExtResource("20_3fv6k")
+font_size = 7
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Curve2D" id="Curve2D_cjqtv"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 208, 112, 31.519, 23.0433, -31.519, -23.0433, 144, 96, -39.465, -11.6541, 39.465, 11.6541, 192, 32, 21.4541, -30.1947, -21.4541, 30.1947, 216, 88, -12.1838, 23.8379, 12.1838, -23.8379, 160, 72, 0, 0, 0, 0, 216, 64, 0, 0, 0, 0, 256, 72)
+}
+point_count = 7
+
+[node name="CastleScene" type="Node"]
+script = ExtResource("1_1s0ca")
+
+[node name="16PrincessDaisy" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_pgy0j")
+
+[node name="17Oh!Daisy" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_kxyh4")
+
+[node name="ChaseDownTatanga1" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_kheby")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(80.256, 72.3988)
+limit_left = 0
+limit_top = 0
+limit_right = 320
+limit_bottom = 144
+limit_smoothed = true
+script = ExtResource("1_g4ayr")
+
+[node name="BG" type="Sprite2D" parent="."]
+position = Vector2(160, 72)
+texture = ExtResource("5_g7gtq")
+
+[node name="Window" type="AnimatedSprite2D" parent="."]
+position = Vector2(256, 70)
+sprite_frames = SubResource("SpriteFrames_bm4xo")
+animation = &"full"
+script = ExtResource("5_bc232")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(256, 72)
+emitting = false
+amount = 10
+process_material = SubResource("ParticleProcessMaterial_on4qm")
+texture = ExtResource("6_jur44")
+lifetime = 0.2
+one_shot = true
+explosiveness = 1.0
+local_coords = true
+script = ExtResource("7_vutth")
+
+[node name="Mario" type="AnimatedSprite2D" parent="."]
+position = Vector2(-10.1039, 120.136)
+sprite_frames = SubResource("SpriteFrames_81d12")
+animation = &"big_run"
+script = ExtResource("10_vehbo")
+
+[node name="Daisy" type="AnimatedSprite2D" parent="."]
+position = Vector2(208, 120)
+sprite_frames = SubResource("SpriteFrames_0qsfo")
+animation = &"idle"
+flip_h = true
+script = ExtResource("16_el021")
+
+[node name="Tatanga" type="AnimatedSprite2D" parent="."]
+position = Vector2(338, 112)
+sprite_frames = SubResource("SpriteFrames_5e8mt")
+autoplay = "default"
+script = ExtResource("19_vte8e")
+
+[node name="textBehind" type="ColorRect" parent="."]
+offset_left = 152.0
+offset_top = 80.0
+offset_right = 160.0
+offset_bottom = 88.0
+script = ExtResource("20_8h6rw")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 152.0
+offset_top = 80.0
+offset_right = 240.0
+offset_bottom = 88.0
+label_settings = SubResource("LabelSettings_q052m")
+script = ExtResource("21_ni1yd")
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_cjqtv")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+position = Vector2(338, 112)
+h_offset = 130.0
+rotates = false
+cubic_interp = false
+loop = false
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Path2D/PathFollow2D"]
+remote_path = NodePath("../../../Tatanga")
+
+[connection signal="smash" from="Window" to="GPUParticles2D" method="_on_window_smash"]
+[connection signal="smash" from="Window" to="Mario" method="_on_window_smash"]

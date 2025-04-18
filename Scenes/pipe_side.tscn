@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://bqaypbcng5bti"]
+
+[ext_resource type="Script" path="res://Scripts/pipe_side.gd" id="1_2ssm2"]
+[ext_resource type="Texture2D" uid="uid://doib6f8ivm726" path="res://Assets/Sprites/Pipe_Side_Cap.png" id="1_ex7a0"]
+[ext_resource type="Texture2D" uid="uid://deiayadq7t3hq" path="res://Assets/Sprites/Pipe_Side_Body.png" id="2_ykcc3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vr1dt"]
+size = Vector2(16.0024, 15.9663)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k54rj"]
+size = Vector2(3.125, 2.875)
+
+[node name="PipeSide" type="StaticBody2D"]
+collision_layer = 16
+collision_mask = 5
+script = ExtResource("1_2ssm2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_ex7a0")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(7.98851, 0)
+texture = ExtResource("2_ykcc3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+modulate = Color(1, 0.54902, 1, 1)
+position = Vector2(3.98864, 0.0229857)
+shape = SubResource("RectangleShape2D_vr1dt")
+
+[node name="Entrance" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entrance"]
+position = Vector2(-4.0625, 6.6875)
+shape = SubResource("RectangleShape2D_k54rj")
+
+[connection signal="body_entered" from="Entrance" to="." method="_on_entrance_body_entered"]

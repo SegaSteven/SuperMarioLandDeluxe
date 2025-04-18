@@ -1,0 +1,93 @@
+[gd_scene load_steps=12 format=3 uid="uid://bvoh6reqa5d6d"]
+
+[ext_resource type="Texture2D" uid="uid://dmnsytwvmcj7j" path="res://Assets/Sprites/Enemies/BombKoopa_CD1.png" id="1_opvr1"]
+[ext_resource type="Script" path="res://Scripts/koopa.gd" id="1_xkswm"]
+[ext_resource type="Texture2D" uid="uid://c30xu2unw8r34" path="res://Assets/Sprites/Enemies/BombKoopa_Walk1.png" id="2_103vv"]
+[ext_resource type="Texture2D" uid="uid://dn04ntj2fcdn" path="res://Assets/Sprites/Enemies/BombKoopa_Walk2.png" id="3_ar2e1"]
+[ext_resource type="Texture2D" uid="uid://8h7neickwdgi" path="res://Assets/Sprites/Enemies/BombKoopa_explode1.png" id="3_uqpau"]
+[ext_resource type="Texture2D" uid="uid://vokhben0dal8" path="res://Assets/Sprites/Enemies/BombKoopa_explode2.png" id="4_1aptb"]
+[ext_resource type="Shape2D" uid="uid://eidjtgbsml7a" path="res://Resources/CollisionShapes/koopa_shell_collision_shape.tres" id="7_it85p"]
+[ext_resource type="AudioStream" uid="uid://cx6xy3agmmdfl" path="res://Assets/SFX/enemyfireball.wav" id="8_uyo8t"]
+[ext_resource type="AudioStream" uid="uid://dknrx7swi25xl" path="res://Assets/SFX/enemykilled.wav" id="9_37cyl"]
+[ext_resource type="AudioStream" uid="uid://cu1u4uvr4ap1q" path="res://Assets/SFX/nokobomb.wav" id="10_5s1tw"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_atgt0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_opvr1")
+}],
+"loop": true,
+"name": &"dead",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_uqpau")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_1aptb")
+}],
+"loop": true,
+"name": &"explode",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_103vv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ar2e1")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[node name="Koopa" type="Area2D" groups=["enemy"]]
+position = Vector2(0, -7)
+collision_layer = 4
+collision_mask = 89
+script = ExtResource("1_xkswm")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -1)
+sprite_frames = SubResource("SpriteFrames_atgt0")
+animation = &"walk"
+autoplay = "walk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4)
+shape = ExtResource("7_it85p")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(0, 1)
+target_position = Vector2(0, 6)
+collision_mask = 18
+
+[node name="RayCast2DSideL" type="RayCast2D" parent="."]
+position = Vector2(0, 1)
+target_position = Vector2(-4, 0)
+collision_mask = 18
+
+[node name="RayCast2DSideR" type="RayCast2D" parent="."]
+position = Vector2(0, 1)
+target_position = Vector2(4, 0)
+collision_mask = 18
+
+[node name="Enemyfireball" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_uyo8t")
+
+[node name="Enemykilled" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_37cyl")
+
+[node name="Nokobomb" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_5s1tw")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-1.19209e-07, 1.5)
+scale = Vector2(1.2, 0.65)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

@@ -1,0 +1,14 @@
+CollisionShape2D
+StaticBody2D
+Sprite2D
+Area2D
+RayCast2D
+VisibleOnScreenNotifier2D
+AnimatedSprite2D
+RemoteTransform2D
+Node
+VisibleOnScreenEnabler2D
+Camera2D
+Node2D
+PathFollow2D
+Path2D

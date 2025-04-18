@@ -1,0 +1,88 @@
+[gd_scene load_steps=8 format=3 uid="uid://klsfpauijvxp"]
+
+[ext_resource type="Texture2D" uid="uid://cbjgl7nbyd1wj" path="res://Assets/Sprites/Enemies/Fly_land.png" id="1_4ivsb"]
+[ext_resource type="Script" path="res://Scripts/Enemies/fly.gd" id="1_n1xq2"]
+[ext_resource type="Texture2D" uid="uid://50wsmo22qn7b" path="res://Assets/Sprites/Enemies/Fly_die.png" id="2_fsse7"]
+[ext_resource type="Texture2D" uid="uid://q12qne6v5akk" path="res://Assets/Sprites/Enemies/Fly_jump.png" id="3_h48ey"]
+[ext_resource type="AudioStream" uid="uid://dknrx7swi25xl" path="res://Assets/SFX/enemykilled.wav" id="4_7c6es"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wcqeu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_fsse7")
+}],
+"loop": true,
+"name": &"dead",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_4ivsb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_h48ey")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_h48ey")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b6d17"]
+size = Vector2(16.0455, 10.8265)
+
+[node name="Fly" type="Area2D"]
+collision_layer = 4
+collision_mask = 88
+script = ExtResource("1_n1xq2")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_wcqeu")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2.51271)
+shape = SubResource("RectangleShape2D_b6d17")
+
+[node name="Enemykilled" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_7c6es")
+
+[node name="VisibleOnScreenNotifier2D2" type="VisibleOnScreenNotifier2D" parent="."]
+rect = Rect2(-15, -10, 30, 20)
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(0, -1.89291)
+target_position = Vector2(0.0279865, 9.90952)
+collision_mask = 18
+
+[node name="RayCast2DSideL" type="RayCast2D" parent="."]
+position = Vector2(0, -1)
+target_position = Vector2(-8, 0)
+collision_mask = 18
+
+[node name="RayCast2DSideR" type="RayCast2D" parent="."]
+position = Vector2(0, -1)
+target_position = Vector2(8, 0)
+collision_mask = 18
+
+[node name="MariocastL" type="RayCast2D" parent="."]
+modulate = Color(0, 0.0509804, 1, 1)
+target_position = Vector2(-72, 0)
+collide_with_areas = true
+
+[node name="MariocastR" type="RayCast2D" parent="."]
+modulate = Color(0, 0.0499997, 1, 1)
+target_position = Vector2(72, 0)
+collide_with_areas = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D2" to="." method="_on_visible_on_screen_notifier_2d_2_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D2" to="." method="_on_visible_on_screen_notifier_2d_2_screen_exited"]

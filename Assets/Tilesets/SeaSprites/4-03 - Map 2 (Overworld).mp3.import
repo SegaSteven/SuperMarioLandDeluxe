@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://djg1b5jjp75o1"
+path="res://.godot/imported/4-03 - Map 2 (Overworld).mp3-f924c24bbe82423f5fe34e5a787f529f.mp3str"
+
+[deps]
+
+source_file="res://Assets/Tilesets/SeaSprites/4-03 - Map 2 (Overworld).mp3"
+dest_files=["res://.godot/imported/4-03 - Map 2 (Overworld).mp3-f924c24bbe82423f5fe34e5a787f529f.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

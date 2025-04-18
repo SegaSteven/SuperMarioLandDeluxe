@@ -1,0 +1,39 @@
+[gd_scene load_steps=11 format=3 uid="uid://chsen74n261ne"]
+
+[ext_resource type="Texture2D" uid="uid://csnymtki4kddq" path="res://Assets/Tilesets/SeaSprites/Sea1.png" id="1_5nccq"]
+[ext_resource type="Texture2D" uid="uid://dh7amfmm8v645" path="res://Assets/Tilesets/SeaSprites/Sea2.png" id="2_ywnwj"]
+[ext_resource type="Texture2D" uid="uid://b0v4rbx4bh8y0" path="res://Assets/Tilesets/SeaSprites/Sea3.png" id="3_yt1aj"]
+[ext_resource type="Texture2D" uid="uid://cditfqi6hgiyy" path="res://Assets/Tilesets/SeaSprites/Sea4.png" id="4_vamkj"]
+[ext_resource type="Texture2D" uid="uid://x6d4mehyw4ry" path="res://Assets/Tilesets/SeaSprites/Sea5.png" id="5_w6o51"]
+[ext_resource type="Texture2D" uid="uid://cx3eafhe1ruys" path="res://Assets/Tilesets/SeaSprites/Sea6.png" id="6_1j6ty"]
+[ext_resource type="Texture2D" uid="uid://baf828k50tw74" path="res://Assets/Tilesets/SeaSprites/Sea7.png" id="7_x240f"]
+[ext_resource type="Texture2D" uid="uid://xqiluaxcvdh3" path="res://Assets/Tilesets/SeaSprites/Sea8.png" id="8_hwmhu"]
+[ext_resource type="Script" path="res://Scripts/World_Scripts/Sea_animated.gd" id="9_edb8l"]
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_s383y"]
+frames = 8
+frame_0/texture = ExtResource("1_5nccq")
+frame_0/duration = 0.33
+frame_1/texture = ExtResource("2_ywnwj")
+frame_1/duration = 0.33
+frame_2/texture = ExtResource("3_yt1aj")
+frame_2/duration = 0.33
+frame_3/texture = ExtResource("4_vamkj")
+frame_3/duration = 0.33
+frame_4/texture = ExtResource("5_w6o51")
+frame_4/duration = 0.33
+frame_5/texture = ExtResource("6_1j6ty")
+frame_5/duration = 0.33
+frame_6/texture = ExtResource("7_x240f")
+frame_6/duration = 0.33
+frame_7/texture = ExtResource("8_hwmhu")
+frame_7/duration = 0.33
+
+[node name="Sea2" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_repeat = 2
+texture = SubResource("AnimatedTexture_s383y")
+region_enabled = true
+region_rect = Rect2(0, -0.015, 8, 8)
+script = ExtResource("9_edb8l")

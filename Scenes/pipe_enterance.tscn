@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://rl28wq2jpv6w"]
+
+[sub_resource type="GDScript" id="GDScript_01jsv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xkfs2"]
+size = Vector2(16, 8)
+
+[node name="PipeEnterance" type="Area2D"]
+script = SubResource("GDScript_01jsv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_xkfs2")
+
+[node name="EnteringTimer" type="Timer" parent="."]

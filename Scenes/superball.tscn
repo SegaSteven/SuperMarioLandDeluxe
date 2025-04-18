@@ -1,0 +1,50 @@
+[gd_scene load_steps=6 format=3 uid="uid://dtplg0leppriw"]
+
+[ext_resource type="Texture2D" uid="uid://ddcv1ndy80gid" path="res://Assets/Sprites/Mario/SuperBall.png" id="1_6k438"]
+[ext_resource type="Script" path="res://Scripts/superball.gd" id="1_jobib"]
+[ext_resource type="AudioStream" uid="uid://lsrvpil54r6l" path="res://Assets/SFX/fireball.wav" id="2_5gcy6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q41n0"]
+size = Vector2(6, 6)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mmx0q"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_6k438")
+}],
+"loop": true,
+"name": &"ball",
+"speed": 5.0
+}]
+
+[node name="SuperBall" type="CharacterBody2D"]
+collision_layer = 64
+collision_mask = 278
+floor_constant_speed = true
+script = ExtResource("1_jobib")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_q41n0")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_mmx0q")
+animation = &"ball"
+autoplay = "ball"
+
+[node name="Fireball" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_5gcy6")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+scale = Vector2(5.2, 4.8)
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 64
+collision_mask = 308
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_q41n0")
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered2"]

@@ -1,0 +1,114 @@
+[gd_scene load_steps=7 format=3 uid="uid://efpak71dq1dk"]
+
+[ext_resource type="Texture2D" uid="uid://wpl5k5u7kjng" path="res://Assets/Sprites/Star1.png" id="2_6760e"]
+[ext_resource type="AudioStream" uid="uid://bwsf3s1sxo1r3" path="res://Assets/SFX/blockhititem.wav" id="2_iqatc"]
+[ext_resource type="Texture2D" uid="uid://bofvccum7nnj7" path="res://Assets/Sprites/Star2.png" id="3_o66jx"]
+
+[sub_resource type="GDScript" id="GDScript_ahrwy"]
+script/source = "extends Area2D
+
+
+
+@export var horizontal_speed = 20
+@export var move_speed = 200
+@export var max_vertical_speed = 150
+@export var vertical_velocity_gain = .3
+@onready var shape_case_2d = $ShapeCast2D
+@onready var ray_cast_2dr: RayCast2D = $RayCast2DR
+@onready var ray_cast_2dl: RayCast2D = $RayCast2DL
+@onready var ray_cast_2dd: RayCast2D = $RayCast2DD
+
+var allow_horizontal_movement = false
+var vertical_speed = 100
+var velocity = Vector2.ZERO
+var is_moving_up = false
+var amplitude = 50
+var vertical_movement_start_position
+var direction
+
+func _ready():
+	$Blockhititem.play()
+	var die_tween = get_tree().create_tween()
+	die_tween.tween_property(self, \"position\", position + Vector2(3, -10), .04)
+	die_tween.tween_callback(func (): allow_horizontal_movement = true)
+	
+func _process(delta):
+	if allow_horizontal_movement:
+		position.x += delta * horizontal_speed
+	
+	if ray_cast_2dd.is_colliding():
+		is_moving_up = true
+		vertical_movement_start_position = position
+		
+	if is_moving_up:
+		position.y -= vertical_speed * delta
+		var uptween = get_tree().create_tween()
+		uptween.tween_property(self, \"vertical_speed\", 150, 0)
+		uptween.set_ease(Tween.EASE_IN)
+		uptween.set_trans(Tween.TRANS_BACK)
+		uptween.chain().tween_property(self, \"vertical_speed\", 1, 3)
+		if vertical_movement_start_position.y - amplitude >= position.y:
+			is_moving_up = false
+		
+	if !is_moving_up:
+		position.y += delta * vertical_speed
+		var downtween = get_tree().create_tween()
+		downtween.tween_property(self, \"vertical_speed\", 1, 3)
+		downtween.set_ease(Tween.EASE_OUT)
+		downtween.set_trans(Tween.TRANS_SINE)
+		downtween.chain().tween_property(self, \"vertical_speed\", 150, 0.1)
+		downtween.chain().tween_property(self, \"vertical_speed\", 300, 1)
+	
+	if ray_cast_2dl.is_colliding():
+		horizontal_speed = 20
+	
+	if ray_cast_2dr.is_colliding():
+		horizontal_speed = -20
+"
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_u8b4d"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_6760e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_o66jx")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_et4yd"]
+size = Vector2(8, 8)
+
+[node name="SuperStar" type="Area2D"]
+collision_layer = 32
+script = SubResource("GDScript_ahrwy")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-0.314487, 0.286949)
+scale = Vector2(1, 1)
+sprite_frames = SubResource("SpriteFrames_u8b4d")
+autoplay = "default"
+frame = 1
+frame_progress = 0.860513
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_et4yd")
+
+[node name="Blockhititem" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_iqatc")
+
+[node name="RayCast2DL" type="RayCast2D" parent="."]
+target_position = Vector2(-5, 0)
+collision_mask = 18
+
+[node name="RayCast2DD" type="RayCast2D" parent="."]
+target_position = Vector2(0.0218506, 4.14469)
+collision_mask = 18
+
+[node name="RayCast2DR" type="RayCast2D" parent="."]
+target_position = Vector2(5, 0)
+collision_mask = 18

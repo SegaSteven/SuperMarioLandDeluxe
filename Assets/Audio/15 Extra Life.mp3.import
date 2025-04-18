@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dynjvmx5faufy"
+path="res://.godot/imported/15 Extra Life.mp3-6b1ea9289e37cdf8cbc70d000dd2eb64.mp3str"
+
+[deps]
+
+source_file="res://Assets/Audio/15 Extra Life.mp3"
+dest_files=["res://.godot/imported/15 Extra Life.mp3-6b1ea9289e37cdf8cbc70d000dd2eb64.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

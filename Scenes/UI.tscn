@@ -1,0 +1,99 @@
+[gd_scene load_steps=7 format=3 uid="uid://d2c6f8s1nedu1"]
+
+[ext_resource type="Script" path="res://Scripts/ui.gd" id="1_ljsaw"]
+[ext_resource type="TileSet" uid="uid://doy2a2dpm0b67" path="res://TileSets/Birabuto.tres" id="2_rkxx1"]
+[ext_resource type="FontFile" uid="uid://jiobqv87vkb1" path="res://Assets/Fonts/super-mario-land-gb-doublecase.ttf" id="3_0g0i4"]
+[ext_resource type="AudioStream" uid="uid://3tqdliq7hv0p" path="res://Assets/SFX/bonustime_stagecomplete.wav" id="4_613tu"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_myy6t"]
+font = ExtResource("3_0g0i4")
+font_size = 7
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ox6wy"]
+font = ExtResource("3_0g0i4")
+font_size = 7
+font_color = Color(0, 0, 0, 1)
+
+[node name="UI" type="CanvasLayer"]
+script = ExtResource("1_ljsaw")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 160.0
+offset_bottom = 16.0
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("2_rkxx1")
+format = 2
+layer_0/tile_data = PackedInt32Array(5, 1, 4, 65544, 1, 4, 65543, 65537, 1)
+
+[node name="Mario" type="Label" parent="."]
+offset_left = 1.0
+offset_right = 41.0
+offset_bottom = 8.0
+text = "MARIO"
+label_settings = SubResource("LabelSettings_myy6t")
+
+[node name="Time" type="Label" parent="."]
+offset_left = 129.0
+offset_right = 161.0
+offset_bottom = 8.0
+text = "TIME"
+label_settings = SubResource("LabelSettings_myy6t")
+
+[node name="World" type="Label" parent="."]
+offset_left = 83.0
+offset_right = 123.0
+offset_bottom = 8.0
+text = "WORLD"
+label_settings = SubResource("LabelSettings_myy6t")
+
+[node name="COINS" type="Label" parent="."]
+offset_left = 74.5585
+offset_top = 8.0
+offset_right = 90.5585
+offset_bottom = 16.0
+text = "00"
+label_settings = SubResource("LabelSettings_ox6wy")
+horizontal_alignment = 2
+
+[node name="SCORE" type="Label" parent="."]
+offset_top = 8.0
+offset_right = 57.0
+offset_bottom = 16.0
+text = "0"
+label_settings = SubResource("LabelSettings_ox6wy")
+horizontal_alignment = 2
+
+[node name="LIVES" type="Label" parent="."]
+offset_left = 48.7127
+offset_top = 0.321177
+offset_right = 64.7127
+offset_bottom = 8.32118
+text = "00"
+label_settings = SubResource("LabelSettings_ox6wy")
+
+[node name="WORLDNO" type="Label" parent="."]
+offset_left = 91.0
+offset_top = 8.0
+offset_right = 123.0
+offset_bottom = 16.0
+label_settings = SubResource("LabelSettings_ox6wy")
+horizontal_alignment = 2
+
+[node name="TIMENO" type="Label" parent="."]
+offset_left = 128.645
+offset_top = 8.0
+offset_right = 160.645
+offset_bottom = 16.0
+text = "400"
+label_settings = SubResource("LabelSettings_ox6wy")
+horizontal_alignment = 2
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[node name="BonustimeStagecomplete" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_613tu")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

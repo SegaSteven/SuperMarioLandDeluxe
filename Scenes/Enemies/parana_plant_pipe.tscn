@@ -1,0 +1,121 @@
+[gd_scene load_steps=14 format=3 uid="uid://db1o2gi610guw"]
+
+[ext_resource type="Script" path="res://Scripts/Enemies/parana_plant_pipe.gd" id="1_4q1pk"]
+[ext_resource type="Texture2D" uid="uid://s2p33iy1ytil" path="res://Assets/Sprites/Pipe_Top.png" id="2_wmlxr"]
+[ext_resource type="Texture2D" uid="uid://crtgq02rrucsp" path="res://Assets/Sprites/Pipe_Body.png" id="3_t2lio"]
+[ext_resource type="Texture2D" uid="uid://yuk8vm8lhv0o" path="res://Assets/Sprites/Enemies/ParanaPlant2.png" id="4_ic8q6"]
+[ext_resource type="Script" path="res://Scripts/Enemies/parana_plant.gd" id="4_q3pf8"]
+[ext_resource type="Texture2D" uid="uid://l847rw35crmr" path="res://Assets/Sprites/Enemies/ParanaPlant1.png" id="5_omel4"]
+[ext_resource type="AudioStream" uid="uid://dknrx7swi25xl" path="res://Assets/SFX/enemykilled.wav" id="7_5k1rq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a305t"]
+size = Vector2(4.68443, 23.898)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0nc64"]
+size = Vector2(4.71627, 23.9992)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xkv74"]
+size = Vector2(33.6536, 15.0269)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jjefb"]
+size = Vector2(16.0611, 15.9915)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_phi8j"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_ic8q6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_omel4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b1tv3"]
+size = Vector2(8.03622, 14.7065)
+
+[node name="ParanaPlantPipe" type="StaticBody2D"]
+position = Vector2(42.255, 36.9994)
+collision_layer = 16
+collision_mask = 5
+script = ExtResource("1_4q1pk")
+
+[node name="LeftArea" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionLeft" type="CollisionShape2D" parent="LeftArea"]
+modulate = Color(0, 0.583333, 1, 1)
+position = Vector2(-11.0164, 8.44169)
+shape = SubResource("RectangleShape2D_a305t")
+
+[node name="RightArea" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionRight" type="CollisionShape2D" parent="RightArea"]
+modulate = Color(0.92, 0, 0.0153331, 1)
+position = Vector2(11.0706, 8.50259)
+shape = SubResource("RectangleShape2D_0nc64")
+
+[node name="Top area" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionTop" type="CollisionShape2D" parent="Top area"]
+modulate = Color(0.966667, 1, 0, 1)
+position = Vector2(0.0407524, -11.7657)
+shape = SubResource("RectangleShape2D_xkv74")
+
+[node name="PipeTopSprite" type="Sprite2D" parent="."]
+z_index = 2
+texture = ExtResource("2_wmlxr")
+
+[node name="PipeBodySprite" type="Sprite2D" parent="."]
+z_index = 2
+texture = ExtResource("3_t2lio")
+offset = Vector2(0, 8)
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+modulate = Color(0.2, 0, 0.6, 1)
+position = Vector2(0.0373421, 4.01612)
+shape = SubResource("RectangleShape2D_jjefb")
+
+[node name="ParanhaPlant" type="Area2D" parent="."]
+z_index = 1
+collision_layer = 256
+collision_mask = 65
+script = ExtResource("4_q3pf8")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ParanhaPlant"]
+position = Vector2(0, 4.06772)
+sprite_frames = SubResource("SpriteFrames_phi8j")
+autoplay = "default"
+frame_progress = 0.526924
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ParanhaPlant"]
+modulate = Color(1, 0, 0, 1)
+position = Vector2(0.150227, 4.36856)
+shape = SubResource("RectangleShape2D_b1tv3")
+
+[node name="Enemykilled" type="AudioStreamPlayer" parent="ParanhaPlant"]
+stream = ExtResource("7_5k1rq")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+rect = Rect2(-30, -10, 60, 20)
+
+[connection signal="area_entered" from="LeftArea" to="." method="_on_left_area_area_entered"]
+[connection signal="area_entered" from="LeftArea" to="ParanhaPlant" method="_on_left_area_area_entered"]
+[connection signal="area_entered" from="RightArea" to="." method="_on_right_area_area_entered"]
+[connection signal="area_entered" from="RightArea" to="ParanhaPlant" method="_on_right_area_area_entered"]
+[connection signal="area_entered" from="Top area" to="." method="_on_top_area_area_entered"]
+[connection signal="area_entered" from="Top area" to="ParanhaPlant" method="_on_top_area_area_entered"]
+[connection signal="area_entered" from="ParanhaPlant" to="." method="_on_paranha_plant_area_entered"]
+[connection signal="area_entered" from="ParanhaPlant" to="." method="_on_parana_plant_area_entered"]
+[connection signal="body_entered" from="ParanhaPlant" to="ParanhaPlant" method="_on_body_entered"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="ParanhaPlant" method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="ParanhaPlant" method="_on_visible_on_screen_notifier_2d_screen_exited"]

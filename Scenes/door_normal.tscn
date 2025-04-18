@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://cgldydbetuf4s"]
+
+[ext_resource type="Script" path="res://Scripts/door_normal.gd" id="1_y36wn"]
+[ext_resource type="AudioStream" uid="uid://cmq3c4kvp8t0" path="res://Assets/Audio/12 Level End.mp3" id="2_hp5ka"]
+[ext_resource type="AudioStream" uid="uid://3tqdliq7hv0p" path="res://Assets/SFX/bonustime_stagecomplete.wav" id="3_wmn6u"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vxexu"]
+size = Vector2(11.7508, 16.0821)
+
+[node name="Door_normal" type="Area2D"]
+process_mode = 2
+collision_layer = 16
+script = ExtResource("1_y36wn")
+level_scene_path = "res://Scenes/WorldScenes/world_map.tscn"
+spawn_point = Vector2(98.9343, 364.415)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2401.88, 128.078)
+shape = SubResource("RectangleShape2D_vxexu")
+
+[node name="LevelEnd" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_hp5ka")
+
+[node name="CoinCountdown" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_wmn6u")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

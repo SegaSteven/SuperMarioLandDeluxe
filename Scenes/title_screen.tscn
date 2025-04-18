@@ -1,0 +1,300 @@
+[gd_scene load_steps=41 format=3 uid="uid://dpqiyujiytnij"]
+
+[ext_resource type="Script" path="res://Scripts/title_screen.gd" id="1_dqufe"]
+[ext_resource type="Texture2D" uid="uid://hvesmpuxstxa" path="res://Assets/Title Screen/Sprites/Shroom.png" id="2_gxcbv"]
+[ext_resource type="Texture2D" uid="uid://bj056vqryb1q2" path="res://Assets/Title Screen/Sprites/Title_ScreenBG.png" id="3_l7lrj"]
+[ext_resource type="Texture2D" uid="uid://cucm2wsgur4l2" path="res://Assets/Title Screen/Sprites/Land1.png" id="4_6tiia"]
+[ext_resource type="FontFile" uid="uid://jiobqv87vkb1" path="res://Assets/Fonts/super-mario-land-gb-doublecase.ttf" id="4_h6ad8"]
+[ext_resource type="Texture2D" uid="uid://d165xonilb6wp" path="res://Assets/Title Screen/Sprites/Land2.png" id="5_0oy76"]
+[ext_resource type="Texture2D" uid="uid://sexyhy2e8q1v" path="res://Assets/Title Screen/Sprites/Land3.png" id="6_0aj0p"]
+[ext_resource type="Texture2D" uid="uid://cm1qw5885sw6j" path="res://Assets/Title Screen/Sprites/Land4.png" id="7_vrc0r"]
+[ext_resource type="Texture2D" uid="uid://bcbuspu1lldny" path="res://Assets/Title Screen/Sprites/Land5.png" id="8_w6lue"]
+[ext_resource type="Texture2D" uid="uid://cukp6n0l6kg76" path="res://Assets/Title Screen/Sprites/Land6.png" id="9_ljhqs"]
+[ext_resource type="Texture2D" uid="uid://ddx1i5ap0074a" path="res://Assets/Title Screen/Sprites/Deepwaves1.png" id="10_cdy4j"]
+[ext_resource type="Texture2D" uid="uid://cdrggbohthcj1" path="res://Assets/Title Screen/Sprites/Deepwaves2.png" id="11_enw73"]
+[ext_resource type="Texture2D" uid="uid://dvw1xusbnbgca" path="res://Assets/Title Screen/Sprites/Deepwaves3.png" id="12_6s4rv"]
+[ext_resource type="Texture2D" uid="uid://j52neqk4boyd" path="res://Assets/Title Screen/Sprites/Deepwaves4.png" id="13_jnj0u"]
+[ext_resource type="Texture2D" uid="uid://c5emrgqu7i7j7" path="res://Assets/Title Screen/Sprites/Deepwaves5.png" id="14_30mhd"]
+[ext_resource type="Texture2D" uid="uid://1qnq2m4mpuaw" path="res://Assets/Title Screen/Sprites/Mario/MarioBoat1.png" id="15_o3wmy"]
+[ext_resource type="Texture2D" uid="uid://bm4gx8khorypr" path="res://Assets/Title Screen/Sprites/Mario/MarioBoat2.png" id="16_lj1ca"]
+[ext_resource type="Texture2D" uid="uid://brshol3ayrjem" path="res://Assets/Title Screen/Sprites/Mario/MarioBoat3.png" id="17_35b7h"]
+[ext_resource type="Texture2D" uid="uid://baiohyap5b3k" path="res://Assets/Title Screen/Sprites/Mario/MarioBoat4.png" id="18_0tdui"]
+[ext_resource type="Texture2D" uid="uid://h6lvrh7bucnj" path="res://Assets/Title Screen/Sprites/Mario/MarioBoat5.png" id="19_ypct0"]
+[ext_resource type="Texture2D" uid="uid://byibif378owvh" path="res://Assets/Title Screen/Sprites/Mario/MarioBoat6.png" id="20_gycqh"]
+[ext_resource type="Texture2D" uid="uid://c6mcna5mpx3lb" path="res://Assets/Title Screen/Sprites/Mario/Wake1.png" id="21_5lbbb"]
+[ext_resource type="Texture2D" uid="uid://drmfw4mx4vx4y" path="res://Assets/Title Screen/Sprites/Mario/Wake2.png" id="22_5x45r"]
+[ext_resource type="Texture2D" uid="uid://cvbr0miwvdhrk" path="res://Assets/Title Screen/Sprites/Mario/Wake3.png" id="23_vx3yx"]
+[ext_resource type="Texture2D" uid="uid://dt70umn48fi0j" path="res://Assets/Title Screen/Sprites/Mario/Wake4.png" id="24_t4fpx"]
+[ext_resource type="Texture2D" uid="uid://b01qppw10ej8" path="res://Assets/Title Screen/Sprites/TopWaves1.png" id="25_rajl8"]
+[ext_resource type="Texture2D" uid="uid://fcnn2xoiq7hn" path="res://Assets/Title Screen/Sprites/TopWaves2.png" id="26_jt6fo"]
+[ext_resource type="Texture2D" uid="uid://25aq8fqwthpc" path="res://Assets/Title Screen/Sprites/TopWaves3.png" id="27_30kst"]
+[ext_resource type="Texture2D" uid="uid://cwdathngs6hqo" path="res://Assets/Title Screen/Sprites/TopWaves4.png" id="28_n8dd4"]
+[ext_resource type="Texture2D" uid="uid://dvjhncnhascy0" path="res://Assets/Title Screen/Sprites/TopWaves5.png" id="29_768bd"]
+[ext_resource type="Texture2D" uid="uid://86ier3npjaj3" path="res://Assets/Title Screen/Sprites/TopWaves6.png" id="30_rxkse"]
+[ext_resource type="Texture2D" uid="uid://clpejm6ae3f4l" path="res://Assets/Title Screen/Sprites/TopWaves7.png" id="31_8ypad"]
+[ext_resource type="Texture2D" uid="uid://dluiacs4h7ohp" path="res://Assets/Title Screen/Sprites/TopWaves8.png" id="32_fsw8a"]
+[ext_resource type="AudioStream" uid="uid://b2xta8owuw5sf" path="res://Assets/Audio/New/SMLE_TITLE.wav" id="34_w45yx"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_uhpsm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_6tiia")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_0oy76")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_0aj0p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_vrc0r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_w6lue")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_ljhqs")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_o5t88"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("21_5lbbb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_5x45r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_vx3yx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_t4fpx")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hjhdc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("15_o3wmy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_lj1ca")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_35b7h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_0tdui")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_ypct0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_gycqh")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yb6di"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("25_rajl8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_jt6fo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_30kst")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_n8dd4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_768bd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_rxkse")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_8ypad")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_fsw8a")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_p1opx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_cdy4j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_enw73")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_6s4rv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_jnj0u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_30mhd")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="LabelSettings" id="LabelSettings_j05mn"]
+font = ExtResource("4_h6ad8")
+font_size = 7
+font_color = Color(0, 0, 0, 1)
+outline_color = Color(0, 0, 0, 1)
+
+[node name="TitleScreen" type="Node"]
+script = ExtResource("1_dqufe")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Shroom" type="Sprite2D" parent="."]
+z_index = 1
+position = Vector2(-22.8427, 52.3072)
+texture = ExtResource("2_gxcbv")
+
+[node name="Background" type="Node" parent="."]
+
+[node name="BackGround" type="Sprite2D" parent="Background"]
+texture = ExtResource("3_l7lrj")
+
+[node name="Land" type="AnimatedSprite2D" parent="Background"]
+position = Vector2(52.1356, -2.31247)
+sprite_frames = SubResource("SpriteFrames_uhpsm")
+autoplay = "default"
+frame = 1
+frame_progress = 0.252637
+
+[node name="Wake" type="AnimatedSprite2D" parent="Background"]
+position = Vector2(-55.3606, 12.1039)
+sprite_frames = SubResource("SpriteFrames_o5t88")
+autoplay = "default"
+
+[node name="Mario" type="AnimatedSprite2D" parent="Background"]
+position = Vector2(-31.4644, 0.374577)
+sprite_frames = SubResource("SpriteFrames_hjhdc")
+autoplay = "default"
+
+[node name="Wake2" type="AnimatedSprite2D" parent="Background"]
+position = Vector2(-34.9228, 12.1039)
+sprite_frames = SubResource("SpriteFrames_o5t88")
+autoplay = "default"
+
+[node name="TopWaves" type="Node" parent="Background"]
+
+[node name="TopWave" type="AnimatedSprite2D" parent="Background/TopWaves"]
+position = Vector2(-78.0359, 18.0047)
+sprite_frames = SubResource("SpriteFrames_yb6di")
+autoplay = "default"
+frame = 1
+
+[node name="TopWave2" type="AnimatedSprite2D" parent="Background/TopWaves"]
+position = Vector2(-46.0654, 18.0047)
+sprite_frames = SubResource("SpriteFrames_yb6di")
+autoplay = "default"
+frame = 1
+
+[node name="TopWave3" type="AnimatedSprite2D" parent="Background/TopWaves"]
+position = Vector2(-14.0554, 18.0047)
+sprite_frames = SubResource("SpriteFrames_yb6di")
+autoplay = "default"
+frame = 1
+
+[node name="TopWave4" type="AnimatedSprite2D" parent="Background/TopWaves"]
+position = Vector2(17.8561, 18.0047)
+sprite_frames = SubResource("SpriteFrames_yb6di")
+autoplay = "default"
+frame = 1
+
+[node name="TopWave5" type="AnimatedSprite2D" parent="Background/TopWaves"]
+position = Vector2(49.8462, 18.0047)
+sprite_frames = SubResource("SpriteFrames_yb6di")
+autoplay = "default"
+frame = 1
+
+[node name="TopWave6" type="AnimatedSprite2D" parent="Background/TopWaves"]
+position = Vector2(81.8062, 18.0047)
+sprite_frames = SubResource("SpriteFrames_yb6di")
+autoplay = "default"
+frame = 1
+
+[node name="DeepWaves" type="Node" parent="Background"]
+
+[node name="DeepWave" type="AnimatedSprite2D" parent="Background/DeepWaves"]
+position = Vector2(-77.6934, 34.7131)
+sprite_frames = SubResource("SpriteFrames_p1opx")
+autoplay = "default"
+frame = 3
+frame_progress = 0.26322
+
+[node name="DeepWave2" type="AnimatedSprite2D" parent="Background/DeepWaves"]
+position = Vector2(-45.9454, 34.7131)
+sprite_frames = SubResource("SpriteFrames_p1opx")
+autoplay = "default"
+frame = 3
+frame_progress = 0.26322
+
+[node name="DeepWave3" type="AnimatedSprite2D" parent="Background/DeepWaves"]
+position = Vector2(-14.1973, 34.7131)
+sprite_frames = SubResource("SpriteFrames_p1opx")
+autoplay = "default"
+frame = 3
+frame_progress = 0.26322
+
+[node name="DeepWave4" type="AnimatedSprite2D" parent="Background/DeepWaves"]
+position = Vector2(17.7113, 34.7131)
+sprite_frames = SubResource("SpriteFrames_p1opx")
+autoplay = "default"
+frame = 3
+frame_progress = 0.26322
+
+[node name="DeepWave5" type="AnimatedSprite2D" parent="Background/DeepWaves"]
+position = Vector2(49.6818, 34.7131)
+sprite_frames = SubResource("SpriteFrames_p1opx")
+autoplay = "default"
+frame = 3
+frame_progress = 0.26322
+
+[node name="DeepWave6" type="AnimatedSprite2D" parent="Background/DeepWaves"]
+position = Vector2(81.6417, 34.7131)
+sprite_frames = SubResource("SpriteFrames_p1opx")
+autoplay = "default"
+frame = 3
+frame_progress = 0.26322
+
+[node name="SCORE" type="Label" parent="."]
+offset_left = -23.5563
+offset_top = 48.0294
+offset_right = 24.4437
+offset_bottom = 56.0294
+text = "START"
+label_settings = SubResource("LabelSettings_j05mn")
+horizontal_alignment = 2
+
+[node name="TitleScreen" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("34_w45yx")

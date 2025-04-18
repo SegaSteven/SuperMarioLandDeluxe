@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://bu0ax2h2qbng6"]
+
+[ext_resource type="Texture2D" uid="uid://bgkrqg3c3rr8i" path="res://Assets/Sprites/Birabuto/Torch1.png" id="1_dorrt"]
+[ext_resource type="Texture2D" uid="uid://db2sqh135hxr3" path="res://Assets/Sprites/Birabuto/Torch2.png" id="2_m0jvf"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tnyli"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_dorrt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_m0jvf")
+}],
+"loop": true,
+"name": &"default",
+"speed": 4.0
+}]
+
+[node name="TorchSprite" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_tnyli")
+autoplay = "default"
+frame = 1
+frame_progress = 0.600867

@@ -1,0 +1,51 @@
+[gd_scene load_steps=8 format=3 uid="uid://qhatsxm8u57p"]
+
+[ext_resource type="Script" path="res://Scripts/1UP.gd" id="1_ehf3n"]
+[ext_resource type="Texture2D" uid="uid://cselfc8gha8yg" path="res://Assets/Sprites/1upHeart.png" id="2_sncer"]
+[ext_resource type="AudioStream" uid="uid://bwsf3s1sxo1r3" path="res://Assets/SFX/blockhititem.wav" id="3_i84mk"]
+[ext_resource type="AudioStream" uid="uid://g4dakxsfoesm" path="res://Assets/SFX/1up.wav" id="4_b3f3y"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_erded"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_sncer")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vapq4"]
+radius = 4.2264
+height = 8.4528
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b6cmb"]
+size = Vector2(27.59, 20.725)
+
+[node name="LifeHeart" type="Area2D"]
+collision_layer = 32
+script = ExtResource("1_ehf3n")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_erded")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_vapq4")
+
+[node name="ShapeCast2D" type="ShapeCast2D" parent="."]
+scale = Vector2(0.3, 0.4)
+shape = SubResource("RectangleShape2D_b6cmb")
+exclude_parent = false
+target_position = Vector2(0, 0)
+collision_mask = 18
+collide_with_areas = true
+
+[node name="Blockhititem" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_i84mk")
+
+[node name="1Up" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_b3f3y")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

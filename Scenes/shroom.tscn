@@ -1,0 +1,54 @@
+[gd_scene load_steps=7 format=3 uid="uid://bw5ujlbxi52bu"]
+
+[ext_resource type="Script" path="res://Scripts/shroom.gd" id="1_iehay"]
+[ext_resource type="Texture2D" uid="uid://bhvvxt8sq1rpp" path="res://Assets/Sprites/Mushroom.png" id="2_qyeo5"]
+[ext_resource type="AudioStream" uid="uid://bwsf3s1sxo1r3" path="res://Assets/SFX/blockhititem.wav" id="3_ef3u4"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_erded"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_qyeo5")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vapq4"]
+radius = 3.0
+height = 8.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_plsxc"]
+height = 20.5
+
+[node name="Shroom" type="Area2D"]
+collision_layer = 32
+script = ExtResource("1_iehay")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_erded")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_vapq4")
+
+[node name="ShapeCast2D" type="ShapeCast2D" parent="."]
+scale = Vector2(0.3, 0.4)
+shape = SubResource("CapsuleShape2D_plsxc")
+exclude_parent = false
+target_position = Vector2(0, 0)
+collision_mask = 18
+collide_with_areas = true
+
+[node name="Blockhititem" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_ef3u4")
+
+[node name="RayCast2DR" type="RayCast2D" parent="."]
+target_position = Vector2(5, 0)
+collision_mask = 16
+collide_with_areas = true
+
+[node name="RayCast2DL" type="RayCast2D" parent="."]
+target_position = Vector2(-5, 0)
+collision_mask = 16
+collide_with_areas = true

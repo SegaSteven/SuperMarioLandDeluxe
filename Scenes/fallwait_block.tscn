@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://c0jm0sk3bfyf1"]
+
+[ext_resource type="Script" path="res://Scripts/fallwait_block.gd" id="1_348o8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7hp2j"]
+size = Vector2(8, 8)
+
+[node name="FallwaitBlock" type="StaticBody2D"]
+collision_layer = 16
+script = ExtResource("1_348o8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_7hp2j")

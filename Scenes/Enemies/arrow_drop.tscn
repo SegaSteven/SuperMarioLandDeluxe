@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://bi1sq0dii0jlf"]
+
+[ext_resource type="Script" path="res://Scripts/Enemies/arrow_drop.gd" id="1_hq8y6"]
+[ext_resource type="Texture2D" uid="uid://b6aicbag44h34" path="res://Assets/Sprites/Enemies/Bunbun_arrow.png" id="1_pv73j"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0lbrh"]
+size = Vector2(7.08554, 15.0129)
+
+[node name="ArrowDrop" type="Area2D" groups=["enemy"]]
+collision_layer = 4
+script = ExtResource("1_hq8y6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_pv73j")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.488605, 0.566616)
+shape = SubResource("RectangleShape2D_0lbrh")

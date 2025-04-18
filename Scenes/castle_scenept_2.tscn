@@ -1,0 +1,189 @@
+[gd_scene load_steps=27 format=3 uid="uid://cflhv4w2gd7uv"]
+
+[ext_resource type="AudioStream" uid="uid://brimwpefv1g80" path="res://Assets/Audio/New/Chase Down Tatanga_2.wav" id="1_gerrs"]
+[ext_resource type="Script" path="res://Scripts/Cutscene/cutscene_camera.gd" id="1_qy2nf"]
+[ext_resource type="Texture2D" uid="uid://dbsp6o7b7hbqn" path="res://Assets/Cutscenes/FlightCS02BG2.png" id="2_ts06p"]
+[ext_resource type="Texture2D" uid="uid://kb7btcj6dykb" path="res://Assets/Sprites/Mario/Big_idle.png" id="3_s3k8b"]
+[ext_resource type="Texture2D" uid="uid://d3f1g8tbhvdq4" path="res://Assets/Cutscenes/Mario_Fly_Big1.png" id="3_t2lw7"]
+[ext_resource type="Texture2D" uid="uid://bvwqxyamt1lvg" path="res://Assets/Sprites/Mario/Big_run1.png" id="4_5uyqs"]
+[ext_resource type="Texture2D" uid="uid://dtayxi6cx0c5b" path="res://Assets/Cutscenes/Mario_Fly_Big2.png" id="4_i2x5j"]
+[ext_resource type="Texture2D" uid="uid://b5k1qxur5qnvy" path="res://Assets/Sprites/Mario/Big_run2.png" id="5_knwcm"]
+[ext_resource type="Texture2D" uid="uid://ytb4na58nwxk" path="res://Assets/Sprites/Mario/Big_run3.png" id="6_ohs2v"]
+[ext_resource type="Texture2D" uid="uid://bu1r2nm12uem4" path="res://Assets/Sprites/Mario/Small_Idle.png" id="7_ly2h5"]
+[ext_resource type="Texture2D" uid="uid://dlo3d5vp4wtjg" path="res://Assets/Sprites/Mario/Small_run1.png" id="8_yw1mv"]
+[ext_resource type="Texture2D" uid="uid://c8cx87l88ycv6" path="res://Assets/Cutscenes/Mario_Fly_Small1.png" id="9_37whk"]
+[ext_resource type="Texture2D" uid="uid://baul2ukxp5a13" path="res://Assets/Sprites/Mario/Small_run2.png" id="9_40b5w"]
+[ext_resource type="Texture2D" uid="uid://cp83tgliw0onw" path="res://Assets/Cutscenes/Mario_Fly_Small2.png" id="10_h5d1u"]
+[ext_resource type="Texture2D" uid="uid://cs076i1d5hi2a" path="res://Assets/Sprites/Mario/Small_run3.png" id="10_ur3x4"]
+[ext_resource type="Script" path="res://Scripts/Cutscene/mario_cutscene2.gd" id="11_c6a1x"]
+[ext_resource type="Texture2D" uid="uid://cha4v7eqvgjae" path="res://Assets/Cutscenes/Tatanga.png" id="12_xec8d"]
+[ext_resource type="Script" path="res://Scripts/Cutscene/tatanga_2.gd" id="13_vo7x7"]
+[ext_resource type="Texture2D" uid="uid://4js25r4l4lno" path="res://Assets/Cutscenes/Small_Plane_Empty.png" id="14_as5rw"]
+[ext_resource type="Texture2D" uid="uid://myohj4rd8l8i" path="res://Assets/Cutscenes/Tatanga_fly1.png" id="16_2lljy"]
+[ext_resource type="Texture2D" uid="uid://cqt0ck7pc57cb" path="res://Assets/Cutscenes/Tatanga_fly2.png" id="17_txa5f"]
+[ext_resource type="Script" path="res://Scripts/Cutscene/plane.gd" id="19_cpj1g"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dm57v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_t2lw7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_i2x5j")
+}],
+"loop": true,
+"name": &"big_fly",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_s3k8b")
+}],
+"loop": true,
+"name": &"big_idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_5uyqs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_knwcm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_ohs2v")
+}],
+"loop": true,
+"name": &"big_run",
+"speed": 14.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_37whk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_h5d1u")
+}],
+"loop": true,
+"name": &"small_fly",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_ly2h5")
+}],
+"loop": true,
+"name": &"small_idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_yw1mv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_40b5w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_ur3x4")
+}],
+"loop": true,
+"name": &"small_run",
+"speed": 14.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_i4i5a"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("16_2lljy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_txa5f")
+}],
+"loop": true,
+"name": &"Fly",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("12_xec8d")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ekvgs"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("14_as5rw")
+}],
+"loop": true,
+"name": &"empty",
+"speed": 5.0
+}]
+
+[sub_resource type="Curve2D" id="Curve2D_nfand"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -8, 32, -39.685, -1.98425, 39.685, 1.98425, 104, 64, -65.0834, 6.74645, 65.0834, -6.74645, 216, 48, 0, 0, 0, 0, 392, 40)
+}
+point_count = 4
+
+[node name="CastleScenept2" type="Node"]
+
+[node name="ChaseDownTatanga2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_gerrs")
+autoplay = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(80.256, 72.3988)
+limit_left = 0
+limit_top = 0
+limit_right = 320
+limit_bottom = 144
+limit_smoothed = true
+script = ExtResource("1_qy2nf")
+
+[node name="BG" type="Sprite2D" parent="."]
+position = Vector2(160, 72)
+texture = ExtResource("2_ts06p")
+
+[node name="Mario" type="AnimatedSprite2D" parent="."]
+position = Vector2(-10.1039, 120.136)
+sprite_frames = SubResource("SpriteFrames_dm57v")
+animation = &"big_fly"
+script = ExtResource("11_c6a1x")
+
+[node name="Tatanga" type="AnimatedSprite2D" parent="."]
+position = Vector2(-47.598, 26.3432)
+sprite_frames = SubResource("SpriteFrames_i4i5a")
+animation = &"Fly"
+autoplay = "Fly"
+flip_h = true
+script = ExtResource("13_vo7x7")
+
+[node name="Plane" type="AnimatedSprite2D" parent="."]
+position = Vector2(200, 120)
+sprite_frames = SubResource("SpriteFrames_ekvgs")
+animation = &"empty"
+autoplay = "empty"
+frame_progress = 0.883179
+script = ExtResource("19_cpj1g")
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_nfand")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+position = Vector2(-8, 32)
+rotation = 0.785398
+rotates = false
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Path2D/PathFollow2D"]
+position = Vector2(-32, 24)
+remote_path = NodePath("../../../Tatanga")
+update_rotation = false
+update_scale = false
+
+[connection signal="inplane" from="Mario" to="Plane" method="_on_mario_inplane"]

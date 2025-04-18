@@ -1,0 +1,172 @@
+[gd_scene load_steps=30 format=3 uid="uid://8pdteineh4g"]
+
+[ext_resource type="Script" path="res://Scripts/World_Scripts/overworld_player.gd" id="1_rpxrr"]
+[ext_resource type="Texture2D" uid="uid://cacjj7nxyqequ" path="res://Assets/Sprites/WorldMap/MARIO/MovingDown1.png" id="2_upved"]
+[ext_resource type="Texture2D" uid="uid://cr6mhx8yx5r6b" path="res://Assets/Sprites/WorldMap/MARIO/MovingDown2.png" id="3_7wk4t"]
+[ext_resource type="Texture2D" uid="uid://ddnv4uy8txaf" path="res://Assets/Sprites/WorldMap/MARIO/MovingDown3.png" id="4_fneg1"]
+[ext_resource type="Texture2D" uid="uid://bbys64b0ami7y" path="res://Assets/Sprites/WorldMap/MARIO/MovingDown4.png" id="5_y3cpp"]
+[ext_resource type="Texture2D" uid="uid://bmugqr2okx86d" path="res://Assets/Sprites/WorldMap/MARIO/EnteringLevel.png" id="6_t7lnc"]
+[ext_resource type="Texture2D" uid="uid://bjubqkyt3fakv" path="res://Assets/Sprites/WorldMap/MARIO/MovingSide1.png" id="7_7sajq"]
+[ext_resource type="Texture2D" uid="uid://cqv8s2eu8bwx1" path="res://Assets/Sprites/WorldMap/MARIO/MovingSide2.png" id="8_u15t3"]
+[ext_resource type="Texture2D" uid="uid://dvlax2k5a70q2" path="res://Assets/Sprites/WorldMap/MARIO/MovingUp1.png" id="9_5bqy2"]
+[ext_resource type="Texture2D" uid="uid://drwsryv0pilty" path="res://Assets/Sprites/WorldMap/MARIO/MovingRight1.png" id="9_6hsex"]
+[ext_resource type="Texture2D" uid="uid://4oo2bmn0cmg5" path="res://Assets/Sprites/WorldMap/MARIO/MovingRight2.png" id="10_4of2y"]
+[ext_resource type="Texture2D" uid="uid://c0vsxbk3mk5aq" path="res://Assets/Sprites/WorldMap/MARIO/MovingUp2.png" id="10_8g31q"]
+[ext_resource type="Texture2D" uid="uid://bmscjekfyoncb" path="res://Assets/Sprites/WorldMap/MARIO/MovingUp3.png" id="11_ou4ra"]
+[ext_resource type="Texture2D" uid="uid://ds8rud7vgref3" path="res://Assets/Sprites/WorldMap/MARIO/MovingUp4.png" id="12_4g6h4"]
+[ext_resource type="Texture2D" uid="uid://b1wbtv3d7u5f3" path="res://Assets/Sprites/WorldMap/MARIO/MovingDownWater1.png" id="13_0wft7"]
+[ext_resource type="Texture2D" uid="uid://cb7fa5q614eok" path="res://Assets/Sprites/WorldMap/MARIO/MovingDownWater2.png" id="14_nqnck"]
+[ext_resource type="Texture2D" uid="uid://brgibutbvtxlo" path="res://Assets/Sprites/WorldMap/MARIO/MovingDownWater3.png" id="15_k4x4r"]
+[ext_resource type="Texture2D" uid="uid://dvp0bwgyvuxco" path="res://Assets/Sprites/WorldMap/MARIO/MovingDownWater4.png" id="16_difon"]
+[ext_resource type="Texture2D" uid="uid://dq1h2tiphum05" path="res://Assets/Sprites/WorldMap/MARIO/MovingSideWater1.png" id="17_hftyj"]
+[ext_resource type="Texture2D" uid="uid://dvwbo0uo4ol7t" path="res://Assets/Sprites/WorldMap/MARIO/MovingSideWater2.png" id="18_86ktl"]
+[ext_resource type="Texture2D" uid="uid://bheptvqul5oj1" path="res://Assets/Sprites/WorldMap/MARIO/MovingUpWater1.png" id="19_aj3hr"]
+[ext_resource type="Texture2D" uid="uid://sm4233ijcgrp" path="res://Assets/Sprites/WorldMap/MARIO/MovingUpWater2.png" id="20_8onah"]
+[ext_resource type="Texture2D" uid="uid://c2w1y5dg3dq3r" path="res://Assets/Sprites/WorldMap/MARIO/MovingRightWater1.png" id="21_dvfeh"]
+[ext_resource type="Texture2D" uid="uid://bco3c8o756p3u" path="res://Assets/Sprites/WorldMap/MARIO/MovingUpWater3.png" id="21_mamsg"]
+[ext_resource type="Texture2D" uid="uid://catforypfq713" path="res://Assets/Sprites/WorldMap/MARIO/MovingUpWater4.png" id="22_8cdqc"]
+[ext_resource type="Texture2D" uid="uid://dbgk8g0x5slx" path="res://Assets/Sprites/WorldMap/MARIO/MovingRightWater2.png" id="22_fspct"]
+[ext_resource type="Script" path="res://Scripts/World_Scripts/player_animated_map_sprite.gd" id="23_t7h2s"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_loikt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_upved")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_7wk4t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_fneg1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_y3cpp")
+}],
+"loop": true,
+"name": &"Down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_t7lnc")
+}],
+"loop": true,
+"name": &"Enter",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_7sajq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_u15t3")
+}],
+"loop": true,
+"name": &"Left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_6hsex")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_4of2y")
+}],
+"loop": true,
+"name": &"Right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_5bqy2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_8g31q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_ou4ra")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_4g6h4")
+}],
+"loop": true,
+"name": &"Up",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("13_0wft7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_nqnck")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_k4x4r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_difon")
+}],
+"loop": true,
+"name": &"Water_Down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("17_hftyj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_86ktl")
+}],
+"loop": true,
+"name": &"Water_Left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("21_dvfeh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_fspct")
+}],
+"loop": true,
+"name": &"Water_Right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("19_aj3hr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_8onah")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_mamsg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_8cdqc")
+}],
+"loop": true,
+"name": &"Water_Up",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_11dby"]
+size = Vector2(16.3402, 16.4415)
+
+[node name="OverworldPlayer" type="CharacterBody2D"]
+script = ExtResource("1_rpxrr")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_loikt")
+animation = &"Down"
+autoplay = "Down"
+script = ExtResource("23_t7h2s")
+
+[node name="OWParea" type="Area2D" parent="."]
+collision_mask = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OWParea"]
+shape = SubResource("RectangleShape2D_11dby")
+
+[node name="StandingPoseTimer" type="Timer" parent="."]

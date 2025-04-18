@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=3 uid="uid://d1yj0qacr0mda"]
+
+[ext_resource type="Texture2D" uid="uid://njwdceup8jla" path="res://Assets/Sprites/Coin_Spin1.png" id="1_q1afh"]
+[ext_resource type="Texture2D" uid="uid://cr7ymlb2q8y4b" path="res://Assets/Sprites/Coin_Spin2.png" id="2_v1tsl"]
+[ext_resource type="Texture2D" uid="uid://deyies5ggx7rq" path="res://Assets/Sprites/Coin_Spin3.png" id="3_8vtt6"]
+[ext_resource type="AudioStream" uid="uid://h4dpa4cjh0vu" path="res://Assets/SFX/coin.wav" id="5_6ixfd"]
+[ext_resource type="Script" path="res://Scripts/coin.gd" id="5_jemem"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lji4x"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_q1afh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_v1tsl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_8vtt6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_v1tsl")
+}],
+"loop": true,
+"name": &"Spin",
+"speed": 60.0
+}]
+
+[node name="Coin" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_lji4x")
+animation = &"Spin"
+autoplay = "Spin"
+script = ExtResource("5_jemem")
+
+[node name="Coin" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_6ixfd")

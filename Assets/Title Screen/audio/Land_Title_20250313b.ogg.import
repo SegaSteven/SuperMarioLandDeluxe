@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://cu8rov5ikpfw"
+path="res://.godot/imported/Land_Title_20250313b.ogg-e89114ca1be3f91115a5869e743e5391.oggvorbisstr"
+
+[deps]
+
+source_file="res://Assets/Title Screen/audio/Land_Title_20250313b.ogg"
+dest_files=["res://.godot/imported/Land_Title_20250313b.ogg-e89114ca1be3f91115a5869e743e5391.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

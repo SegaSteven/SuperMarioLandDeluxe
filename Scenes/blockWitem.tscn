@@ -1,0 +1,56 @@
+[gd_scene load_steps=9 format=3 uid="uid://4he4cbsggotn"]
+
+[ext_resource type="Script" path="res://Scripts/blockWitem.gd" id="1_kojn6"]
+[ext_resource type="Texture2D" uid="uid://d01fjgc5spuhv" path="res://Assets/Sprites/Block_Brick.png" id="2_mupa4"]
+[ext_resource type="Texture2D" uid="uid://cib1vxx86r13a" path="res://Assets/Sprites/Block_Empty.png" id="3_73s50"]
+[ext_resource type="AudioStream" uid="uid://bq15a01ovx6u0" path="res://Assets/SFX/hithardblock.wav" id="5_y78ku"]
+[ext_resource type="AudioStream" uid="uid://bwsf3s1sxo1r3" path="res://Assets/SFX/blockhititem.wav" id="6_l3w52"]
+[ext_resource type="AudioStream" uid="uid://g4dakxsfoesm" path="res://Assets/SFX/1up.wav" id="6_vw451"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_t51ed"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_mupa4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_73s50")
+}],
+"loop": true,
+"name": &"empty",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4ltwb"]
+size = Vector2(8, 8)
+
+[node name="BlockWItem" type="StaticBody2D"]
+z_index = 2
+collision_layer = 16
+collision_mask = 13
+script = ExtResource("1_kojn6")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_t51ed")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_4ltwb")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, -5)
+collision_mask = 4
+
+[node name="HitHardBlock" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_y78ku")
+
+[node name="Blockhititem" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_l3w52")
+
+[node name="1Up" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_vw451")

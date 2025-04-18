@@ -1,0 +1,234 @@
+[gd_scene load_steps=27 format=3 uid="uid://b3e2uv1pq2x1o"]
+
+[ext_resource type="Texture2D" uid="uid://bu1r2nm12uem4" path="res://Assets/Sprites/Mario/Small_Idle.png" id="1_4e7f7"]
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_cc831"]
+[ext_resource type="Texture2D" uid="uid://cbi0syfdvj5sg" path="res://Assets/Sprites/Mario/Big_crouch.png" id="2_d7ft8"]
+[ext_resource type="Texture2D" uid="uid://kb7btcj6dykb" path="res://Assets/Sprites/Mario/Big_idle.png" id="2_oo722"]
+[ext_resource type="Texture2D" uid="uid://c3ny5223bmbta" path="res://Assets/Sprites/Mario/Big_jump.png" id="3_rxm28"]
+[ext_resource type="Texture2D" uid="uid://bvwqxyamt1lvg" path="res://Assets/Sprites/Mario/Big_run1.png" id="4_omerw"]
+[ext_resource type="Texture2D" uid="uid://b5k1qxur5qnvy" path="res://Assets/Sprites/Mario/Big_run2.png" id="5_kqyer"]
+[ext_resource type="Texture2D" uid="uid://ytb4na58nwxk" path="res://Assets/Sprites/Mario/Big_run3.png" id="6_1sqrq"]
+[ext_resource type="Texture2D" uid="uid://ddxwwbc62evgp" path="res://Assets/Sprites/Mario/Big_turn.png" id="7_844ib"]
+[ext_resource type="Texture2D" uid="uid://drgum3nvbnpkm" path="res://Assets/Sprites/Mario/Die.png" id="8_pxemc"]
+[ext_resource type="Texture2D" uid="uid://dlot6atnbkcq5" path="res://Assets/Sprites/Mario/Big_shoot.png" id="9_1f2hr"]
+[ext_resource type="Texture2D" uid="uid://bxpkkqet7syr2" path="res://Assets/Sprites/Mario/Small_jump.png" id="11_akeyl"]
+[ext_resource type="Texture2D" uid="uid://dlo3d5vp4wtjg" path="res://Assets/Sprites/Mario/Small_run1.png" id="12_c5dwu"]
+[ext_resource type="Texture2D" uid="uid://baul2ukxp5a13" path="res://Assets/Sprites/Mario/Small_run2.png" id="13_4k7ft"]
+[ext_resource type="Texture2D" uid="uid://cs076i1d5hi2a" path="res://Assets/Sprites/Mario/Small_run3.png" id="14_rd3av"]
+[ext_resource type="Texture2D" uid="uid://hc5te4ajwu0t" path="res://Assets/Sprites/Mario/Small_turn.png" id="15_dt0xc"]
+[ext_resource type="Shape2D" uid="uid://dgjnainnjbb4x" path="res://Resources/CollisionShapes/Small_Mario_Collision_Shape_Normal.tres" id="17_n352i"]
+[ext_resource type="Script" path="res://Scripts/player_animated_sprite.gd" id="17_yi55g"]
+[ext_resource type="AudioStream" uid="uid://ceeh32b7m8fec" path="res://Assets/SFX/jump.wav" id="18_s6mp0"]
+[ext_resource type="AudioStream" uid="uid://csmuh5qk1nadv" path="res://Assets/Audio/11 Lose Life.mp3" id="19_25kux"]
+[ext_resource type="AudioStream" uid="uid://dm4r2eigd2nk8" path="res://Assets/SFX/powerup.wav" id="21_agpjl"]
+[ext_resource type="AudioStream" uid="uid://3aovrmtenuav" path="res://Assets/SFX/powerdown.wav" id="22_hi3x5"]
+[ext_resource type="AudioStream" uid="uid://g4dakxsfoesm" path="res://Assets/SFX/1up.wav" id="23_shel1"]
+[ext_resource type="AudioStream" uid="uid://h4dpa4cjh0vu" path="res://Assets/SFX/coin.wav" id="24_hn7uw"]
+[ext_resource type="AudioStream" uid="uid://dtkm3g8tbw8su" path="res://Assets/Audio/10 Invincible (Can-Can).mp3" id="25_ei0yy"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5gq16"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_d7ft8")
+}],
+"loop": true,
+"name": &"big_down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_oo722")
+}],
+"loop": true,
+"name": &"big_idle",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_rxm28")
+}],
+"loop": true,
+"name": &"big_jump",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_omerw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_kqyer")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_1sqrq")
+}],
+"loop": true,
+"name": &"big_run",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_844ib")
+}],
+"loop": true,
+"name": &"big_turn",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_pxemc")
+}],
+"loop": true,
+"name": &"death",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_1f2hr")
+}],
+"loop": false,
+"name": &"shoot",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_d7ft8")
+}],
+"loop": true,
+"name": &"shooting_down",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_oo722")
+}],
+"loop": true,
+"name": &"shooting_idle",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_rxm28")
+}],
+"loop": true,
+"name": &"shooting_jump",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_omerw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_kqyer")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_1sqrq")
+}],
+"loop": true,
+"name": &"shooting_run",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_844ib")
+}],
+"loop": true,
+"name": &"shooting_turn",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_4e7f7")
+}],
+"loop": true,
+"name": &"small_down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_4e7f7")
+}],
+"loop": true,
+"name": &"small_idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_akeyl")
+}],
+"loop": true,
+"name": &"small_jump",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("12_c5dwu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_4k7ft")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_rd3av")
+}],
+"loop": true,
+"name": &"small_run",
+"speed": 9.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("15_dt0xc")
+}],
+"loop": true,
+"name": &"small_turn",
+"speed": 10.0
+}]
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 5
+collision_mask = 22
+script = ExtResource("1_cc831")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_5gq16")
+animation = &"small_idle"
+script = ExtResource("17_yi55g")
+
+[node name="ShootingPoint" type="Marker2D" parent="AnimatedSprite2D"]
+position = Vector2(6, -1)
+gizmo_extents = 0.5
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_mask = 60
+
+[node name="AreaCollisionShape" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 5)
+shape = ExtResource("17_n352i")
+
+[node name="BodyCollisionShape" type="CollisionShape2D" parent="."]
+position = Vector2(0, 5)
+shape = ExtResource("17_n352i")
+
+[node name="Jump" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("18_s6mp0")
+
+[node name="11LoseLife" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("19_25kux")
+
+[node name="Powerup" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("21_agpjl")
+
+[node name="Powerdown" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("22_hi3x5")
+
+[node name="1Up" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("23_shel1")
+
+[node name="Coin" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("24_hn7uw")
+
+[node name="10Invincible(can-can)" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("25_ei0yy")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_enteredParahnaPlant"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

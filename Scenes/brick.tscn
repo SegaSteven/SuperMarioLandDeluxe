@@ -1,0 +1,57 @@
+[gd_scene load_steps=8 format=3 uid="uid://dwdj4dpu85mo1"]
+
+[ext_resource type="Script" path="res://Scripts/brick.gd" id="1_nkho7"]
+[ext_resource type="Texture2D" uid="uid://d01fjgc5spuhv" path="res://Assets/Sprites/Block_Brick.png" id="2_mbywu"]
+[ext_resource type="AudioStream" uid="uid://bq15a01ovx6u0" path="res://Assets/SFX/hithardblock.wav" id="3_le34y"]
+[ext_resource type="Texture2D" uid="uid://bwecn3uc82st2" path="res://Assets/Sprites/BrickBreakL.png" id="4_pxdgi"]
+[ext_resource type="AudioStream" uid="uid://dpe8eky228ffw" path="res://Assets/SFX/blockdead.wav" id="5_2132n"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jacmm"]
+size = Vector2(8, 8)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jlw7p"]
+particle_flag_align_y = true
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(0, -6, 0)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+angle_min = -180.0
+angle_max = 180.0
+direction = Vector3(0, -40, 0)
+flatness = 1.0
+initial_velocity_min = 40.0
+initial_velocity_max = 60.0
+gravity = Vector3(0, 100, 0)
+
+[node name="Brick" type="StaticBody2D"]
+collision_layer = 16
+collision_mask = 13
+script = ExtResource("1_nkho7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_mbywu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_jacmm")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, -5)
+collision_mask = 4
+collide_with_areas = true
+
+[node name="HitHardBlock" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_le34y")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 4
+process_material = SubResource("ParticleProcessMaterial_jlw7p")
+texture = ExtResource("4_pxdgi")
+one_shot = true
+speed_scale = 2.0
+explosiveness = 1.0
+
+[node name="Blockdead" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_2132n")
+
+[connection signal="finished" from="GPUParticles2D" to="." method="_on_gpu_particles_2d_finished"]

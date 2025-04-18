@@ -1,0 +1,133 @@
+[gd_scene load_steps=19 format=3 uid="uid://b3e2uv1pq2x1o"]
+
+[ext_resource type="Texture2D" uid="uid://bu1r2nm12uem4" path="res://Assets/Sprites/Mario/Small_Idle.png" id="1_4e7f7"]
+[ext_resource type="Script" path="res://Scenes/player.gd" id="1_cc831"]
+[ext_resource type="Texture2D" uid="uid://kb7btcj6dykb" path="res://Assets/Sprites/Mario/Big_idle.png" id="2_oo722"]
+[ext_resource type="Script" path="res://Scripts/player_animated_sprite.gd" id="3_2x70f"]
+[ext_resource type="Shape2D" uid="uid://cbor82m0lqr3r" path="res://Resources/CollisionShapes/Small_Mario_Collision_Shape.tres" id="3_csvx2"]
+[ext_resource type="Texture2D" uid="uid://c3ny5223bmbta" path="res://Assets/Sprites/Mario/Big_jump.png" id="3_rxm28"]
+[ext_resource type="Texture2D" uid="uid://bvwqxyamt1lvg" path="res://Assets/Sprites/Mario/Big_run1.png" id="4_omerw"]
+[ext_resource type="Texture2D" uid="uid://b5k1qxur5qnvy" path="res://Assets/Sprites/Mario/Big_run2.png" id="5_kqyer"]
+[ext_resource type="Texture2D" uid="uid://ytb4na58nwxk" path="res://Assets/Sprites/Mario/Big_run3.png" id="6_1sqrq"]
+[ext_resource type="Texture2D" uid="uid://ddxwwbc62evgp" path="res://Assets/Sprites/Mario/Big_turn.png" id="7_844ib"]
+[ext_resource type="Texture2D" uid="uid://drgum3nvbnpkm" path="res://Assets/Sprites/Mario/Die.png" id="8_pxemc"]
+[ext_resource type="Texture2D" uid="uid://dlot6atnbkcq5" path="res://Assets/Sprites/Mario/Big_shoot.png" id="9_1f2hr"]
+[ext_resource type="Texture2D" uid="uid://bxpkkqet7syr2" path="res://Assets/Sprites/Mario/Small_jump.png" id="11_akeyl"]
+[ext_resource type="Texture2D" uid="uid://dlo3d5vp4wtjg" path="res://Assets/Sprites/Mario/Small_run1.png" id="12_c5dwu"]
+[ext_resource type="Texture2D" uid="uid://baul2ukxp5a13" path="res://Assets/Sprites/Mario/Small_run2.png" id="13_4k7ft"]
+[ext_resource type="Texture2D" uid="uid://cs076i1d5hi2a" path="res://Assets/Sprites/Mario/Small_run3.png" id="14_rd3av"]
+[ext_resource type="Texture2D" uid="uid://hc5te4ajwu0t" path="res://Assets/Sprites/Mario/Small_turn.png" id="15_dt0xc"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5gq16"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_oo722")
+}],
+"loop": true,
+"name": &"big_idle",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_rxm28")
+}],
+"loop": true,
+"name": &"big_jump",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_omerw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_kqyer")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_1sqrq")
+}],
+"loop": true,
+"name": &"big_run",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_844ib")
+}],
+"loop": true,
+"name": &"big_slide",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_pxemc")
+}],
+"loop": true,
+"name": &"death",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_1f2hr")
+}],
+"loop": true,
+"name": &"shoot",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_4e7f7")
+}],
+"loop": true,
+"name": &"small_idle",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_akeyl")
+}],
+"loop": true,
+"name": &"small_jump",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("12_c5dwu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_4k7ft")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_rd3av")
+}],
+"loop": true,
+"name": &"small_run",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("15_dt0xc")
+}],
+"loop": true,
+"name": &"small_slide",
+"speed": 10.0
+}]
+
+[node name="Player" type="CharacterBody2D"]
+collision_mask = 2
+script = ExtResource("1_cc831")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_5gq16")
+animation = &"small_run"
+script = ExtResource("3_2x70f")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="AreaCollisionShape" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 2)
+shape = ExtResource("3_csvx2")
+
+[node name="BodyCollisionShape" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2)
+shape = ExtResource("3_csvx2")

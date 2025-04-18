@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://28etqnt2j3oe"]
+
+[ext_resource type="Script" path="res://Scripts/Core/countdown_manager.gd" id="1_756rj"]
+
+[node name="CountdownManager" type="Node"]
+script = ExtResource("1_756rj")

@@ -1,0 +1,123 @@
+[gd_scene load_steps=12 format=3 uid="uid://d0yi1hqqoqnw6"]
+
+[ext_resource type="Texture2D" uid="uid://bkgsjcuuuyia2" path="res://Assets/Sprites/Letter/LetterBG.png" id="1_jshjv"]
+[ext_resource type="Script" path="res://Scripts/letter_screen.gd" id="1_m16pv"]
+[ext_resource type="Texture2D" uid="uid://cbijylnfbi10y" path="res://Assets/Sprites/Letter/Daisy1.png" id="2_4jrar"]
+[ext_resource type="Texture2D" uid="uid://n3ep2kgrajcw" path="res://Assets/Sprites/Letter/Daisy2.png" id="3_smyq8"]
+[ext_resource type="Texture2D" uid="uid://c8jw6iyicmki2" path="res://Assets/Sprites/Letter/Daisy3.png" id="4_f7h6f"]
+[ext_resource type="FontFile" uid="uid://jiobqv87vkb1" path="res://Assets/Fonts/super-mario-land-gb-doublecase.ttf" id="5_nogod"]
+[ext_resource type="Script" path="res://Scripts/Flashing_Text.gd" id="7_5rtuw"]
+[ext_resource type="AudioStream" uid="uid://cijr0l8iyxuc1" path="res://Assets/Audio/New/SMLE_DAISY_LETTER.wav" id="8_jwku8"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_au03t"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_4jrar")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_smyq8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_f7h6f")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.0
+}]
+
+[sub_resource type="LabelSettings" id="LabelSettings_phk2k"]
+line_spacing = 1.0
+font = ExtResource("5_nogod")
+font_size = 7
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_dchyc"]
+font = ExtResource("5_nogod")
+font_size = 7
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_m16pv")
+spawn_point = Vector2(99, 395)
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -83.8503
+offset_top = -76.3589
+offset_right = 84.1497
+offset_bottom = 75.6411
+color = Color(0, 0, 0, 1)
+
+[node name="LetterBG" type="Sprite2D" parent="."]
+position = Vector2(0.158699, -0.367905)
+texture = ExtResource("1_jshjv")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-47.8594, 23.8729)
+sprite_frames = SubResource("SpriteFrames_au03t")
+autoplay = "default"
+frame = 1
+frame_progress = 0.539791
+
+[node name="Label" type="Label" parent="."]
+offset_left = -59.1986
+offset_top = -43.7632
+offset_right = 28.8014
+offset_bottom = -34.7632
+text = "MARIO HELP!"
+label_settings = SubResource("LabelSettings_phk2k")
+
+[node name="Label2" type="Label" parent="."]
+offset_left = -59.2547
+offset_top = -28.5272
+offset_right = 60.7453
+offset_bottom = -2.52724
+text = "Sarasaland has
+been taken over
+by Tatanga!"
+label_settings = SubResource("LabelSettings_phk2k")
+visible_characters = -42
+visible_ratio = -1.0
+
+[node name="Label3" type="Label" parent="."]
+offset_left = -29.8503
+offset_top = 2.64114
+offset_right = 58.1497
+offset_bottom = 19.6411
+text = "Please save
+us all!"
+label_settings = SubResource("LabelSettings_phk2k")
+horizontal_alignment = 2
+
+[node name="Label4" type="Label" parent="."]
+offset_left = -33.1539
+offset_top = 27.8898
+offset_right = 54.8461
+offset_bottom = 44.8898
+text = "Princess  
+   Daisy ."
+label_settings = SubResource("LabelSettings_phk2k")
+horizontal_alignment = 1
+
+[node name="PressStart" type="Label" parent="."]
+offset_left = -12.2665
+offset_top = 59.8653
+offset_right = 75.7335
+offset_bottom = 68.8653
+text = "Press Start"
+label_settings = SubResource("LabelSettings_dchyc")
+script = ExtResource("7_5rtuw")
+speed = 6
+fade = true
+
+[node name="BlackFade" type="ColorRect" parent="."]
+offset_left = -85.4252
+offset_top = -75.4139
+offset_right = 82.5748
+offset_bottom = 76.5861
+color = Color(0, 0, 0, 1)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="SmldxMapDaisyjingleC" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_jwku8")
+autoplay = true

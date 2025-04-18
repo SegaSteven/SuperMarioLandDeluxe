@@ -1,0 +1,43 @@
+[gd_scene load_steps=8 format=3 uid="uid://dhcam6aooqdp4"]
+
+[ext_resource type="Script" path="res://Scripts/shooting_flower.gd" id="1_0bdiv"]
+[ext_resource type="Texture2D" uid="uid://cvam66tx840ij" path="res://Assets/Sprites/Super_Flower1.png" id="2_kysf6"]
+[ext_resource type="Texture2D" uid="uid://dmqk5d0m3t5dp" path="res://Assets/Sprites/Super_Flower2.png" id="3_l4hso"]
+[ext_resource type="AudioStream" uid="uid://dm4r2eigd2nk8" path="res://Assets/SFX/powerup.wav" id="4_n7kon"]
+[ext_resource type="AudioStream" uid="uid://bwsf3s1sxo1r3" path="res://Assets/SFX/blockhititem.wav" id="5_t28dk"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2vu2n"]
+animations = [{
+"frames": [{
+"duration": 1.1,
+"texture": ExtResource("2_kysf6")
+}, {
+"duration": 1.1,
+"texture": ExtResource("3_l4hso")
+}],
+"loop": true,
+"name": &"flower",
+"speed": 2.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6imqd"]
+size = Vector2(6.96107, 7.95774)
+
+[node name="ShootingFlower" type="Area2D"]
+collision_layer = 32
+script = ExtResource("1_0bdiv")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_2vu2n")
+animation = &"flower"
+autoplay = "flower"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.506375, -0.0211325)
+shape = SubResource("RectangleShape2D_6imqd")
+
+[node name="Powerup" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_n7kon")
+
+[node name="Blockhititem" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_t28dk")

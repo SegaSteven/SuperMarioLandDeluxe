@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://6aqt05xs7ija"]
+
+[ext_resource type="Script" path="res://Scripts/lift_Platform.gd" id="1_8gw7x"]
+[ext_resource type="Texture2D" uid="uid://2lrxnpi8di42" path="res://Assets/Sprites/LiftPlatform.png" id="2_dg0g6"]
+[ext_resource type="AudioStream" uid="uid://bwsf3s1sxo1r3" path="res://Assets/SFX/blockhititem.wav" id="3_47fpv"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_dfhtw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iy0wy"]
+size = Vector2(8, 8)
+
+[node name="Lift" type="StaticBody2D"]
+collision_layer = 2
+physics_material_override = SubResource("PhysicsMaterial_dfhtw")
+constant_linear_velocity = Vector2(0, -20)
+script = ExtResource("1_8gw7x")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_dg0g6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_iy0wy")
+one_way_collision = true
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="."]
+remote_path = NodePath("..")
+update_rotation = false
+update_scale = false
+
+[node name="Blockhititem" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_47fpv")

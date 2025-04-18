@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bosnsgxewhhuc"
+path="res://.godot/imported/14 Bonus Game Walk.mp3-9f7bbf838d4bb40c63e52c5a383224c4.mp3str"
+
+[deps]
+
+source_file="res://Assets/Audio/14 Bonus Game Walk.mp3"
+dest_files=["res://.godot/imported/14 Bonus Game Walk.mp3-9f7bbf838d4bb40c63e52c5a383224c4.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

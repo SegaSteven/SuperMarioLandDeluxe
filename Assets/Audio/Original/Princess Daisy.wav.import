@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://3qripv3kx2wb"
+path="res://.godot/imported/Princess Daisy.wav-20a4f2068267daac29d7963f68db19e5.sample"
+
+[deps]
+
+source_file="res://Assets/Audio/Original/Princess Daisy.wav"
+dest_files=["res://.godot/imported/Princess Daisy.wav-20a4f2068267daac29d7963f68db19e5.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://cde6wlgjygwjc"]
+
+[ext_resource type="Script" path="res://Scripts/fireball.gd" id="1_mj6j8"]
+[ext_resource type="Texture2D" uid="uid://ddcv1ndy80gid" path="res://Assets/Sprites/Mario/SuperBall.png" id="2_titrr"]
+[ext_resource type="AudioStream" uid="uid://lsrvpil54r6l" path="res://Assets/SFX/fireball.wav" id="3_0skj8"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mpkxq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_titrr")
+}],
+"loop": true,
+"name": &"ball",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cl7go"]
+size = Vector2(6, 6)
+
+[node name="Fireball" type="Area2D"]
+collision_layer = 80
+collision_mask = 60
+script = ExtResource("1_mj6j8")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_mpkxq")
+animation = &"ball"
+autoplay = "ball"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_cl7go")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, 4)
+collision_mask = 18
+
+[node name="Fireball" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_0skj8")

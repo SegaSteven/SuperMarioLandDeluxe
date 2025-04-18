@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://dxjwn3b247wl"]
+
+[ext_resource type="FontFile" uid="uid://bjn02b77mgewk" path="res://Assets/Fonts/SML Point Font.ttf" id="1_63re2"]
+[ext_resource type="Script" path="res://Scripts/points_label.gd" id="1_kekk3"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_wbuau"]
+font = ExtResource("1_63re2")
+font_size = 6
+font_color = Color(0, 0, 0, 1)
+
+[node name="PointsLabel" type="Label"]
+offset_right = 20.0
+offset_bottom = 12.0
+text = "100"
+label_settings = SubResource("LabelSettings_wbuau")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("1_kekk3")
