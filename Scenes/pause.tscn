@@ -1,12 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://cy62lavp30u4a"]
+[gd_scene load_steps=3 format=3 uid="uid://cy62lavp30u4a"]
 
-[ext_resource type="FontFile" uid="uid://jiobqv87vkb1" path="res://Assets/Fonts/super-mario-land-gb-doublecase.ttf" id="2_153t8"]
+[ext_resource type="LabelSettings" uid="uid://bsexttycxsh6o" path="res://pause.tres" id="1_fdi11"]
 [ext_resource type="TileSet" uid="uid://u07nu88mt2ny" path="res://TileSets/main.tres" id="3_s71qr"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_6nmve"]
-font = ExtResource("2_153t8")
-font_size = 7
-font_color = Color(0, 0, 0, 1)
 
 [node name="Pause" type="ColorRect"]
 process_mode = 3
@@ -15,6 +10,7 @@ offset_left = 91.4677
 offset_top = 132.628
 offset_right = 160.468
 offset_bottom = 143.628
+color = Color(0, 0, 0, 1)
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
@@ -22,7 +18,7 @@ offset_left = 17.0
 offset_right = 57.0
 offset_bottom = 16.0
 text = "PAUSE"
-label_settings = SubResource("LabelSettings_6nmve")
+label_settings = ExtResource("1_fdi11")
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource("3_s71qr")

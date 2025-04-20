@@ -29,7 +29,7 @@ CountdownManager="*res://Scripts/Core/countdown_manager.gd"
 
 [display]
 
-window/size/viewport_width=160
+window/size/viewport_width=256
 window/size/viewport_height=144
 window/size/window_width_override=640
 window/size/window_height_override=576
@@ -115,4 +115,4 @@ Up={
 textures/canvas_textures/default_texture_filter=0
 textures/vram_compression/import_s3tc_bptc=true
 textures/vram_compression/import_etc2_astc=true
-environment/defaults/default_clear_color=Color(1, 1, 1, 1)
+environment/defaults/default_clear_color=Color(0.462291, 0.462291, 0.462291, 1)

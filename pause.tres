@@ -1,0 +1,10 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://bsexttycxsh6o"]
+
+[ext_resource type="FontFile" uid="uid://jiobqv87vkb1" path="res://Assets/Fonts/super-mario-land-gb-doublecase.ttf" id="1_5dv8u"]
+
+[resource]
+font = ExtResource("1_5dv8u")
+font_size = 7
+shadow_size = 0
+shadow_color = Color(0.654902, 0.411765, 0.0235294, 1)
+shadow_offset = Vector2(0, 1)
