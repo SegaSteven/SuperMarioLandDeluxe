@@ -79,7 +79,7 @@ autoplay = true
 [node name="Player" parent="." instance=ExtResource("3_024pn")]
 process_mode = 1
 z_index = 1
-position = Vector2(600.472, 102.55)
+position = Vector2(29.6932, 111.211)
 platform_on_leave = 2
 
 [node name="Camera2D" type="Camera2D" parent="."]

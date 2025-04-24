@@ -1,14 +1,14 @@
 bdbec74c6e5bd72edee867077d70896c
-::res://::1745454221
+::res://::1745516446
 export_presets.cfg::TextFile::-1::1744231139::0::1::::<><>::
 icon.png::CompressedTexture2D::2515078130300823360::1740505356::1743296482::1::::<><>::
 icon.svg::CompressedTexture2D::3788145983438291182::1739535999::1743296482::1::::<><>::
 Map.png::CompressedTexture2D::2171053139338858944::1741802121::1743296482::1::::<><>::
-pause.tres::LabelSettings::3659508836253026696::1745430616::0::1::::<><>::uid://jiobqv87vkb1::::res://Assets/Fonts/super-mario-land-gb-doublecase.ttf
+pause.tres::LabelSettings::3659508836253026696::1745497489::0::1::::<><>::uid://jiobqv87vkb1::::res://Assets/Fonts/super-mario-land-gb-doublecase.ttf
 README.md::TextFile::-1::1745177673::0::1::::<><>::
 ::res://addons/::1743296573
-::res://addons/scene_manager/::1745454683
-Dissolve2d.gdshader::Shader::-1::1745454683::0::1::::<><>::
+::res://addons/scene_manager/::1745522979
+Dissolve2d.gdshader::Shader::-1::1745522979::0::1::::<><>::
 icon.png::CompressedTexture2D::4681674247265322881::1732532341::1743296482::1::::<><>::
 NodeFlagsInspectorPlugin.gd::GDScript::-1::1732532341::0::1::::<>EditorInspectorPlugin<>::
 plugin.cfg::TextFile::-1::1732532341::0::1::::<><>::
@@ -138,7 +138,7 @@ powerup.wav::AudioStreamWAV::8062475757645421425::1629845822::1743296484::1::::<
 sprout.wav::AudioStreamWAV::8301113475147208569::1157834588::1743296484::1::::<><>::
 tatangahit.wav::AudioStreamWAV::4193382239651407442::1629845822::1743296484::1::::<><>::
 timerscore.wav::AudioStreamWAV::7735578693173281488::1157834588::1743296484::1::::<><>::
-::res://Assets/Sprites/::1745431759
+::res://Assets/Sprites/::1745521953
 1upHeart.png::CompressedTexture2D::6045175036084231594::1745176046::1745176249::1::::<><>::
 Block_Brick.png::CompressedTexture2D::8967976940362082731::1745176187::1745176249::1::::<><>::
 Block_Empty.png::CompressedTexture2D::5338033882837501304::1745176151::1745176249::1::::<><>::
@@ -160,21 +160,21 @@ Pipe_Side_Body.png::CompressedTexture2D::7456575312122550598::1745431661::174543
 Pipe_Side_Cap.png::CompressedTexture2D::8158537274635405477::1745431653::1745431759::1::::<><>::
 Pipe_Top.png::CompressedTexture2D::1320099626103430727::1745175407::1745175892::1::::<><>::
 Q_Block.png::CompressedTexture2D::7575358879988821827::1745175539::1745175893::1::::<><>::
-Star1.png::CompressedTexture2D::1575842259614696116::1739537013::1743296483::1::::<><>::
-Star2.png::CompressedTexture2D::3380665148363061614::1739538767::1743296483::1::::<><>::
+Star1.png::CompressedTexture2D::1575842259614696116::1745521942::1745521952::1::::<><>::
+Star2.png::CompressedTexture2D::3380665148363061614::1745521942::1745521952::1::::<><>::
 SuperBall.png::CompressedTexture2D::1444400183182459448::1745175709::1745175893::1::::<><>::
 Super_Flower1.png::CompressedTexture2D::6247592705974552725::1745175676::1745175893::1::::<><>::
 Super_Flower2.png::CompressedTexture2D::8035219159319044613::1745175676::1745175893::1::::<><>::
-::res://Assets/Sprites/Backgrounds/::1745455033
+::res://Assets/Sprites/Backgrounds/::1745455057
 Clouds2.png::CompressedTexture2D::5132688364427266399::1745455054::1745455057::1::::<><>::
 Clouds.png::CompressedTexture2D::3592326103348726419::1745429939::1745429990::1::::<><>::
 Underground.png::CompressedTexture2D::5194196620400500914::1745433653::1745433747::1::::<><>::
-::res://Assets/Sprites/Birabuto/::1745454553
-Falling_slab.png::CompressedTexture2D::3308522526648465063::1744229211::1744229215::1::::<><>::
-Firefloor1.png::CompressedTexture2D::8285396111507120237::1744228790::1744228809::1::::<><>::
-Firefloor2.png::CompressedTexture2D::981536248312281971::1744228790::1744228809::1::::<><>::
-Firefloor3.png::CompressedTexture2D::4027698856594014706::1744228790::1744228809::1::::<><>::
-Firefloor4.png::CompressedTexture2D::5856723239503682129::1744228790::1744228809::1::::<><>::
+::res://Assets/Sprites/Birabuto/::1745497609
+Falling_slab.png::CompressedTexture2D::3308522526648465063::1745497516::1745497609::1::::<><>::
+Firefloor1.png::CompressedTexture2D::8285396111507120237::1745497606::1745497609::1::::<><>::
+Firefloor2.png::CompressedTexture2D::981536248312281971::1745497606::1745497609::1::::<><>::
+Firefloor3.png::CompressedTexture2D::4027698856594014706::1745497606::1745497609::1::::<><>::
+Firefloor4.png::CompressedTexture2D::5856723239503682129::1745497606::1745497609::1::::<><>::
 Torch1.png::CompressedTexture2D::2829258643165003062::1745454549::1745454553::1::::<><>::
 Torch2.png::CompressedTexture2D::7286310981790174290::1745454549::1745454553::1::::<><>::
 ::res://Assets/Sprites/BonusRoom/::1743296574
@@ -233,67 +233,67 @@ Small_run2.png::CompressedTexture2D::2428425409111446736::1745172045::1745172172
 Small_run3.png::CompressedTexture2D::6089848760630255662::1745172045::1745172172::1::::<><>::
 Small_turn.png::CompressedTexture2D::497306355747177525::1745172123::1745172172::1::::<><>::
 SuperBall.png::CompressedTexture2D::7375279513564647107::1745172161::1745172172::1::::<><>::
-::res://Assets/Sprites/WorldMap/::1743296574
-LevelIcon1.png::CompressedTexture2D::2529335024632131238::1741820734::1743296480::1::::<><>::
-LevelIcon2.png::CompressedTexture2D::3610450762421772429::1741820734::1743296480::1::::<><>::
-::res://Assets/Sprites/WorldMap/MARIO/::1743296574
+::res://Assets/Sprites/WorldMap/::1745514057
+LevelIcon1.png::CompressedTexture2D::2529335024632131238::1745513364::1745514057::1::::<><>::
+LevelIcon2.png::CompressedTexture2D::3610450762421772429::1745513364::1745514056::1::::<><>::
+::res://Assets/Sprites/WorldMap/MARIO/::1745514057
 Cloud.png::CompressedTexture2D::7376583811412410078::1741964563::1743296480::1::::<><>::
-EnteringLevel.png::CompressedTexture2D::3270368172346836477::1741963906::1743296481::1::::<><>::
-MovingDown1.png::CompressedTexture2D::4777534349881746788::1741963299::1743296481::1::::<><>::
-MovingDown2.png::CompressedTexture2D::6030789784217122307::1741963299::1743296481::1::::<><>::
-MovingDown3.png::CompressedTexture2D::217588041962808457::1741963299::1743296481::1::::<><>::
-MovingDown4.png::CompressedTexture2D::2507304384767742392::1741963299::1743296481::1::::<><>::
-MovingDownWater1.png::CompressedTexture2D::4256842722372984254::1741964200::1743296481::1::::<><>::
-MovingDownWater2.png::CompressedTexture2D::4909395485979742430::1741964200::1743296481::1::::<><>::
-MovingDownWater3.png::CompressedTexture2D::3592505893692605864::1741964200::1743296481::1::::<><>::
-MovingDownWater4.png::CompressedTexture2D::8665714310303802014::1741964200::1743296480::1::::<><>::
-MovingRight1.png::CompressedTexture2D::8399013262038903002::1742315522::1743296480::1::::<><>::
-MovingRight2.png::CompressedTexture2D::2065276080079103450::1742315522::1743296480::1::::<><>::
-MovingRightWater1.png::CompressedTexture2D::6714979537713122017::1742315492::1743296480::1::::<><>::
-MovingRightWater2.png::CompressedTexture2D::213014812271007573::1742315492::1743296480::1::::<><>::
-MovingSide1.png::CompressedTexture2D::3059497684421527601::1741963789::1743296480::1::::<><>::
-MovingSide2.png::CompressedTexture2D::5941252028744101656::1741963789::1743296480::1::::<><>::
-MovingSideWater1.png::CompressedTexture2D::8336431617271947536::1741964427::1743296480::1::::<><>::
-MovingSideWater2.png::CompressedTexture2D::8678731140829988991::1741964427::1743296480::1::::<><>::
-MovingUp1.png::CompressedTexture2D::8655978430975301343::1741963486::1743296480::1::::<><>::
-MovingUp2.png::CompressedTexture2D::6572048439561925912::1741963486::1743296480::1::::<><>::
-MovingUp3.png::CompressedTexture2D::3265983338854501897::1741963486::1743296480::1::::<><>::
-MovingUp4.png::CompressedTexture2D::8491853815169613150::1741963486::1743296480::1::::<><>::
-MovingUpWater1.png::CompressedTexture2D::2886945913783084324::1741964336::1743296480::1::::<><>::
-MovingUpWater2.png::CompressedTexture2D::1289982242042884105::1741964336::1743296480::1::::<><>::
-MovingUpWater3.png::CompressedTexture2D::2557405063304350432::1741964336::1743296480::1::::<><>::
-MovingUpWater4.png::CompressedTexture2D::4812394061452976960::1741964336::1743296480::1::::<><>::
-::res://Assets/Tilesets/::1745454695
-Birabuto.png::CompressedTexture2D::1838453185033800439::1745454692::1745454695::1::::<><>::
+EnteringLevel.png::CompressedTexture2D::3270368172346836477::1745513454::1745514056::1::::<><>::
+MovingDown1.png::CompressedTexture2D::4777534349881746788::1745513552::1745514056::1::::<><>::
+MovingDown2.png::CompressedTexture2D::6030789784217122307::1745513552::1745514056::1::::<><>::
+MovingDown3.png::CompressedTexture2D::217588041962808457::1745513552::1745514056::1::::<><>::
+MovingDown4.png::CompressedTexture2D::2507304384767742392::1745513552::1745514056::1::::<><>::
+MovingDownWater1.png::CompressedTexture2D::4256842722372984254::1745513615::1745514056::1::::<><>::
+MovingDownWater2.png::CompressedTexture2D::4909395485979742430::1745513615::1745514056::1::::<><>::
+MovingDownWater3.png::CompressedTexture2D::3592505893692605864::1745513615::1745514056::1::::<><>::
+MovingDownWater4.png::CompressedTexture2D::8665714310303802014::1745513615::1745514056::1::::<><>::
+MovingRight1.png::CompressedTexture2D::8399013262038903002::1745513720::1745514056::1::::<><>::
+MovingRight2.png::CompressedTexture2D::2065276080079103450::1745513720::1745514056::1::::<><>::
+MovingRightWater1.png::CompressedTexture2D::6714979537713122017::1745513718::1745514056::1::::<><>::
+MovingRightWater2.png::CompressedTexture2D::213014812271007573::1745513718::1745514055::1::::<><>::
+MovingSide1.png::CompressedTexture2D::3059497684421527601::1745513751::1745514055::1::::<><>::
+MovingSide2.png::CompressedTexture2D::5941252028744101656::1745513751::1745514055::1::::<><>::
+MovingSideWater1.png::CompressedTexture2D::8336431617271947536::1745513777::1745514055::1::::<><>::
+MovingSideWater2.png::CompressedTexture2D::8678731140829988991::1745513777::1745514055::1::::<><>::
+MovingUp1.png::CompressedTexture2D::8655978430975301343::1745513864::1745514055::1::::<><>::
+MovingUp2.png::CompressedTexture2D::6572048439561925912::1745513864::1745514055::1::::<><>::
+MovingUp3.png::CompressedTexture2D::3265983338854501897::1745513864::1745514055::1::::<><>::
+MovingUp4.png::CompressedTexture2D::8491853815169613150::1745513864::1745514055::1::::<><>::
+MovingUpWater1.png::CompressedTexture2D::2886945913783084324::1745513993::1745514055::1::::<><>::
+MovingUpWater2.png::CompressedTexture2D::1289982242042884105::1745513993::1745514055::1::::<><>::
+MovingUpWater3.png::CompressedTexture2D::2557405063304350432::1745513993::1745514055::1::::<><>::
+MovingUpWater4.png::CompressedTexture2D::4812394061452976960::1745513993::1745514055::1::::<><>::
+::res://Assets/Tilesets/::1745523110
+Birabuto.png::CompressedTexture2D::1838453185033800439::1745498003::1745498005::1::::<><>::
 BonusRoom.png::CompressedTexture2D::6398766200822023643::1743272467::1743296480::1::::<><>::
 Global.png::CompressedTexture2D::3882667334469734151::1745434263::1745434265::1::::<><>::
-Pyramid_Map.png::CompressedTexture2D::9083409884537751750::1743947128::1743947131::1::::<><>::
-WorldMap.png::CompressedTexture2D::9099106215751077219::1743594218::1743594221::1::::<><>::
-::res://Assets/Tilesets/LavaSprites/::1744051670
-Lava1.png::CompressedTexture2D::4309042427075314087::1744051663::1744051669::1::::<><>::
-Lava2.png::CompressedTexture2D::1827892092770552375::1744051663::1744051669::1::::<><>::
-Lava3.png::CompressedTexture2D::4058550302711724456::1744051663::1744051669::1::::<><>::
-Lava4.png::CompressedTexture2D::2657477511897172210::1744051663::1744051669::1::::<><>::
-Lava5.png::CompressedTexture2D::893513798016771850::1744051663::1744051670::1::::<><>::
-Lava6.png::CompressedTexture2D::4887581863513811620::1744051663::1744051670::1::::<><>::
-::res://Assets/Tilesets/SeaSprites/::1743296574
+Pyramid_Map.png::CompressedTexture2D::9083409884537751750::1745523188::1745523191::1::::<><>::
+WorldMap.png::CompressedTexture2D::9099106215751077219::1745520763::1745520766::1::::<><>::
+::res://Assets/Tilesets/LavaSprites/::1745522127
+Lava1.png::CompressedTexture2D::4309042427075314087::1745522120::1745522127::1::::<><>::
+Lava2.png::CompressedTexture2D::1827892092770552375::1745522120::1745522127::1::::<><>::
+Lava3.png::CompressedTexture2D::4058550302711724456::1745522120::1745522127::1::::<><>::
+Lava4.png::CompressedTexture2D::2657477511897172210::1745522120::1745522127::1::::<><>::
+Lava5.png::CompressedTexture2D::893513798016771850::1745522120::1745522127::1::::<><>::
+Lava6.png::CompressedTexture2D::4887581863513811620::1745522120::1745522127::1::::<><>::
+::res://Assets/Tilesets/SeaSprites/::1745521799
 4-03 - Map 2 (Overworld).mp3::AudioStreamMP3::7804929927985787070::1651518606::1743296479::1::::<><>::
-Sea1.png::CompressedTexture2D::6064557114821146658::1741735373::1743296481::1::::<><>::
-Sea2.png::CompressedTexture2D::7716665755946891564::1741735373::1743296481::1::::<><>::
-Sea3.png::CompressedTexture2D::4186284948138906101::1741735373::1743296481::1::::<><>::
-Sea4.png::CompressedTexture2D::5001086326315000808::1741735373::1743296481::1::::<><>::
-Sea5.png::CompressedTexture2D::1678573689862577502::1741735373::1743296481::1::::<><>::
-Sea6.png::CompressedTexture2D::6445230489793246714::1741735373::1743296481::1::::<><>::
-Sea7.png::CompressedTexture2D::2398796199775968797::1741735373::1743296481::1::::<><>::
-Sea8.png::CompressedTexture2D::1647879878930306238::1741735373::1743296481::1::::<><>::
+Sea1.png::CompressedTexture2D::6064557114821146658::1745515103::1745516389::1::::<><>::
+Sea2.png::CompressedTexture2D::7716665755946891564::1745515103::1745516389::1::::<><>::
+Sea3.png::CompressedTexture2D::4186284948138906101::1745515103::1745516389::1::::<><>::
+Sea4.png::CompressedTexture2D::5001086326315000808::1745515103::1745516389::1::::<><>::
+Sea5.png::CompressedTexture2D::1678573689862577502::1745515103::1745516389::1::::<><>::
+Sea6.png::CompressedTexture2D::6445230489793246714::1745515103::1745516389::1::::<><>::
+Sea7.png::CompressedTexture2D::2398796199775968797::1745515103::1745516389::1::::<><>::
+Sea8.png::CompressedTexture2D::1647879878930306238::1745515103::1745516389::1::::<><>::
 Sea.png::CompressedTexture2D::2939116983865781227::1741734979::1743296481::1::::<><>::
-SideWaterFall1.png::CompressedTexture2D::2187320940164834777::1741793909::1743296481::1::::<><>::
-SideWaterFall2.png::CompressedTexture2D::1127243787248836816::1741793909::1743296481::1::::<><>::
-SideWaterFall3.png::CompressedTexture2D::4083888075733361813::1741793909::1743296481::1::::<><>::
-WaterFall1.png::CompressedTexture2D::3859699612764740406::1741794259::1743296481::1::::<><>::
-WaterFall2.png::CompressedTexture2D::3357588640382341298::1741794259::1743296481::1::::<><>::
-WaterFall3.png::CompressedTexture2D::1515078421833342604::1741794259::1743296481::1::::<><>::
-WorldBezel.png::CompressedTexture2D::7089325280050180877::1741819981::1743296481::1::::<><>::
+SideWaterFall1.png::CompressedTexture2D::2187320940164834777::1745519865::1745519979::1::::<><>::
+SideWaterFall2.png::CompressedTexture2D::1127243787248836816::1745519865::1745519979::1::::<><>::
+SideWaterFall3.png::CompressedTexture2D::4083888075733361813::1745519865::1745519979::1::::<><>::
+WaterFall1.png::CompressedTexture2D::3859699612764740406::1745519976::1745519979::1::::<><>::
+WaterFall2.png::CompressedTexture2D::3357588640382341298::1745519976::1745519979::1::::<><>::
+WaterFall3.png::CompressedTexture2D::1515078421833342604::1745519976::1745519979::1::::<><>::
+WorldBezel.png::CompressedTexture2D::7089325280050180877::1745521796::1745521799::1::::<><>::
 ::res://Assets/Title Screen/::1743296574
 ::res://Assets/Title Screen/audio/::1743296574
 Land_Title_20250313b.ogg::AudioStreamOggVorbis::183700030756895564::1741971662::1743296480::1::::<><>::
@@ -358,7 +358,7 @@ koopa_full_collision_shape.tres::RectangleShape2D::4854013030400730109::17432964
 koopa_shell_collision_shape.tres::RectangleShape2D::297469626990505356::1743296498::0::1::::<><>::
 Small_Mario_Collision_Shape_Normal.tres::RectangleShape2D::7599764274471987053::1743296498::0::1::::<><>::
 Small_Mario_Jump_Collision_Shape.tres::RectangleShape2D::284616162506574484::1743296498::0::1::::<><>::
-::res://Scenes/::1745454450
+::res://Scenes/::1745522979
 1UP.tscn::PackedScene::1137507054112079799::1741638150::0::1::::<><>::res://Scripts/1UP.gd<>uid://cselfc8gha8yg::::res://Assets/Sprites/1upHeart.png<>uid://bwsf3s1sxo1r3::::res://Assets/SFX/blockhititem.wav<>uid://g4dakxsfoesm::::res://Assets/SFX/1up.wav
 about_face_block.tscn::PackedScene::4544720950368546783::1741456452::0::1::::<><>::res://Scripts/about_face_block.gd
 blockWitem.tscn::PackedScene::2050221873193278427::1741638157::0::1::::<><>::res://Scripts/blockWitem.gd<>uid://d01fjgc5spuhv::::res://Assets/Sprites/Block_Brick.png<>uid://cib1vxx86r13a::::res://Assets/Sprites/Block_Empty.png<>uid://bq15a01ovx6u0::::res://Assets/SFX/hithardblock.wav<>uid://bwsf3s1sxo1r3::::res://Assets/SFX/blockhititem.wav<>uid://g4dakxsfoesm::::res://Assets/SFX/1up.wav
@@ -382,7 +382,7 @@ HiddenBlock.tscn::PackedScene::3242783069850473756::1744223860::0::1::::<><>::re
 koopa.tscn::PackedScene::3889768967013355549::1744760177::0::1::::<><>::uid://dmnsytwvmcj7j::::res://Assets/Sprites/Enemies/BombKoopa_CD1.png<>res://Scripts/koopa.gd<>uid://c30xu2unw8r34::::res://Assets/Sprites/Enemies/BombKoopa_Walk1.png<>uid://dn04ntj2fcdn::::res://Assets/Sprites/Enemies/BombKoopa_Walk2.png<>uid://8h7neickwdgi::::res://Assets/Sprites/Enemies/BombKoopa_explode1.png<>uid://vokhben0dal8::::res://Assets/Sprites/Enemies/BombKoopa_explode2.png<>uid://eidjtgbsml7a::::res://Resources/CollisionShapes/koopa_shell_collision_shape.tres<>uid://cx6xy3agmmdfl::::res://Assets/SFX/enemyfireball.wav<>uid://dknrx7swi25xl::::res://Assets/SFX/enemykilled.wav<>uid://cu1u4uvr4ap1q::::res://Assets/SFX/nokobomb.wav
 Letter_Screen.tscn::PackedScene::8964060767837848223::1745446397::0::1::::<><>::uid://bkgsjcuuuyia2::::res://Assets/Sprites/Letter/LetterBG.png<>res://Scripts/letter_screen.gd<>uid://cbijylnfbi10y::::res://Assets/Sprites/Letter/Daisy1.png<>uid://n3ep2kgrajcw::::res://Assets/Sprites/Letter/Daisy2.png<>uid://c8jw6iyicmki2::::res://Assets/Sprites/Letter/Daisy3.png<>uid://jiobqv87vkb1::::res://Assets/Fonts/super-mario-land-gb-doublecase.ttf<>res://Scripts/Flashing_Text.gd<>uid://cijr0l8iyxuc1::::res://Assets/Audio/New/SMLE_DAISY_LETTER.wav
 lift_Platform.tscn::PackedScene::2176860915245682514::1744223860::0::1::::<><>::res://Scripts/lift_Platform.gd<>uid://2lrxnpi8di42::::res://Assets/Sprites/LiftPlatform.png<>uid://bwsf3s1sxo1r3::::res://Assets/SFX/blockhititem.wav
-logo_screen.tscn::PackedScene::5194543563335805147::1745436133::0::1::::<><>::res://Scripts/logo_screen.gd<>uid://dlq4e0gn7afgj::::res://Assets/Title Screen/Sprites/Text.png<>uid://h4dpa4cjh0vu::::res://Assets/SFX/coin.wav
+logo_screen.tscn::PackedScene::5194543563335805147::1745522979::0::1::::<><>::res://Scripts/logo_screen.gd<>uid://dlq4e0gn7afgj::::res://Assets/Title Screen/Sprites/Text.png<>uid://h4dpa4cjh0vu::::res://Assets/SFX/coin.wav
 pause.tscn::PackedScene::6523028360773328978::1745431526::0::1::::<><>::uid://bsexttycxsh6o::::res://pause.tres<>uid://u07nu88mt2ny::::res://TileSets/main.tres
 pipeD1.tscn::PackedScene::504126089177457821::1744223861::0::1::::<><>::uid://s2p33iy1ytil::::res://Assets/Sprites/Pipe_Top.png<>res://Scripts/pipeD1.gd<>uid://crtgq02rrucsp::::res://Assets/Sprites/Pipe_Body.png
 pipeD2.tscn::PackedScene::2774253865204229893::1741395305::0::1::::<><>::res://Scripts/pipeD2.gd<>uid://s2p33iy1ytil::::res://Assets/Sprites/Pipe_Top.png<>uid://crtgq02rrucsp::::res://Assets/Sprites/Pipe_Body.png
@@ -405,25 +405,25 @@ arrow_drop.tscn::PackedScene::3002728051068523303::1745454450::0::1::::<><>::res
 bun_bun.tscn::PackedScene::7994310513077187066::1745454449::0::1::::<><>::uid://dygyssbplgiaa::::res://Assets/Sprites/Enemies/Bunbun_dead.png<>res://Scripts/Enemies/bun_bun.gd<>uid://cxmm5thor8yv2::::res://Assets/Sprites/Enemies/Bunbun_fly1.png<>uid://dlg1e5byst1xh::::res://Assets/Sprites/Enemies/Bunbun_fly2.png<>uid://dknrx7swi25xl::::res://Assets/SFX/enemykilled.wav
 fly.tscn::PackedScene::725699215284332345::1743450809::0::1::::<><>::uid://cbjgl7nbyd1wj::::res://Assets/Sprites/Enemies/Fly_land.png<>res://Scripts/Enemies/fly.gd<>uid://50wsmo22qn7b::::res://Assets/Sprites/Enemies/Fly_die.png<>uid://q12qne6v5akk::::res://Assets/Sprites/Enemies/Fly_jump.png<>uid://dknrx7swi25xl::::res://Assets/SFX/enemykilled.wav
 parana_plant_pipe.tscn::PackedScene::7284023299599821726::1744925844::0::1::::<><>::res://Scripts/Enemies/parana_plant_pipe.gd<>uid://s2p33iy1ytil::::res://Assets/Sprites/Pipe_Top.png<>uid://crtgq02rrucsp::::res://Assets/Sprites/Pipe_Body.png<>uid://yuk8vm8lhv0o::::res://Assets/Sprites/Enemies/ParanaPlant2.png<>res://Scripts/Enemies/parana_plant.gd<>uid://l847rw35crmr::::res://Assets/Sprites/Enemies/ParanaPlant1.png<>uid://dknrx7swi25xl::::res://Assets/SFX/enemykilled.wav
-::res://Scenes/Levels/::1745454683
-1-1.tscn::PackedScene::8442364031568822585::1745454447::0::1::::<><>::res://Scripts/Level_Scripts/1-1.gd<>uid://brgfc6rfpig4r::::res://Assets/Sprites/Backgrounds/Clouds.png<>uid://1gtb48ynprmt::::res://Assets/Tilesets/Birabuto.png<>uid://doy2a2dpm0b67::::res://TileSets/Birabuto.tres<>uid://cax8w83xs8tlm::::res://Assets/Audio/Original/Course Music 1.wav<>uid://b3e2uv1pq2x1o::::res://Scenes/player.tscn<>res://Scripts/camera_2d.gd<>uid://d2c6f8s1nedu1::::res://Scenes/UI.tscn<>uid://ca12j5b15rehi::::res://Assets/SFX/pause.wav<>uid://d7vtesn8fd2b::::res://Scenes/goomba.tscn<>uid://bvoh6reqa5d6d::::res://Scenes/koopa.tscn<>uid://cy62lavp30u4a::::res://Scenes/pause.tscn<>uid://dwdj4dpu85mo1::::res://Scenes/brick.tscn<>uid://utlhi5ms3rta::::res://Scenes/questionblock.tscn<>uid://klsfpauijvxp::::res://Scenes/Enemies/fly.tscn<>uid://bw5ujlbxi52bu::::res://Scenes/shroom.tscn<>uid://hgg5a12qb5ft::::res://Scenes/pipeD1.tscn<>uid://d1yj0qacr0mda::::res://Scenes/coin.tscn<>uid://budmv4idx80w4::::res://Scenes/collectable_coin.tscn<>uid://dwts5rm7yb11o::::res://Scenes/super_stars.tscn<>uid://qhatsxm8u57p::::res://Scenes/1UP.tscn<>uid://bfr4s5suekd4p::::res://Scenes/pipeD2.tscn<>uid://4he4cbsggotn::::res://Scenes/blockWitem.tscn<>uid://c6y1mu1udq5s7::::res://Scenes/death_box.tscn<>uid://b50q5i566sdk6::::res://Scenes/about_face_block.tscn<>res://Scripts/platforms_motion.gd<>uid://b0kjv6vdue6er::::res://Scenes/platform.tscn<>res://Scripts/door_normal.gd<>uid://b5g77oxt0ixtr::::res://Scenes/checkpoint.tscn<>uid://cmq3c4kvp8t0::::res://Assets/Audio/12 Level End.mp3<>uid://3tqdliq7hv0p::::res://Assets/SFX/bonustime_stagecomplete.wav
+::res://Scenes/Levels/::1745522978
+1-1.tscn::PackedScene::8442364031568822585::1745522976::0::1::::<><>::res://Scripts/Level_Scripts/1-1.gd<>uid://brgfc6rfpig4r::::res://Assets/Sprites/Backgrounds/Clouds.png<>uid://1gtb48ynprmt::::res://Assets/Tilesets/Birabuto.png<>uid://doy2a2dpm0b67::::res://TileSets/Birabuto.tres<>uid://cax8w83xs8tlm::::res://Assets/Audio/Original/Course Music 1.wav<>uid://b3e2uv1pq2x1o::::res://Scenes/player.tscn<>res://Scripts/camera_2d.gd<>uid://d2c6f8s1nedu1::::res://Scenes/UI.tscn<>uid://ca12j5b15rehi::::res://Assets/SFX/pause.wav<>uid://d7vtesn8fd2b::::res://Scenes/goomba.tscn<>uid://bvoh6reqa5d6d::::res://Scenes/koopa.tscn<>uid://cy62lavp30u4a::::res://Scenes/pause.tscn<>uid://dwdj4dpu85mo1::::res://Scenes/brick.tscn<>uid://utlhi5ms3rta::::res://Scenes/questionblock.tscn<>uid://klsfpauijvxp::::res://Scenes/Enemies/fly.tscn<>uid://bw5ujlbxi52bu::::res://Scenes/shroom.tscn<>uid://hgg5a12qb5ft::::res://Scenes/pipeD1.tscn<>uid://d1yj0qacr0mda::::res://Scenes/coin.tscn<>uid://budmv4idx80w4::::res://Scenes/collectable_coin.tscn<>uid://dwts5rm7yb11o::::res://Scenes/super_stars.tscn<>uid://qhatsxm8u57p::::res://Scenes/1UP.tscn<>uid://bfr4s5suekd4p::::res://Scenes/pipeD2.tscn<>uid://4he4cbsggotn::::res://Scenes/blockWitem.tscn<>uid://c6y1mu1udq5s7::::res://Scenes/death_box.tscn<>uid://b50q5i566sdk6::::res://Scenes/about_face_block.tscn<>res://Scripts/platforms_motion.gd<>uid://b0kjv6vdue6er::::res://Scenes/platform.tscn<>res://Scripts/door_normal.gd<>uid://b5g77oxt0ixtr::::res://Scenes/checkpoint.tscn<>uid://cmq3c4kvp8t0::::res://Assets/Audio/12 Level End.mp3<>uid://3tqdliq7hv0p::::res://Assets/SFX/bonustime_stagecomplete.wav
 1-1_Under.tscn::PackedScene::1197485804740196826::1745454394::0::1::::<><>::res://Scripts/Level_Scripts/1-1U1.gd<>uid://dkvyq0vuwbrvm::::res://Assets/Audio/Original/Pipe Room.wav<>uid://bvk171culi5t0::::res://Assets/Tilesets/Global.png<>uid://cgadwoljj5s5o::::res://Assets/Sprites/Backgrounds/Underground.png<>res://Scripts/camera_2d.gd<>uid://ca12j5b15rehi::::res://Assets/SFX/pause.wav<>uid://b3e2uv1pq2x1o::::res://Scenes/player.tscn<>uid://cy62lavp30u4a::::res://Scenes/pause.tscn<>uid://bqaypbcng5bti::::res://Scenes/pipe_side.tscn<>uid://d2c6f8s1nedu1::::res://Scenes/UI.tscn<>uid://dsjsrcqx7wfav::::res://Scenes/Levels/1-1.tscn<>uid://c0jm0sk3bfyf1::::res://Scenes/fallwait_block.tscn<>uid://budmv4idx80w4::::res://Scenes/collectable_coin.tscn
 1-1_Under_2.tscn::PackedScene::4211344830925218086::1745454451::0::1::::<><>::res://Scripts/Level_Scripts/1-1U2.gd<>uid://cgadwoljj5s5o::::res://Assets/Sprites/Backgrounds/Underground.png<>uid://dkvyq0vuwbrvm::::res://Assets/Audio/Original/Pipe Room.wav<>uid://bvk171culi5t0::::res://Assets/Tilesets/Global.png<>res://Scripts/camera_2d.gd<>uid://ca12j5b15rehi::::res://Assets/SFX/pause.wav<>uid://cy62lavp30u4a::::res://Scenes/pause.tscn<>uid://b3e2uv1pq2x1o::::res://Scenes/player.tscn<>uid://d2c6f8s1nedu1::::res://Scenes/UI.tscn<>uid://bqaypbcng5bti::::res://Scenes/pipe_side.tscn<>uid://c0jm0sk3bfyf1::::res://Scenes/fallwait_block.tscn<>uid://budmv4idx80w4::::res://Scenes/collectable_coin.tscn
-1-2.tscn::PackedScene::5954848151301894902::1745454683::0::1::::<><>::res://Scripts/Level_Scripts/1-2.gd<>uid://u07nu88mt2ny::::res://TileSets/main.tres<>uid://cax8w83xs8tlm::::res://Assets/Audio/Original/Course Music 1.wav<>uid://b3e2uv1pq2x1o::::res://Scenes/player.tscn<>res://Scripts/camera_2d.gd<>uid://d2c6f8s1nedu1::::res://Scenes/UI.tscn<>uid://cy62lavp30u4a::::res://Scenes/pause.tscn<>uid://ca12j5b15rehi::::res://Assets/SFX/pause.wav<>res://Scripts/door_normal.gd<>uid://cmq3c4kvp8t0::::res://Assets/Audio/12 Level End.mp3<>uid://3tqdliq7hv0p::::res://Assets/SFX/bonustime_stagecomplete.wav<>uid://budmv4idx80w4::::res://Scenes/collectable_coin.tscn<>uid://utlhi5ms3rta::::res://Scenes/questionblock.tscn<>uid://bw5ujlbxi52bu::::res://Scenes/shroom.tscn<>uid://d1yj0qacr0mda::::res://Scenes/coin.tscn<>uid://dhcam6aooqdp4::::res://Scenes/shooting_flower.tscn<>uid://qhatsxm8u57p::::res://Scenes/1UP.tscn<>uid://dwdj4dpu85mo1::::res://Scenes/brick.tscn<>uid://b0kjv6vdue6er::::res://Scenes/platform.tscn<>res://Scripts/platforms_motion.gd<>uid://b5g77oxt0ixtr::::res://Scenes/checkpoint.tscn<>uid://c6y1mu1udq5s7::::res://Scenes/death_box.tscn<>uid://d7vtesn8fd2b::::res://Scenes/goomba.tscn<>uid://bvoh6reqa5d6d::::res://Scenes/koopa.tscn<>uid://dl5rej34rbwg5::::res://Scenes/Enemies/bun_bun.tscn<>uid://b50q5i566sdk6::::res://Scenes/about_face_block.tscn<>uid://bwsw14v0h2a46::::res://Scenes/falling_block.tscn<>uid://bi1sq0dii0jlf::::res://Scenes/Enemies/arrow_drop.tscn
-1_3.tscn::PackedScene::198372414489564416::1745454633::0::1::::<><>::uid://doy2a2dpm0b67::::res://TileSets/Birabuto.tres<>res://Scripts/Level_Scripts/1_3.gd<>uid://b3e2uv1pq2x1o::::res://Scenes/player.tscn<>uid://cufiaa1vvj0vr::::res://Assets/Audio/Original/Course Music 2.wav<>res://Scripts/camera_2d.gd<>uid://d2c6f8s1nedu1::::res://Scenes/UI.tscn<>uid://cy62lavp30u4a::::res://Scenes/pause.tscn<>uid://ca12j5b15rehi::::res://Assets/SFX/pause.wav<>uid://b5g77oxt0ixtr::::res://Scenes/checkpoint.tscn<>uid://hgg5a12qb5ft::::res://Scenes/pipeD1.tscn<>uid://bfr4s5suekd4p::::res://Scenes/pipeD2.tscn<>uid://db1o2gi610guw::::res://Scenes/Enemies/parana_plant_pipe.tscn<>uid://c6y1mu1udq5s7::::res://Scenes/death_box.tscn<>uid://budmv4idx80w4::::res://Scenes/collectable_coin.tscn<>uid://dwdj4dpu85mo1::::res://Scenes/brick.tscn<>uid://utlhi5ms3rta::::res://Scenes/questionblock.tscn<>uid://d1yj0qacr0mda::::res://Scenes/coin.tscn<>uid://bw5ujlbxi52bu::::res://Scenes/shroom.tscn<>uid://bmg3fs4v13ro3::::res://Scenes/HiddenBlock.tscn<>uid://6aqt05xs7ija::::res://Scenes/lift_Platform.tscn<>uid://bu0ax2h2qbng6::::res://Scenes/torch_sprite.tscn<>uid://ovf6n0efno08::::res://Scenes/FallingSlab.tscn<>uid://dqbri7spbkv38::::res://Assets/Sprites/Birabuto/Firefloor1.png<>uid://n8p017h131ud::::res://Assets/Sprites/Birabuto/Firefloor2.png<>uid://bxnbu2e2mbu1g::::res://Assets/Sprites/Birabuto/Firefloor3.png<>uid://cppbm10k1eb10::::res://Assets/Sprites/Birabuto/Firefloor4.png
+1-2.tscn::PackedScene::5954848151301894902::1745522978::0::1::::<><>::res://Scripts/Level_Scripts/1-2.gd<>uid://cfekvll7xp63d::::res://Assets/Sprites/Backgrounds/Clouds2.png<>uid://u07nu88mt2ny::::res://TileSets/main.tres<>uid://1gtb48ynprmt::::res://Assets/Tilesets/Birabuto.png<>uid://cax8w83xs8tlm::::res://Assets/Audio/Original/Course Music 1.wav<>uid://b3e2uv1pq2x1o::::res://Scenes/player.tscn<>res://Scripts/camera_2d.gd<>uid://d2c6f8s1nedu1::::res://Scenes/UI.tscn<>uid://cy62lavp30u4a::::res://Scenes/pause.tscn<>uid://ca12j5b15rehi::::res://Assets/SFX/pause.wav<>res://Scripts/door_normal.gd<>uid://cmq3c4kvp8t0::::res://Assets/Audio/12 Level End.mp3<>uid://3tqdliq7hv0p::::res://Assets/SFX/bonustime_stagecomplete.wav<>uid://budmv4idx80w4::::res://Scenes/collectable_coin.tscn<>uid://utlhi5ms3rta::::res://Scenes/questionblock.tscn<>uid://bw5ujlbxi52bu::::res://Scenes/shroom.tscn<>uid://d1yj0qacr0mda::::res://Scenes/coin.tscn<>uid://dhcam6aooqdp4::::res://Scenes/shooting_flower.tscn<>uid://qhatsxm8u57p::::res://Scenes/1UP.tscn<>uid://dwdj4dpu85mo1::::res://Scenes/brick.tscn<>uid://b0kjv6vdue6er::::res://Scenes/platform.tscn<>res://Scripts/platforms_motion.gd<>uid://b5g77oxt0ixtr::::res://Scenes/checkpoint.tscn<>uid://c6y1mu1udq5s7::::res://Scenes/death_box.tscn<>uid://d7vtesn8fd2b::::res://Scenes/goomba.tscn<>uid://bvoh6reqa5d6d::::res://Scenes/koopa.tscn<>uid://dl5rej34rbwg5::::res://Scenes/Enemies/bun_bun.tscn<>uid://b50q5i566sdk6::::res://Scenes/about_face_block.tscn<>uid://bwsw14v0h2a46::::res://Scenes/falling_block.tscn<>uid://bi1sq0dii0jlf::::res://Scenes/Enemies/arrow_drop.tscn
+1_3.tscn::PackedScene::198372414489564416::1745522978::0::1::::<><>::uid://doy2a2dpm0b67::::res://TileSets/Birabuto.tres<>res://Scripts/Level_Scripts/1_3.gd<>uid://b3e2uv1pq2x1o::::res://Scenes/player.tscn<>uid://cufiaa1vvj0vr::::res://Assets/Audio/Original/Course Music 2.wav<>res://Scripts/camera_2d.gd<>uid://d2c6f8s1nedu1::::res://Scenes/UI.tscn<>uid://cy62lavp30u4a::::res://Scenes/pause.tscn<>uid://ca12j5b15rehi::::res://Assets/SFX/pause.wav<>uid://b5g77oxt0ixtr::::res://Scenes/checkpoint.tscn<>uid://hgg5a12qb5ft::::res://Scenes/pipeD1.tscn<>uid://bfr4s5suekd4p::::res://Scenes/pipeD2.tscn<>uid://db1o2gi610guw::::res://Scenes/Enemies/parana_plant_pipe.tscn<>uid://c6y1mu1udq5s7::::res://Scenes/death_box.tscn<>uid://budmv4idx80w4::::res://Scenes/collectable_coin.tscn<>uid://dwdj4dpu85mo1::::res://Scenes/brick.tscn<>uid://utlhi5ms3rta::::res://Scenes/questionblock.tscn<>uid://d1yj0qacr0mda::::res://Scenes/coin.tscn<>uid://bw5ujlbxi52bu::::res://Scenes/shroom.tscn<>uid://bmg3fs4v13ro3::::res://Scenes/HiddenBlock.tscn<>uid://6aqt05xs7ija::::res://Scenes/lift_Platform.tscn<>uid://bu0ax2h2qbng6::::res://Scenes/torch_sprite.tscn<>uid://ovf6n0efno08::::res://Scenes/FallingSlab.tscn<>uid://dqbri7spbkv38::::res://Assets/Sprites/Birabuto/Firefloor1.png<>uid://n8p017h131ud::::res://Assets/Sprites/Birabuto/Firefloor2.png<>uid://bxnbu2e2mbu1g::::res://Assets/Sprites/Birabuto/Firefloor3.png<>uid://cppbm10k1eb10::::res://Assets/Sprites/Birabuto/Firefloor4.png
 1_3_Under.tscn::PackedScene::7367505972878887437::1744934481::0::1::::<><>::uid://bvk171culi5t0::::res://Assets/Tilesets/Global.png<>res://Scripts/Level_Scripts/1-3U1.gd<>uid://dkvyq0vuwbrvm::::res://Assets/Audio/Original/Pipe Room.wav<>uid://b3e2uv1pq2x1o::::res://Scenes/player.tscn<>uid://cy62lavp30u4a::::res://Scenes/pause.tscn<>uid://ca12j5b15rehi::::res://Assets/SFX/pause.wav<>res://Scripts/camera_2d.gd<>uid://d2c6f8s1nedu1::::res://Scenes/UI.tscn<>uid://bqaypbcng5bti::::res://Scenes/pipe_side.tscn<>uid://budmv4idx80w4::::res://Scenes/collectable_coin.tscn<>uid://4he4cbsggotn::::res://Scenes/blockWitem.tscn<>uid://d1yj0qacr0mda::::res://Scenes/coin.tscn<>uid://bw5ujlbxi52bu::::res://Scenes/shroom.tscn<>uid://c0jm0sk3bfyf1::::res://Scenes/fallwait_block.tscn
 1_3_under_2.tscn::PackedScene::2333866383416275096::1744934490::0::1::::<><>::res://Scripts/Level_Scripts/1-3U2.gd<>uid://bvk171culi5t0::::res://Assets/Tilesets/Global.png<>uid://dkvyq0vuwbrvm::::res://Assets/Audio/Original/Pipe Room.wav<>uid://b3e2uv1pq2x1o::::res://Scenes/player.tscn<>uid://cy62lavp30u4a::::res://Scenes/pause.tscn<>uid://ca12j5b15rehi::::res://Assets/SFX/pause.wav<>res://Scripts/camera_2d.gd<>uid://d2c6f8s1nedu1::::res://Scenes/UI.tscn<>uid://bqaypbcng5bti::::res://Scenes/pipe_side.tscn<>uid://budmv4idx80w4::::res://Scenes/collectable_coin.tscn<>uid://dwdj4dpu85mo1::::res://Scenes/brick.tscn<>uid://c0jm0sk3bfyf1::::res://Scenes/fallwait_block.tscn
-::res://Scenes/WorldScenes/::1745454683
+::res://Scenes/WorldScenes/::1745522979
 interactive_level_tile.tscn::PackedScene::4112907737420365301::1744051280::0::1::::<><>::res://Scripts/World_Scripts/LevelTiles/OverworldTile.gd<>uid://bcbh1py5v822m::::res://Assets/Sprites/WorldMap/LevelIcon1.png<>uid://bro6ujvlpn6er::::res://Assets/Sprites/WorldMap/LevelIcon2.png
 interactive_overworld_tile.tscn::PackedScene::4124773702002458204::1742321136::0::1::::<><>::res://Scripts/World_Scripts/interactive_overworld_tile.gd<>uid://bcbh1py5v822m::::res://Assets/Sprites/WorldMap/LevelIcon1.png<>uid://bro6ujvlpn6er::::res://Assets/Sprites/WorldMap/LevelIcon2.png
 Lava.tscn::PackedScene::4866198666832194530::1744223860::0::1::::<><>::uid://b2nlkf5lyitfr::::res://Assets/Tilesets/LavaSprites/Lava1.png<>uid://1bpd6033wad8::::res://Assets/Tilesets/LavaSprites/Lava2.png<>uid://bx28y3qrtuam7::::res://Assets/Tilesets/LavaSprites/Lava3.png<>uid://bd4kjb57u717k::::res://Assets/Tilesets/LavaSprites/Lava4.png<>uid://my3bohlxnlv3::::res://Assets/Tilesets/LavaSprites/Lava5.png<>uid://cbvt02v5hjque::::res://Assets/Tilesets/LavaSprites/Lava6.png<>res://Scripts/World_Scripts/Sea_animated.gd
-overworld_player.tscn::PackedScene::69041582661076716::1745454448::0::1::::<><>::res://Scripts/World_Scripts/overworld_player.gd<>uid://cacjj7nxyqequ::::res://Assets/Sprites/WorldMap/MARIO/MovingDown1.png<>uid://cr6mhx8yx5r6b::::res://Assets/Sprites/WorldMap/MARIO/MovingDown2.png<>uid://ddnv4uy8txaf::::res://Assets/Sprites/WorldMap/MARIO/MovingDown3.png<>uid://bbys64b0ami7y::::res://Assets/Sprites/WorldMap/MARIO/MovingDown4.png<>uid://bmugqr2okx86d::::res://Assets/Sprites/WorldMap/MARIO/EnteringLevel.png<>uid://bjubqkyt3fakv::::res://Assets/Sprites/WorldMap/MARIO/MovingSide1.png<>uid://cqv8s2eu8bwx1::::res://Assets/Sprites/WorldMap/MARIO/MovingSide2.png<>uid://dvlax2k5a70q2::::res://Assets/Sprites/WorldMap/MARIO/MovingUp1.png<>uid://drwsryv0pilty::::res://Assets/Sprites/WorldMap/MARIO/MovingRight1.png<>uid://4oo2bmn0cmg5::::res://Assets/Sprites/WorldMap/MARIO/MovingRight2.png<>uid://c0vsxbk3mk5aq::::res://Assets/Sprites/WorldMap/MARIO/MovingUp2.png<>uid://bmscjekfyoncb::::res://Assets/Sprites/WorldMap/MARIO/MovingUp3.png<>uid://ds8rud7vgref3::::res://Assets/Sprites/WorldMap/MARIO/MovingUp4.png<>uid://b1wbtv3d7u5f3::::res://Assets/Sprites/WorldMap/MARIO/MovingDownWater1.png<>uid://cb7fa5q614eok::::res://Assets/Sprites/WorldMap/MARIO/MovingDownWater2.png<>uid://brgibutbvtxlo::::res://Assets/Sprites/WorldMap/MARIO/MovingDownWater3.png<>uid://dvp0bwgyvuxco::::res://Assets/Sprites/WorldMap/MARIO/MovingDownWater4.png<>uid://dq1h2tiphum05::::res://Assets/Sprites/WorldMap/MARIO/MovingSideWater1.png<>uid://dvwbo0uo4ol7t::::res://Assets/Sprites/WorldMap/MARIO/MovingSideWater2.png<>uid://bheptvqul5oj1::::res://Assets/Sprites/WorldMap/MARIO/MovingUpWater1.png<>uid://sm4233ijcgrp::::res://Assets/Sprites/WorldMap/MARIO/MovingUpWater2.png<>uid://c2w1y5dg3dq3r::::res://Assets/Sprites/WorldMap/MARIO/MovingRightWater1.png<>uid://bco3c8o756p3u::::res://Assets/Sprites/WorldMap/MARIO/MovingUpWater3.png<>uid://catforypfq713::::res://Assets/Sprites/WorldMap/MARIO/MovingUpWater4.png<>uid://dbgk8g0x5slx::::res://Assets/Sprites/WorldMap/MARIO/MovingRightWater2.png<>res://Scripts/World_Scripts/player_animated_map_sprite.gd
-pyramid_map.tscn::PackedScene::8663292680650549445::1745454449::0::1::::<><>::uid://cwm6oyr7ft0u3::::res://Scenes/WorldScenes/world_ui.tscn<>uid://jiobqv87vkb1::::res://Assets/Fonts/super-mario-land-gb-doublecase.ttf<>uid://h4dpa4cjh0vu::::res://Assets/SFX/coin.wav<>uid://cblht0y4cj107::::res://Scenes/WorldScenes/Lava.tscn<>uid://d2oco0l776qnu::::res://Assets/Tilesets/Pyramid_Map.png<>uid://do7hea0hiu10s::::res://Assets/Audio/New/SMLE_MAP_PYRAMID.wav<>res://Scripts/World_Scripts/Pyramid_player.gd<>uid://8pdteineh4g::::res://Scenes/WorldScenes/overworld_player.tscn<>uid://byuk8v5tg0fkf::::res://Scenes/WorldScenes/interactive_level_tile.tscn<>res://Scripts/World_Scripts/LevelTiles/PyramidTile.gd
+overworld_player.tscn::PackedScene::69041582661076716::1745522977::0::1::::<><>::res://Scripts/World_Scripts/overworld_player.gd<>uid://cacjj7nxyqequ::::res://Assets/Sprites/WorldMap/MARIO/MovingDown1.png<>uid://cr6mhx8yx5r6b::::res://Assets/Sprites/WorldMap/MARIO/MovingDown2.png<>uid://ddnv4uy8txaf::::res://Assets/Sprites/WorldMap/MARIO/MovingDown3.png<>uid://bbys64b0ami7y::::res://Assets/Sprites/WorldMap/MARIO/MovingDown4.png<>uid://bmugqr2okx86d::::res://Assets/Sprites/WorldMap/MARIO/EnteringLevel.png<>uid://bjubqkyt3fakv::::res://Assets/Sprites/WorldMap/MARIO/MovingSide1.png<>uid://cqv8s2eu8bwx1::::res://Assets/Sprites/WorldMap/MARIO/MovingSide2.png<>uid://dvlax2k5a70q2::::res://Assets/Sprites/WorldMap/MARIO/MovingUp1.png<>uid://drwsryv0pilty::::res://Assets/Sprites/WorldMap/MARIO/MovingRight1.png<>uid://4oo2bmn0cmg5::::res://Assets/Sprites/WorldMap/MARIO/MovingRight2.png<>uid://c0vsxbk3mk5aq::::res://Assets/Sprites/WorldMap/MARIO/MovingUp2.png<>uid://bmscjekfyoncb::::res://Assets/Sprites/WorldMap/MARIO/MovingUp3.png<>uid://ds8rud7vgref3::::res://Assets/Sprites/WorldMap/MARIO/MovingUp4.png<>uid://b1wbtv3d7u5f3::::res://Assets/Sprites/WorldMap/MARIO/MovingDownWater1.png<>uid://cb7fa5q614eok::::res://Assets/Sprites/WorldMap/MARIO/MovingDownWater2.png<>uid://brgibutbvtxlo::::res://Assets/Sprites/WorldMap/MARIO/MovingDownWater3.png<>uid://dvp0bwgyvuxco::::res://Assets/Sprites/WorldMap/MARIO/MovingDownWater4.png<>uid://dq1h2tiphum05::::res://Assets/Sprites/WorldMap/MARIO/MovingSideWater1.png<>uid://dvwbo0uo4ol7t::::res://Assets/Sprites/WorldMap/MARIO/MovingSideWater2.png<>uid://bheptvqul5oj1::::res://Assets/Sprites/WorldMap/MARIO/MovingUpWater1.png<>uid://sm4233ijcgrp::::res://Assets/Sprites/WorldMap/MARIO/MovingUpWater2.png<>uid://c2w1y5dg3dq3r::::res://Assets/Sprites/WorldMap/MARIO/MovingRightWater1.png<>uid://bco3c8o756p3u::::res://Assets/Sprites/WorldMap/MARIO/MovingUpWater3.png<>uid://catforypfq713::::res://Assets/Sprites/WorldMap/MARIO/MovingUpWater4.png<>uid://dbgk8g0x5slx::::res://Assets/Sprites/WorldMap/MARIO/MovingRightWater2.png<>res://Scripts/World_Scripts/player_animated_map_sprite.gd
+pyramid_map.tscn::PackedScene::8663292680650549445::1745522978::0::1::::<><>::uid://cwm6oyr7ft0u3::::res://Scenes/WorldScenes/world_ui.tscn<>uid://jiobqv87vkb1::::res://Assets/Fonts/super-mario-land-gb-doublecase.ttf<>uid://h4dpa4cjh0vu::::res://Assets/SFX/coin.wav<>uid://cblht0y4cj107::::res://Scenes/WorldScenes/Lava.tscn<>uid://d2oco0l776qnu::::res://Assets/Tilesets/Pyramid_Map.png<>uid://do7hea0hiu10s::::res://Assets/Audio/New/SMLE_MAP_PYRAMID.wav<>res://Scripts/World_Scripts/Pyramid_player.gd<>uid://8pdteineh4g::::res://Scenes/WorldScenes/overworld_player.tscn<>uid://byuk8v5tg0fkf::::res://Scenes/WorldScenes/interactive_level_tile.tscn<>res://Scripts/World_Scripts/LevelTiles/PyramidTile.gd
 Sea.tscn::PackedScene::6502013388518524790::1741736007::0::1::::<><>::uid://csnymtki4kddq::::res://Assets/Tilesets/SeaSprites/Sea1.png<>uid://dh7amfmm8v645::::res://Assets/Tilesets/SeaSprites/Sea2.png<>uid://b0v4rbx4bh8y0::::res://Assets/Tilesets/SeaSprites/Sea3.png<>uid://cditfqi6hgiyy::::res://Assets/Tilesets/SeaSprites/Sea4.png<>uid://x6d4mehyw4ry::::res://Assets/Tilesets/SeaSprites/Sea5.png<>uid://cx3eafhe1ruys::::res://Assets/Tilesets/SeaSprites/Sea6.png<>uid://baf828k50tw74::::res://Assets/Tilesets/SeaSprites/Sea7.png<>uid://xqiluaxcvdh3::::res://Assets/Tilesets/SeaSprites/Sea8.png<>res://Scripts/World_Scripts/Sea_animated.gd
 sea_2.tscn::PackedScene::5301589881891857454::1741824389::0::1::::<><>::uid://csnymtki4kddq::::res://Assets/Tilesets/SeaSprites/Sea1.png<>uid://dh7amfmm8v645::::res://Assets/Tilesets/SeaSprites/Sea2.png<>uid://b0v4rbx4bh8y0::::res://Assets/Tilesets/SeaSprites/Sea3.png<>uid://cditfqi6hgiyy::::res://Assets/Tilesets/SeaSprites/Sea4.png<>uid://x6d4mehyw4ry::::res://Assets/Tilesets/SeaSprites/Sea5.png<>uid://cx3eafhe1ruys::::res://Assets/Tilesets/SeaSprites/Sea6.png<>uid://baf828k50tw74::::res://Assets/Tilesets/SeaSprites/Sea7.png<>uid://xqiluaxcvdh3::::res://Assets/Tilesets/SeaSprites/Sea8.png<>res://Scripts/World_Scripts/Sea_animated.gd
-world_map.gdshader::Shader::-1::1745454683::0::1::::<><>::
-world_map.tscn::PackedScene::2285363719690421792::1745454448::0::1::::<><>::res://Scripts/World_Scripts/Overworld_Manager.gd<>res://Scripts/World_Scripts/camera.gd<>uid://d2vw7kf57mehf::::res://Assets/Tilesets/WorldMap.png<>uid://cwm6oyr7ft0u3::::res://Scenes/WorldScenes/world_ui.tscn<>uid://chsen74n261ne::::res://Scenes/WorldScenes/sea_2.tscn<>uid://6fs4d5r14u0p::::res://Assets/Tilesets/SeaSprites/SideWaterFall1.png<>uid://qcbsm2fx8l3u::::res://Assets/Tilesets/SeaSprites/SideWaterFall2.png<>uid://bygjbmf7mdjcv::::res://Assets/Tilesets/SeaSprites/SideWaterFall3.png<>uid://bu8wxofgcdoyw::::res://Assets/Tilesets/SeaSprites/WaterFall1.png<>uid://bn3o82qhnutpy::::res://Assets/Tilesets/SeaSprites/WaterFall2.png<>uid://vt6edam5t42k::::res://Assets/Tilesets/SeaSprites/WaterFall3.png<>uid://jiobqv87vkb1::::res://Assets/Fonts/super-mario-land-gb-doublecase.ttf<>uid://8pdteineh4g::::res://Scenes/WorldScenes/overworld_player.tscn<>uid://h4dpa4cjh0vu::::res://Assets/SFX/coin.wav<>uid://byuk8v5tg0fkf::::res://Scenes/WorldScenes/interactive_level_tile.tscn<>uid://dsun65kkx5kgd::::res://Assets/Audio/New/World Map Main.wav<>res://Scripts/World_Scripts/LevelTiles/start.gd
-world_ui.tscn::PackedScene::6343676976645530960::1745454448::0::1::::<><>::res://Scripts/World_Scripts/world_ui.gd<>uid://c8aeffipixgvt::::res://Assets/Tilesets/SeaSprites/WorldBezel.png<>uid://jiobqv87vkb1::::res://Assets/Fonts/super-mario-land-gb-doublecase.ttf<>uid://bvwqxyamt1lvg::::res://Assets/Sprites/Mario/Big_run1.png<>uid://b5k1qxur5qnvy::::res://Assets/Sprites/Mario/Big_run2.png<>uid://ytb4na58nwxk::::res://Assets/Sprites/Mario/Big_run3.png<>uid://dlo3d5vp4wtjg::::res://Assets/Sprites/Mario/Small_run1.png<>uid://baul2ukxp5a13::::res://Assets/Sprites/Mario/Small_run2.png<>uid://cs076i1d5hi2a::::res://Assets/Sprites/Mario/Small_run3.png
+world_map.gdshader::Shader::-1::1745522979::0::1::::<><>::
+world_map.tscn::PackedScene::2285363719690421792::1745522976::0::1::::<><>::res://Scripts/World_Scripts/Overworld_Manager.gd<>res://Scripts/World_Scripts/camera.gd<>uid://d2vw7kf57mehf::::res://Assets/Tilesets/WorldMap.png<>uid://cwm6oyr7ft0u3::::res://Scenes/WorldScenes/world_ui.tscn<>uid://chsen74n261ne::::res://Scenes/WorldScenes/sea_2.tscn<>uid://6fs4d5r14u0p::::res://Assets/Tilesets/SeaSprites/SideWaterFall1.png<>uid://qcbsm2fx8l3u::::res://Assets/Tilesets/SeaSprites/SideWaterFall2.png<>uid://bygjbmf7mdjcv::::res://Assets/Tilesets/SeaSprites/SideWaterFall3.png<>uid://bu8wxofgcdoyw::::res://Assets/Tilesets/SeaSprites/WaterFall1.png<>uid://bn3o82qhnutpy::::res://Assets/Tilesets/SeaSprites/WaterFall2.png<>uid://vt6edam5t42k::::res://Assets/Tilesets/SeaSprites/WaterFall3.png<>uid://jiobqv87vkb1::::res://Assets/Fonts/super-mario-land-gb-doublecase.ttf<>uid://8pdteineh4g::::res://Scenes/WorldScenes/overworld_player.tscn<>uid://h4dpa4cjh0vu::::res://Assets/SFX/coin.wav<>uid://byuk8v5tg0fkf::::res://Scenes/WorldScenes/interactive_level_tile.tscn<>uid://dsun65kkx5kgd::::res://Assets/Audio/New/World Map Main.wav<>res://Scripts/World_Scripts/LevelTiles/start.gd
+world_ui.tscn::PackedScene::6343676976645530960::1745522977::0::1::::<><>::res://Scripts/World_Scripts/world_ui.gd<>uid://c8aeffipixgvt::::res://Assets/Tilesets/SeaSprites/WorldBezel.png<>uid://jiobqv87vkb1::::res://Assets/Fonts/super-mario-land-gb-doublecase.ttf<>uid://bvwqxyamt1lvg::::res://Assets/Sprites/Mario/Big_run1.png<>uid://b5k1qxur5qnvy::::res://Assets/Sprites/Mario/Big_run2.png<>uid://ytb4na58nwxk::::res://Assets/Sprites/Mario/Big_run3.png<>uid://dlo3d5vp4wtjg::::res://Assets/Sprites/Mario/Small_run1.png<>uid://baul2ukxp5a13::::res://Assets/Sprites/Mario/Small_run2.png<>uid://cs076i1d5hi2a::::res://Assets/Sprites/Mario/Small_run3.png
 ::res://Scripts/::1745453181
 1UP.gd::GDScript::-1::1741630408::0::1::::LifeHeart<>Area2D<>::
 about_face_block.gd::GDScript::-1::1741454597::0::1::::AFB<>StaticBody2D<>::
@@ -477,18 +477,18 @@ scene_switcher.gd::GDScript::-1::1742244643::0::1::::<>Node<>::
 castle_scenept_1.gd::GDScript::-1::1744923691::0::1::::<>Node<>::
 cutscene_camera.gd::GDScript::-1::1743020713::0::1::::<>Camera2D<>::
 daisy.gd::GDScript::-1::1743020813::0::1::::<>AnimatedSprite2D<>::
+deluxe.gd::GDScript::-1::1745453622::0::1::::<>AnimatedSprite2D<>::
 gpu_particles_2d.gd::GDScript::-1::1742942568::0::1::::<>GPUParticles2D<>::
 label.gd::GDScript::-1::1743020632::0::1::::<>Label<>::
 label_2.gd::GDScript::-1::1743020601::0::1::::<>Label<>::
 mario_cutscene2.gd::GDScript::-1::1743020908::0::1::::<>AnimatedSprite2D<>::
 mario_cutscene.gd::GDScript::-1::1743117064::0::1::::MarioCutscene<>AnimatedSprite2D<>::
 plane.gd::GDScript::-1::1742943855::0::1::::<>AnimatedSprite2D<>::
-deluxe.gd::GDScript::-1::1745453622::0::1::::<>AnimatedSprite2D<>::
-title_logo.gd::GDScript::-1::1745453251::0::1::::<>Sprite2D<>::
 tatanga_1.gd::GDScript::-1::1743020633::0::1::::<>AnimatedSprite2D<>::
 tatanga_2.gd::GDScript::-1::1742943330::0::1::::<>AnimatedSprite2D<>::
 text_behind.gd::GDScript::-1::1743020775::0::1::::<>ColorRect<>::
 text_behind_2.gd::GDScript::-1::1743020436::0::1::::<>ColorRect<>::
+title_logo.gd::GDScript::-1::1745453251::0::1::::<>Sprite2D<>::
 window.gd::GDScript::-1::1743020869::0::1::::<>AnimatedSprite2D<>::
 ::res://Scripts/Enemies/::1745007677
 arrow_drop.gd::GDScript::-1::1744757102::0::1::::ArrowDrop<>Enemy<>::
@@ -516,6 +516,6 @@ world_ui.gd::GDScript::-1::1743948313::0::1::::WorldUI<>CanvasLayer<>::
 OverworldTile.gd::GDScript::-1::1744649065::0::1::::OverworldTile<>Node2D<>::
 PyramidTile.gd::GDScript::-1::1744649065::0::1::::PyramidTile<>Node2D<>::
 start.gd::GDScript::-1::1743600162::0::1::::StartTile<>Area2D<>::
-::res://TileSets/::1745430617
-Birabuto.tres::TileSet::8193091710377305066::1745430616::0::1::::<><>::uid://1gtb48ynprmt::::res://Assets/Tilesets/Birabuto.png<>uid://bvk171culi5t0::::res://Assets/Tilesets/Global.png
-main.tres::TileSet::1457353578663164662::1745430617::0::1::::<><>::uid://1gtb48ynprmt::::res://Assets/Tilesets/Birabuto.png<>uid://bvk171culi5t0::::res://Assets/Tilesets/Global.png
+::res://TileSets/::1745497490
+Birabuto.tres::TileSet::8193091710377305066::1745497489::0::1::::<><>::uid://1gtb48ynprmt::::res://Assets/Tilesets/Birabuto.png<>uid://bvk171culi5t0::::res://Assets/Tilesets/Global.png
+main.tres::TileSet::1457353578663164662::1745497490::0::1::::<><>::uid://1gtb48ynprmt::::res://Assets/Tilesets/Birabuto.png<>uid://bvk171culi5t0::::res://Assets/Tilesets/Global.png
