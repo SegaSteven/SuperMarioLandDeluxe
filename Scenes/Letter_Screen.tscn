@@ -41,10 +41,10 @@ script = ExtResource("1_m16pv")
 spawn_point = Vector2(99, 395)
 
 [node name="ColorRect" type="ColorRect" parent="."]
-offset_left = -83.8503
-offset_top = -76.3589
-offset_right = 84.1497
-offset_bottom = 75.6411
+offset_left = -131.0
+offset_top = -76.0
+offset_right = 131.0
+offset_bottom = 76.0
 color = Color(0, 0, 0, 1)
 
 [node name="LetterBG" type="Sprite2D" parent="."]

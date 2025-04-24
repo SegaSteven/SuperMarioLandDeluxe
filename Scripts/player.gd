@@ -546,6 +546,7 @@ func handle_super_star_collision():
 		modulate.a = 0.0
 		await get_tree().create_timer(0.1).timeout
 		modulate.a = 1.0
+		$"10Invincible(can-can)".stop()
 		super_mode_stop.emit()
 		can_take_damage = true
 		super_star_on = false

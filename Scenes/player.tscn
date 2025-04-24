@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://b3e2uv1pq2x1o"]
+[gd_scene load_steps=34 format=3 uid="uid://b3e2uv1pq2x1o"]
 
 [ext_resource type="Texture2D" uid="uid://bu1r2nm12uem4" path="res://Assets/Sprites/Mario/Small_Idle.png" id="1_4e7f7"]
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_cc831"]
@@ -12,10 +12,17 @@
 [ext_resource type="Texture2D" uid="uid://drgum3nvbnpkm" path="res://Assets/Sprites/Mario/Die.png" id="8_pxemc"]
 [ext_resource type="Texture2D" uid="uid://dlot6atnbkcq5" path="res://Assets/Sprites/Mario/Big_shoot.png" id="9_1f2hr"]
 [ext_resource type="Texture2D" uid="uid://bxpkkqet7syr2" path="res://Assets/Sprites/Mario/Small_jump.png" id="11_akeyl"]
+[ext_resource type="Texture2D" uid="uid://5ca06ekt6p32" path="res://Assets/Sprites/Mario/Shooting_crouch.png" id="11_cw8hj"]
+[ext_resource type="Texture2D" uid="uid://dl5ndikparn0s" path="res://Assets/Sprites/Mario/Shooting_idle.png" id="12_8vtre"]
 [ext_resource type="Texture2D" uid="uid://dlo3d5vp4wtjg" path="res://Assets/Sprites/Mario/Small_run1.png" id="12_c5dwu"]
+[ext_resource type="Texture2D" uid="uid://drk8r1jmrotni" path="res://Assets/Sprites/Mario/Shooting_jump.png" id="13_0gnus"]
 [ext_resource type="Texture2D" uid="uid://baul2ukxp5a13" path="res://Assets/Sprites/Mario/Small_run2.png" id="13_4k7ft"]
+[ext_resource type="Texture2D" uid="uid://bhuklwdotk4c0" path="res://Assets/Sprites/Mario/Shooting_run1.png" id="14_pu3gx"]
 [ext_resource type="Texture2D" uid="uid://cs076i1d5hi2a" path="res://Assets/Sprites/Mario/Small_run3.png" id="14_rd3av"]
+[ext_resource type="Texture2D" uid="uid://bct74wwtmrsb1" path="res://Assets/Sprites/Mario/Shooting_run2.png" id="15_8on63"]
 [ext_resource type="Texture2D" uid="uid://hc5te4ajwu0t" path="res://Assets/Sprites/Mario/Small_turn.png" id="15_dt0xc"]
+[ext_resource type="Texture2D" uid="uid://bueq3rtwtb2wk" path="res://Assets/Sprites/Mario/Shooting_run3.png" id="16_wk07g"]
+[ext_resource type="Texture2D" uid="uid://rdgwc34ehee6" path="res://Assets/Sprites/Mario/Shooting_turn.png" id="17_l0q11"]
 [ext_resource type="Shape2D" uid="uid://dgjnainnjbb4x" path="res://Resources/CollisionShapes/Small_Mario_Collision_Shape_Normal.tres" id="17_n352i"]
 [ext_resource type="Script" path="res://Scripts/player_animated_sprite.gd" id="17_yi55g"]
 [ext_resource type="AudioStream" uid="uid://ceeh32b7m8fec" path="res://Assets/SFX/jump.wav" id="18_s6mp0"]
@@ -24,7 +31,7 @@
 [ext_resource type="AudioStream" uid="uid://3aovrmtenuav" path="res://Assets/SFX/powerdown.wav" id="22_hi3x5"]
 [ext_resource type="AudioStream" uid="uid://g4dakxsfoesm" path="res://Assets/SFX/1up.wav" id="23_shel1"]
 [ext_resource type="AudioStream" uid="uid://h4dpa4cjh0vu" path="res://Assets/SFX/coin.wav" id="24_hn7uw"]
-[ext_resource type="AudioStream" uid="uid://dtkm3g8tbw8su" path="res://Assets/Audio/10 Invincible (Can-Can).mp3" id="25_ei0yy"]
+[ext_resource type="AudioStream" uid="uid://dnck213i1gtw4" path="res://Assets/Audio/Original/Invincible (Can-Can).wav" id="25_ei0yy"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_5gq16"]
 animations = [{
@@ -92,7 +99,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_d7ft8")
+"texture": ExtResource("11_cw8hj")
 }],
 "loop": true,
 "name": &"shooting_down",
@@ -100,7 +107,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_oo722")
+"texture": ExtResource("12_8vtre")
 }],
 "loop": true,
 "name": &"shooting_idle",
@@ -108,7 +115,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_rxm28")
+"texture": ExtResource("13_0gnus")
 }],
 "loop": true,
 "name": &"shooting_jump",
@@ -116,13 +123,13 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("4_omerw")
+"texture": ExtResource("14_pu3gx")
 }, {
 "duration": 1.0,
-"texture": ExtResource("5_kqyer")
+"texture": ExtResource("15_8on63")
 }, {
 "duration": 1.0,
-"texture": ExtResource("6_1sqrq")
+"texture": ExtResource("16_wk07g")
 }],
 "loop": true,
 "name": &"shooting_run",
@@ -130,7 +137,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("7_844ib")
+"texture": ExtResource("17_l0q11")
 }],
 "loop": true,
 "name": &"shooting_turn",
@@ -190,7 +197,7 @@ script = ExtResource("1_cc831")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_5gq16")
-animation = &"small_idle"
+animation = &"big_jump"
 script = ExtResource("17_yi55g")
 
 [node name="ShootingPoint" type="Marker2D" parent="AnimatedSprite2D"]

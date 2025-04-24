@@ -19,11 +19,12 @@ editor_draw_limits = true
 
 [node name="LogoText" type="Sprite2D" parent="."]
 z_index = 1
+position = Vector2(-132, 4)
 texture = ExtResource("2_i70bu")
 script = ExtResource("1_fe7vp")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-offset_left = -166.0
+offset_left = -260.0
 offset_top = -4.0
 offset_right = 8.0
 offset_bottom = 152.0

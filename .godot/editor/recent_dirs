@@ -1,6 +1,7 @@
-res://
 res://Assets/Tilesets
+res://Scripts/Cutscene
 res://Assets/Audio/Original
+res://
 res://Scenes
 res://Scripts
 res://Scripts/Enemies
@@ -14,7 +15,6 @@ res://Scenes/WorldScenes
 res://Scripts/World_Scripts/LevelTiles
 res://Resources/CollisionShapes
 res://Assets/Audio/New
-res://Scripts/Cutscene
 C:/Users/Steven PC/Documents/sml-test redux 17032025/Exports
 res://Scripts/Core
 C:/Users/Steven PC/Documents/sml-test redux/Exports

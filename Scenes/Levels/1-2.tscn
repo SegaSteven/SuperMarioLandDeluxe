@@ -1,7 +1,9 @@
-[gd_scene load_steps=33 format=3 uid="uid://cq3tqj1dm10qc"]
+[gd_scene load_steps=37 format=3 uid="uid://cq3tqj1dm10qc"]
 
 [ext_resource type="Script" path="res://Scripts/Level_Scripts/1-2.gd" id="1_8glsp"]
+[ext_resource type="Texture2D" uid="uid://cfekvll7xp63d" path="res://Assets/Sprites/Backgrounds/Clouds2.png" id="2_2qsrt"]
 [ext_resource type="TileSet" uid="uid://u07nu88mt2ny" path="res://TileSets/main.tres" id="2_8vxb0"]
+[ext_resource type="Texture2D" uid="uid://1gtb48ynprmt" path="res://Assets/Tilesets/Birabuto.png" id="3_77y04"]
 [ext_resource type="AudioStream" uid="uid://cax8w83xs8tlm" path="res://Assets/Audio/Original/Course Music 1.wav" id="3_dtiev"]
 [ext_resource type="PackedScene" uid="uid://b3e2uv1pq2x1o" path="res://Scenes/player.tscn" id="4_ppdf5"]
 [ext_resource type="Script" path="res://Scripts/camera_2d.gd" id="5_pn4gn"]
@@ -28,6 +30,86 @@
 [ext_resource type="PackedScene" uid="uid://b50q5i566sdk6" path="res://Scenes/about_face_block.tscn" id="25_xmv2g"]
 [ext_resource type="PackedScene" uid="uid://bwsw14v0h2a46" path="res://Scenes/falling_block.tscn" id="26_dhp27"]
 [ext_resource type="PackedScene" uid="uid://bi1sq0dii0jlf" path="res://Scenes/Enemies/arrow_drop.tscn" id="26_tj3sp"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_eln01"]
+texture = ExtResource("3_77y04")
+texture_region_size = Vector2i(8, 8)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+8:0/0 = 0
+9:0/0 = 0
+10:0/0 = 0
+11:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+8:1/0 = 0
+9:1/0 = 0
+10:1/0 = 0
+11:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+6:2/0 = 0
+7:2/0 = 0
+8:2/0 = 0
+9:2/0 = 0
+10:2/0 = 0
+11:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+4:3/0 = 0
+5:3/0 = 0
+6:3/0 = 0
+7:3/0 = 0
+8:3/0 = 0
+9:3/0 = 0
+10:3/0 = 0
+11:3/0 = 0
+11:4/0 = 0
+10:4/0 = 0
+9:4/0 = 0
+8:4/0 = 0
+7:4/0 = 0
+6:4/0 = 0
+5:4/0 = 0
+4:4/0 = 0
+3:4/0 = 0
+2:4/0 = 0
+1:4/0 = 0
+0:4/0 = 0
+10:5/0 = 0
+11:5/0 = 0
+9:5/0 = 0
+8:5/0 = 0
+7:5/0 = 0
+6:5/0 = 0
+5:5/0 = 0
+4:5/0 = 0
+3:5/0 = 0
+2:5/0 = 0
+1:5/0 = 0
+0:5/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_s4ja1"]
+tile_size = Vector2i(8, 8)
+sources/0 = SubResource("TileSetAtlasSource_eln01")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8um2o"]
 size = Vector2(11.7508, 16.0821)
@@ -58,6 +140,30 @@ level_music = NodePath("LevelMusic")
 
 [node name="Pausable" type="Node2D" parent="."]
 process_mode = 1
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -7.0
+offset_right = 2414.0
+offset_bottom = 144.0
+color = Color(0.2555, 0.389942, 0.73, 1)
+
+[node name="Parallax2D" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0, 0)
+scroll_offset = Vector2(0, 4.24744)
+repeat_size = Vector2(250, 0)
+repeat_times = 17
+limit_begin = Vector2(0, 0)
+limit_end = Vector2(2200, 0)
+ignore_camera_scroll = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D"]
+position = Vector2(124, 68)
+texture = ExtResource("2_2qsrt")
+
+[node name="TileMap2" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_s4ja1")
+format = 2
+layer_0/tile_data = PackedInt32Array(1114135, 655360, 3, 1114136, 720896, 3, 1114137, 720896, 1, 1114138, 655360, 3, 1048602, 655360, 3, 983066, 524288, 0, 983067, 655360, 3, 1048603, 655360, 3, 1114139, 655360, 3, 983068, 720896, 3, 1048604, 720896, 3, 1114140, 720896, 3, 1114141, 720896, 3, 1114142, 720896, 3, 1048605, 720896, 3, 1048613, 720896, 3, 1114149, 720896, 3, 1114150, 720896, 3, 1048614, 589824, 0, 1048612, 655360, 3, 1114148, 655360, 3, 1114147, 655360, 3, 1114165, 655360, 3, 1114164, 524288, 0, 1114166, 720896, 3, 1114167, 720896, 1, 1048633, 720896, 3, 1114169, 720896, 3, 1114170, 720896, 3, 1048632, 655360, 3, 1114168, 655360, 3, 1114175, 655360, 3, 1114177, 720896, 1, 1114176, 720896, 3, 983106, 524288, 0, 1048642, 655360, 3, 1048643, 655360, 3, 983107, 655360, 3, 1114179, 655360, 3, 1114178, 655360, 3, 983108, 720896, 3, 1048644, 720896, 3, 1114180, 720896, 3, 1114181, 720896, 3, 1048645, 720896, 3, 1114182, 720896, 3, 1048653, 720896, 3, 1114189, 720896, 3, 1114190, 720896, 3, 1048654, 589824, 0, 1114187, 655360, 3, 1114188, 655360, 3, 1048652, 655360, 3, 1114203, 655360, 3, 1048670, 655360, 3, 983135, 655360, 3, 1048671, 655360, 3, 1114207, 655360, 3, 1114206, 655360, 3, 1114208, 720896, 3, 1048672, 720896, 3, 983136, 720896, 3, 1114209, 720896, 3, 1114210, 720896, 3, 1048673, 720896, 3, 1048674, 589824, 0, 983134, 524288, 0, 1114205, 720896, 1, 1114204, 720896, 3, 1048713, 720896, 3, 1114249, 720896, 3, 1114250, 720896, 3, 1114246, 720896, 3, 1114244, 524288, 0, 1114245, 655360, 3, 1114247, 655360, 3, 1114248, 655360, 3, 1048712, 655360, 3, 1114265, 655360, 3, 1114267, 655360, 3, 1114268, 655360, 3, 1048732, 655360, 3, 1114269, 720896, 3, 1114270, 720896, 3, 1048733, 720896, 3, 1114266, 720896, 3, 1114264, 524288, 0, 1048760, 524288, 0, 1114296, 655360, 3, 1114297, 655360, 3, 1048761, 655360, 3, 983226, 655360, 3, 1048762, 655360, 3, 1114298, 655360, 3, 983227, 720896, 3, 1048763, 720896, 3, 1048764, 720896, 3, 1114300, 720896, 3, 1114299, 720896, 3, 1114301, 720896, 3, 1114324, 720896, 3, 983256, 720896, 3, 1048792, 720896, 3, 1114328, 720896, 3, 1114329, 720896, 3, 1114330, 720896, 3, 1048793, 720896, 3, 1048794, 589824, 0, 983254, 524288, 0, 983255, 655360, 3, 1048791, 655360, 3, 1114327, 655360, 3, 1114326, 655360, 3, 1048790, 655360, 3, 1114325, 655360, 3, 1114323, 655360, 3)
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource("2_8vxb0")

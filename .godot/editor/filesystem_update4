@@ -1,6 +1,7 @@
 res://Scenes/Levels/1-1.tscn
 res://addons/scene_manager/Dissolve2d.gdshader
 res://TileSets/Birabuto.tres
+res://pause.tres
 res://TileSets/main.tres
 res://Scenes/WorldScenes/world_map.gdshader
 res://Scenes/WorldScenes/world_map.tscn
@@ -14,3 +15,14 @@ res://Scenes/Enemies/bun_bun.tscn
 res://Scenes/Enemies/arrow_drop.tscn
 res://Scenes/UI.tscn
 res://Scenes/pause.tscn
+res://Scenes/player.tscn
+res://Scripts/player.gd
+res://Scenes/Levels/1-1_Under.tscn
+res://Scenes/Levels/1-1_Under_2.tscn
+res://Scenes/logo_screen.tscn
+res://Scripts/logo_screen.gd
+res://Scenes/Letter_Screen.tscn
+res://Scenes/title_screen.tscn
+res://Scripts/Cutscene/title_logo.gd
+res://Scripts/title_screen.gd
+res://Scripts/Cutscene/deluxe.gd
