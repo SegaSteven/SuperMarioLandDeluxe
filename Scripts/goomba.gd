@@ -2,6 +2,8 @@ extends Enemy
 
 class_name Goomba
 
+signal enemybounce
+
 @export var score = 100
 
 func _ready():
@@ -24,8 +26,7 @@ func _on_visible_on_screen_notifier_2d_screen_exited():
 func _on_visible_on_screen_notifier_2d_screen_entered():
 	set_process(true)
 
-
-func _on_body_entered(body: Superball):
+func _on_goomba_body_entered(body: Superball):
 	set_collision_layer_value(3, false)
 	set_collision_mask_value(4, false)
 	set_collision_mask_value(5, false)

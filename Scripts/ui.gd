@@ -28,7 +28,12 @@ func _ready():
 
 func _process(delta):
 	LevelData.countdown_value = total_time_seconds
-	
+	update_coin_display(GameManager.coins)
+	update_life_display(GameManager.lives)
+	update_scored_display(GameManager.score)
+	GameManager.gain_coins.connect(update_coin_display)
+	GameManager.gain_life.connect(update_life_display)
+	GameManager.gain_points.connect(update_scored_display)
 
 @warning_ignore("unused_parameter")
 func update_scored_display(points_scored):

@@ -15,6 +15,7 @@ signal level_finished()
 @onready var overworld_player = %OverworldPlayer
 @export var move_speed = 4
 var mario_moving
+@onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
 @export var interation_enabled : bool = false
 @export var level_scene_path : String
@@ -37,8 +38,11 @@ func _process(delta: float) -> void:
 		level_beaten()
 
 func level_beaten():
-	beaten = true
-	level_finished.emit()
+	if beaten == true:
+		level_finished.emit()
+		animated_sprite_2d.play("complete")
+	else:
+		animated_sprite_2d.play("locked")
 
 func _on_overworld_player_on_level():
 	if mario_can_move == true:

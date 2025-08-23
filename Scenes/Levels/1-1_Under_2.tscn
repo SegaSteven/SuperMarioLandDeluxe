@@ -102,7 +102,6 @@ metadata/__load_path__ = "res://Scenes/main.tscn"
 [node name="1-1 Under 2" type="Node" node_paths=PackedStringArray("ui", "player", "level_music") groups=["scene_manager_entity_nodes"]]
 process_mode = 3
 script = ExtResource("1_ui3p4")
-scene_overground = "res://Scenes/Levels/1-3.tscn"
 spawn_point = Vector2(1783.98, 108)
 ui = NodePath("Camera2D/UI")
 player = NodePath("Player")

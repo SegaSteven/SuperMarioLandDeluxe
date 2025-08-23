@@ -22,7 +22,9 @@ var levelname:String
 var local_area: String
 var level_path: String
 @export var on_map_tile : bool = false
-
+@export var downspawn : Vector2
+@export var rightspawn : Vector2
+const WORLD_MAP = preload("res://Scenes/WorldScenes/world_map.tscn")
 
 # level paths from tile collision -----------------------------------------------------------------
 @export_group("Enabled Directions")
@@ -75,37 +77,45 @@ func _ready() -> void:
 func _process(delta):
 	await get_tree().create_timer(0.6).timeout
 # Come in from Down ------------------------------------------------------------------------------------
-	if MoveFromDown == true:
+	if MoveFromDown == true && input_free == true:
+		input_free = false
 		var move_tween = get_tree().create_tween()
 		animated_sprite_2d.play("Up")
 		move_tween.tween_property(self, "position", position + Vector2(0,-32), 1)
 		move_tween.tween_callback(animated_sprite_2d.play.bind("Left"))
-		move_tween.chain().tween_property(self, "position", position + Vector2(-8,-32), 0.2)
+		move_tween.chain().tween_property(self, "position", position + Vector2(-24,-32), 0.6)
 		move_tween.tween_callback(animated_sprite_2d.play.bind("Up"))
-		move_tween.chain().tween_property(self, "position", position + Vector2(-8,-56), 0.6)
+		move_tween.chain().tween_property(self, "position", position + Vector2(-24,-56), 0.6)
 		move_tween.tween_callback(animated_sprite_2d.play.bind("Down"))
 		MoveFromDown = false
+		input_free = true
 		
 		
 # Come in from Right -------------------------------------------------------------------------------------
-	if MoveFromRight == true:
+	if MoveFromRight == true && input_free == true:
+		input_free = false
 		var move_tween = get_tree().create_tween()
 		animated_sprite_2d.play("Left")
 		move_tween.tween_property(self, "position", position + Vector2(-16, 0), 0.3)
 		move_tween.tween_callback(animated_sprite_2d.play.bind("Down"))
-		move_tween.chain().tween_property(self, "position", position + Vector2(-16,38), 1)
+		move_tween.chain().tween_property(self, "position", position + Vector2(-16,40), 1)
 		move_tween.tween_callback(animated_sprite_2d.play.bind("Left"))
-		move_tween.chain().tween_property(self, "position", position + Vector2(-40,38), 0.8)
+		move_tween.chain().tween_property(self, "position", position + Vector2(-48,40), 0.8)
+		move_tween.tween_callback(animated_sprite_2d.play.bind("Down"))
+		move_tween.chain().tween_property(self, "position", position + Vector2(-48,48), 0.2)
+		move_tween.tween_callback(animated_sprite_2d.play.bind("Left"))
+		move_tween.chain().tween_property(self, "position", position + Vector2(-56,48), 0.2)
+		move_tween.tween_callback(animated_sprite_2d.play.bind("Down"))
+		move_tween.chain().tween_property(self, "position", position + Vector2(-56,56), 0.2)
+		move_tween.tween_callback(animated_sprite_2d.play.bind("Left"))
+		move_tween.chain().tween_property(self, "position", position + Vector2(-120,56), 1.6)
 		move_tween.tween_callback(animated_sprite_2d.play.bind("Up"))
-		move_tween.chain().tween_property(self, "position", position + Vector2(-40,32), 0.2)
+		move_tween.chain().tween_property(self, "position", position + Vector2(-120,24), 0.8)
 		move_tween.tween_callback(animated_sprite_2d.play.bind("Left"))
-		move_tween.chain().tween_property(self, "position", position + Vector2(-48,32), 0.2)
-		move_tween.tween_callback(animated_sprite_2d.play.bind("Up"))
-		move_tween.chain().tween_property(self, "position", position + Vector2(-48,24), 0.2)
-		move_tween.tween_callback(animated_sprite_2d.play.bind("Left"))
-		move_tween.chain().tween_property(self, "position", position + Vector2(-80,24), 1)
+		move_tween.chain().tween_property(self, "position", position + Vector2(-160,24), 1)
 		move_tween.tween_callback(animated_sprite_2d.play.bind("Down"))
 		MoveFromRight = false
+		input_free = true
 		
 	
 	#var movement: Vector2 = (position - prev_position)
@@ -142,6 +152,43 @@ func _input(event):
 		await get_tree().create_timer(0.8).timeout
 		SceneManager.change_scene(level_path, {"pattern": "squares", "speed": 6})
 
+	if Input.is_action_just_pressed("right") && input_free == true:
+		input_free = false
+		var move_tween = get_tree().create_tween()
+		animated_sprite_2d.play("Right")
+		move_tween.tween_property(self, "position", position + Vector2(40, 0), 1)
+		move_tween.tween_callback(animated_sprite_2d.play.bind("Down"))
+		move_tween.chain().tween_property(self, "position", position + Vector2(40,32), 0.8)
+		move_tween.tween_callback(animated_sprite_2d.play.bind("Right"))
+		move_tween.chain().tween_property(self, "position", position + Vector2(104,32), 1.6)
+		move_tween.tween_callback(animated_sprite_2d.play.bind("Up"))
+		move_tween.chain().tween_property(self, "position", position + Vector2(104,24), 0.2)
+		move_tween.tween_callback(animated_sprite_2d.play.bind("Right"))
+		move_tween.chain().tween_property(self, "position", position + Vector2(112,24), 0.2)
+		move_tween.tween_callback(animated_sprite_2d.play.bind("Up"))
+		move_tween.chain().tween_property(self, "position", position + Vector2(112,16), 0.2)
+		move_tween.tween_callback(animated_sprite_2d.play.bind("Right"))
+		move_tween.chain().tween_property(self, "position", position + Vector2(144,16), 0.8)
+		move_tween.tween_callback(animated_sprite_2d.play.bind("Up"))
+		move_tween.chain().tween_property(self, "position", position + Vector2(144,-24), 1)
+		move_tween.tween_callback(animated_sprite_2d.play.bind("Right"))
+		move_tween.chain().tween_property(self, "position", position + Vector2(160,-24), 0.4)
+		await get_tree().create_timer(6.0).timeout
+		OverworldMan.spawn_point = rightspawn
+		SceneManager.change_scene(WORLD_MAP, {"pattern": "circle", "speed": 4})
+		
+	if Input.is_action_just_pressed("down") && input_free == true:
+		input_free = false
+		var move_tween = get_tree().create_tween()
+		animated_sprite_2d.play("Down")
+		move_tween.tween_property(self, "position", position + Vector2(0, 24), 0.8)
+		move_tween.tween_callback(animated_sprite_2d.play.bind("Right"))
+		move_tween.chain().tween_property(self, "position", position + Vector2(24,24), 0.8)
+		move_tween.tween_callback(animated_sprite_2d.play.bind("Down"))
+		move_tween.chain().tween_property(self, "position", position + Vector2(24,48), 0.8)
+		await get_tree().create_timer(2.3).timeout
+		OverworldMan.spawn_point = downspawn
+		SceneManager.change_scene(WORLD_MAP, {"pattern": "circle", "speed": 4})
 # Handles entering a level.
 
 #func _handle_entering_level():
@@ -230,6 +277,7 @@ func _on__1_3_level_area_entered(area: Area2D) -> void:
 		_1_3_active = true
 		can_move_right = true
 		can_move_down = true
+		input_free = true
 		levelname = _1_3_level.level_name
 		local_area = _1_3_level.area_name
 		level_path = _1_3_level.level_scene_path

@@ -23,12 +23,17 @@ height = 8.4528
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b6cmb"]
 size = Vector2(27.59, 20.725)
 
-[node name="LifeHeart" type="Area2D"]
+[node name="LifeHeart" type="CharacterBody2D"]
 collision_layer = 32
 script = ExtResource("1_ehf3n")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_erded")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CapsuleShape2D_vapq4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_vapq4")
@@ -47,5 +52,5 @@ stream = ExtResource("3_i84mk")
 [node name="1Up" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_b3f3y")
 
-[connection signal="area_entered" from="." to="." method="_on_area_entered"]
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

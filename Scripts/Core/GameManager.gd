@@ -24,7 +24,7 @@ var player : Player
 
 var spawn_point: Vector2
 var pre_level: String
-@export var player_mode: Player.PlayerMode
+var player_mode: Player.PlayerMode
 #var points_global = 200
 #var coins_global = 50
 #var lives_global = 5

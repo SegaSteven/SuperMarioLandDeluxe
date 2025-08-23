@@ -31,7 +31,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_taeud"]
 size = Vector2(15.8037, 11.934)
 
-[node name="BunBun" type="Area2D" groups=["enemy"]]
+[node name="BunBun" type="CharacterBody2D" groups=["enemy"]]
 collision_layer = 4
 script = ExtResource("1_pwqcf")
 
@@ -43,6 +43,11 @@ autoplay = "fly"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_taeud")
 
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_taeud")
+
 [node name="Enemykilled" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_jqbn4")
 
@@ -52,6 +57,6 @@ scale = Vector2(1.54273, 0.646047)
 [node name="RayCast2D" type="RayCast2D" parent="."]
 target_position = Vector2(-33.7031, 42.9658)
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

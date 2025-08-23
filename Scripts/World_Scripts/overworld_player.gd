@@ -40,6 +40,8 @@ var path_movement_right
 var path_movement_left
 var path_movement_up
 var path_movement_down
+var pyramid_up = false
+var pyramid_right = false
 
 # Level Names -------------------------------------------------------------------------------------
 var start_active = false
@@ -178,10 +180,16 @@ func _input(event):
 		can_move_right = false
 		
 	if Input.is_action_just_pressed("Up") && _1_2_active == true && can_move_up == true:
+		pyramid_up = true
 		var move_tween2 = get_tree().create_tween()
 		animated_sprite_2d.play("Up")
-		move_tween2.tween_property(self, "position", position + Vector2(0, -76), 3)
-		await get_tree().create_timer(3.5).timeout
+		move_tween2.tween_property(self, "position", position + Vector2(0, -24), 0.6)
+		move_tween2.tween_callback(animated_sprite_2d.play.bind("Water_Up"))
+		move_tween2.chain().tween_property(self, "position", position + Vector2(0,-32), 0.3)
+		move_tween2.tween_callback(animated_sprite_2d.play.bind("Up"))
+		move_tween2.chain().tween_property(self, "position", position + Vector2(0,-80), 1.2)
+		await get_tree().create_timer(2.0).timeout
+		OverworldMan.spawn_point = Vector2(4,132)
 		SceneManager.change_scene("res://Scenes/WorldScenes/pyramid_map.tscn", {"pattern": "circle", "speed": 4})
 # Handles entering a level.
 
@@ -286,3 +294,14 @@ func _on_interactive_level_tile_can_move_up() -> void:
 
 func _on_interactive_level_tile_level_finished() -> void:
 	level_finished = true
+
+
+func _on_pyramid_down_area_entered(area: Area2D) -> void:
+	if pyramid_up == false:
+		var move_tween = get_tree().create_tween()
+		animated_sprite_2d.play("Down")
+		move_tween.tween_property(self, "position", position + Vector2(0, 40), 1)
+		move_tween.tween_callback(animated_sprite_2d.play.bind("Water_Down"))
+		move_tween.chain().tween_property(self, "position", position + Vector2(0,48), 0.3)
+		move_tween.tween_callback(animated_sprite_2d.play.bind("Down"))
+		move_tween.chain().tween_property(self, "position", position + Vector2(0,80), 0.8)

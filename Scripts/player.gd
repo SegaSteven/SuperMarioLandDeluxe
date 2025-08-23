@@ -219,20 +219,20 @@ func player_update():
 	else:
 		player_mode = PlayerMode.SHOOTING
 
-func _on_area_2d_area_entered(area: Area2D):
-	if area is Enemy:
-		handle_enemy_collision(area)
-	if area is Shroom:
-		handle_shroom_collision(area)
+func _on_multi_area_entered(body: CharacterBody2D):
+	if body is Enemy:
+		handle_enemy_collision(body)
+	if body is Shroom:
+		handle_shroom_collision(body)
 		spawn_points_label_bonus(1000)
 		GameManager.on_points_scored(1000)
-		area.queue_free()
-	if area is ShootingFlower:
-		handle_flower_collsion(area)
+		body.queue_free()
+	if body is ShootingFlower:
+		handle_flower_collsion(body)
 		spawn_points_label_bonus(1000)
 		GameManager.on_points_scored(1000)
-		area.queue_free()
-	if area is LifeHeart:
+		body.queue_free()
+	if body is LifeHeart:
 		spawn_points_label_bonus(1000)
 		GameManager.on_points_scored(1000)
 		$"1Up".play()
@@ -241,7 +241,7 @@ func _on_area_2d_area_entered(area: Area2D):
 		#handle_super_star_collision(area)
 		#area.queue_free()
 		
-@warning_ignore("shadowed_variable")
+
 func handle_enemy_collision(enemy: Enemy):
 	if enemy == null && is_dead:
 		return
@@ -251,8 +251,10 @@ func handle_enemy_collision(enemy: Enemy):
 		spawn_points_label(enemy)
 		
 	var angle_of_collision = rad_to_deg(position.angle_to_point(enemy.position))
-		
-	if angle_of_collision > min_stomp_degree && max_stomp_degree > angle_of_collision:
+	
+	#if angle_of_collision > min_stomp_degree && max_stomp_degree > angle_of_collision:
+	
+	if enemy._on_hitbox_entered:
 		enemy.die()
 		on_enemy_stomped()
 		spawn_points_label(enemy)
@@ -767,7 +769,7 @@ func _on_death_box_body_entered(body: Node2D):
 	die()
 
 
-func _on_body_entered(body: CollectableCoin):
+func _on_coin_entered(body: CollectableCoin):
 	$Coin.play()
 
 

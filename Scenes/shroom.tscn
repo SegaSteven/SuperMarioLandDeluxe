@@ -22,12 +22,17 @@ height = 8.0
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_plsxc"]
 height = 20.5
 
-[node name="Shroom" type="Area2D"]
+[node name="Shroom" type="CharacterBody2D"]
 collision_layer = 32
 script = ExtResource("1_iehay")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_erded")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CapsuleShape2D_vapq4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_vapq4")

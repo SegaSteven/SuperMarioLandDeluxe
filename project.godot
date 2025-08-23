@@ -46,6 +46,7 @@ koopabomb="BOOM!"
 player="player"
 Levels="the levels"
 LevelTimer=""
+EnemyHitBox=""
 
 [input]
 

@@ -240,10 +240,10 @@ scale = Vector2(0.524129, 0.524129)
 texture = ExtResource("4_dy8t8")
 
 [node name="Parallax2D2" type="Parallax2D" parent="Background"]
-scroll_offset = Vector2(0, 4.49492)
-repeat_size = Vector2(95, 0)
+scroll_offset = Vector2(-29.4444, 7.20486)
+repeat_size = Vector2(100, 0)
 autoscroll = Vector2(-3, 0)
-repeat_times = 4
+repeat_times = 6
 
 [node name="Sprite2D" type="Sprite2D" parent="Background/Parallax2D2"]
 texture = ExtResource("5_ai2te")

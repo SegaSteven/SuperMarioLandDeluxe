@@ -11,7 +11,7 @@ animations = [{
 "texture": ExtResource("1_bjx8o")
 }],
 "loop": true,
-"name": &"beaten",
+"name": &"complete",
 "speed": 5.0
 }, {
 "frames": [{
@@ -43,7 +43,7 @@ script = ExtResource("1_6275g")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_fqef3")
-animation = &"beaten"
+animation = &"complete"
 autoplay = "locked"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

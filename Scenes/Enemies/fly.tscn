@@ -39,7 +39,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b6d17"]
 size = Vector2(16.0455, 10.8265)
 
-[node name="Fly" type="Area2D"]
+[node name="Fly" type="CharacterBody2D"]
 collision_layer = 4
 collision_mask = 88
 script = ExtResource("1_n1xq2")
@@ -49,6 +49,12 @@ sprite_frames = SubResource("SpriteFrames_wcqeu")
 autoplay = "default"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2.51271)
+shape = SubResource("RectangleShape2D_b6d17")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0, 2.51271)
 shape = SubResource("RectangleShape2D_b6d17")
 
@@ -83,6 +89,6 @@ modulate = Color(0, 0.0499997, 1, 1)
 target_position = Vector2(72, 0)
 collide_with_areas = true
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="screen_entered" from="VisibleOnScreenNotifier2D2" to="." method="_on_visible_on_screen_notifier_2d_2_screen_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D2" to="." method="_on_visible_on_screen_notifier_2d_2_screen_exited"]

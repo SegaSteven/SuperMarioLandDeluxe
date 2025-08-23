@@ -1,4 +1,4 @@
-extends Area2D
+extends CharacterBody2D
 
 class_name Enemy
 
@@ -15,11 +15,18 @@ class_name Enemy
 
 const gravityfall = 250
 
+var gravity = gravityfall
+
 func _ready():
 	set_process(false)
-
+	
+func HandleGravity(delta, gravity: float = gravityfall):
+	if (!is_on_floor()):
+		velocity.y += gravity * delta
+		
 func _process(delta):
-	gravity = gravityfall
+	if not is_on_floor():
+		velocity.y += gravity * delta
 	
 	position.x -= delta * horizontal_speed
 	
@@ -76,4 +83,8 @@ func _on_visible_on_screen_notifier_2d_screen_entered():
 	
 func _on_area_2d_body_entered(body: Superball):
 	die_from_hit()
+	queue_free()
+	
+func _on_hitbox_entered(body: Player):
+	die()
 	queue_free()

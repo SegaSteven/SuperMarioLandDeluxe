@@ -197,7 +197,7 @@ script = ExtResource("1_cc831")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_5gq16")
-animation = &"big_jump"
+animation = &"small_idle"
 script = ExtResource("17_yi55g")
 
 [node name="ShootingPoint" type="Marker2D" parent="AnimatedSprite2D"]
@@ -236,6 +236,6 @@ stream = ExtResource("24_hn7uw")
 [node name="10Invincible(can-can)" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("25_ei0yy")
 
-[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_enteredParahnaPlant"]
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

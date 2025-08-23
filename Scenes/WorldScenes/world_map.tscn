@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://7tbuvgr71qou"]
+[gd_scene load_steps=25 format=3 uid="uid://7tbuvgr71qou"]
 
 [ext_resource type="Script" path="res://Scripts/World_Scripts/Overworld_Manager.gd" id="1_epheu"]
 [ext_resource type="Script" path="res://Scripts/World_Scripts/camera.gd" id="1_f5k53"]
@@ -830,6 +830,9 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7w286"]
 size = Vector2(14.5676, 11.1244)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5wscx"]
+size = Vector2(16, 16)
+
 [node name="OverworldMap" type="Node2D"]
 script = ExtResource("1_epheu")
 
@@ -987,6 +990,15 @@ level_name = "1-2"
 area_name = "BIRABUTO"
 can_move_right = true
 
+[node name="InandOuts" type="Node" parent="."]
+
+[node name="PyramidDown" type="Area2D" parent="InandOuts"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InandOuts/PyramidDown"]
+z_index = 4
+position = Vector2(91, 187)
+shape = SubResource("RectangleShape2D_5wscx")
+
 [connection signal="on_level" from="OverworldPlayer" to="LevelHolder/Start" method="_on_overworld_player_on_level"]
 [connection signal="on_level" from="OverworldPlayer" to="LevelHolder/InteractiveLevelTile" method="_on_overworld_player_on_level"]
 [connection signal="area_entered" from="LevelHolder/Start" to="OverworldPlayer" method="_on_start_area_entered"]
@@ -994,9 +1006,9 @@ can_move_right = true
 [connection signal="send_area_name" from="LevelHolder/InteractiveLevelTile" to="." method="_on_interactive_level_tile_send_area_name"]
 [connection signal="send_level_name" from="LevelHolder/InteractiveLevelTile" to="." method="_on_interactive_level_tile_send_level_name"]
 [connection signal="send_level_path" from="LevelHolder/InteractiveLevelTile" to="." method="_on_interactive_level_tile_send_level_path"]
-[connection signal="area_entered" from="LevelHolder/InteractiveLevelTile2" to="OverworldPlayer" method="_on_interactive_level_tiel_area_entered"]
 [connection signal="area_entered" from="LevelHolder/InteractiveLevelTile2" to="OverworldPlayer" method="_on_interactive_level_tile_2_area_entered"]
 [connection signal="area_exited" from="LevelHolder/InteractiveLevelTile2" to="OverworldPlayer" method="_on_interactive_level_tiel_area_exited"]
 [connection signal="send_area_name" from="LevelHolder/InteractiveLevelTile2" to="." method="_on_interactive_level_tile_send_area_name"]
 [connection signal="send_level_name" from="LevelHolder/InteractiveLevelTile2" to="." method="_on_interactive_level_tile_send_level_name"]
 [connection signal="send_level_path" from="LevelHolder/InteractiveLevelTile2" to="." method="_on_interactive_level_tile_send_level_path"]
+[connection signal="area_entered" from="InandOuts/PyramidDown" to="OverworldPlayer" method="_on_pyramid_down_area_entered"]
