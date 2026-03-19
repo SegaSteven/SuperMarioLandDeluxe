@@ -6,8 +6,8 @@ enum BonusType {
 	COIN,
 }
 
-@onready var player: Player = $"../../Player"
-const Player = preload("res://Scripts/player.gd")
+@onready var player: PlayerUpdated = $"../../Player"
+const Player = preload("res://Scripts/Player_Updated.gd")
 
 #Bonus References
 const COIN_SCENE = preload("res://Scenes/coin.tscn")

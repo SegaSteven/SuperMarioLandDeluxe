@@ -1,7 +1,7 @@
 [gd_scene load_steps=34 format=3 uid="uid://b3e2uv1pq2x1o"]
 
 [ext_resource type="Texture2D" uid="uid://bu1r2nm12uem4" path="res://Assets/Sprites/Mario/Small_Idle.png" id="1_4e7f7"]
-[ext_resource type="Script" path="res://Scripts/player.gd" id="1_cc831"]
+[ext_resource type="Script" path="res://Scripts/Player_Updated.gd" id="1_ysewk"]
 [ext_resource type="Texture2D" uid="uid://cbi0syfdvj5sg" path="res://Assets/Sprites/Mario/Big_crouch.png" id="2_d7ft8"]
 [ext_resource type="Texture2D" uid="uid://kb7btcj6dykb" path="res://Assets/Sprites/Mario/Big_idle.png" id="2_oo722"]
 [ext_resource type="Texture2D" uid="uid://c3ny5223bmbta" path="res://Assets/Sprites/Mario/Big_jump.png" id="3_rxm28"]
@@ -71,7 +71,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"big_run",
-"speed": 10.0
+"speed": 15.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -179,7 +179,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"small_run",
-"speed": 9.0
+"speed": 15.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -193,11 +193,11 @@ animations = [{
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 5
 collision_mask = 22
-script = ExtResource("1_cc831")
+script = ExtResource("1_ysewk")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_5gq16")
-animation = &"small_idle"
+animation = &"big_run"
 script = ExtResource("17_yi55g")
 
 [node name="ShootingPoint" type="Marker2D" parent="AnimatedSprite2D"]

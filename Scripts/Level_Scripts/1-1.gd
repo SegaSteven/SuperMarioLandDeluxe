@@ -8,7 +8,7 @@ signal finished
 @onready var piped1_script = preload("res://Scripts/pipeD1.gd")
 @onready var piped2_sciprt = preload("res://Scripts/pipeD2.gd")
 @onready var player_camera = $Camera2D
-@onready var player_mode = Player.PlayerMode
+@onready var player_mode = PlayerUpdated.PlayerMode
 @onready var flash = $Camera2D/Flash
 @onready var ui_hide = $Camera2D/UI
 @onready var pauseSFX = $Pause/PauseSFX

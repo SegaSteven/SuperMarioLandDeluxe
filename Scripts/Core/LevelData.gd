@@ -52,7 +52,7 @@ var lives: int = 0
 var coin_queue: int = 0
 
 @export var ui: UI
-@export var player: Player
+@export var player: PlayerUpdated
 @export var level_music : AudioStreamPlayer
 var beaten = false
 

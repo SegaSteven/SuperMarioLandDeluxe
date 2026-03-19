@@ -7,7 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://dknrx7swi25xl" path="res://Assets/SFX/enemykilled.wav" id="5_kljmd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nd1uw"]
-size = Vector2(8, 8)
+size = Vector2(8, 7)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_43iw3"]
 size = Vector2(8, 8)
@@ -41,6 +41,7 @@ collision_mask = 88
 script = ExtResource("1_focgb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["EnemyHitBox"]]
+position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_nd1uw")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
@@ -77,6 +78,7 @@ stream = ExtResource("5_kljmd")
 position = Vector2(0, -0.5)
 scale = Vector2(1.1, 0.55)
 
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_goomba_body_entered"]
 [connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

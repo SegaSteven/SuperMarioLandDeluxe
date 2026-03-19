@@ -1,99 +1,86 @@
 extends Node
 
-signal gain_coins(int)
-signal gain_life(int)
-signal lost_life(int)
-signal gain_points(int)
+# Signals (Using modern syntax)
+signal gain_coins(total: int)
+signal gain_life(total: int)
+signal lost_life(total: int)
+signal gain_points(total: int)
 signal level_beaten()
-signal level_Start()
+signal level_started()
 
+# Player Stats
+var coins: int = 0
+var score: int = 0
+var lives: int = 5
+var superstar: bool = false
 
-var coins : int
-var score : int
-var lives : int
+# Player State Persistence
+var player : CharacterBody2D
+var player_mode: PlayerUpdated.PlayerMode = PlayerUpdated.PlayerMode.SMALL
+var spawn_point: Vector2 = Vector2.ZERO
+var current_checkpoint: Checkpoint
 
-var superstar = false
+# Level Progression
+var level_finished: bool = false
+var levels_beaten = {
+	"1-1": false, "1-2": false, "1-3": false,
+	"2-1": false, "2-2": false, "2-3": false,
+	"3-1": false, "3-2": false, "3-3": false,
+	"4-1": false, "4-2": false, "4-3": false
+}
 
-var level_finished = false
-var current_checkpoint : Checkpoint
-var win_screen
-var score_label
-var music_position = 0
+# Constants
+const COINS_FOR_1UP: int = 100
+const MAX_LIVES: int = 99
 
-var player : Player
+func _ready():
+	# Standard initialization
+	reset_game_state()
 
-var spawn_point: Vector2
-var pre_level: String
-var player_mode: Player.PlayerMode
-#var points_global = 200
-#var coins_global = 50
-#var lives_global = 5
-#var time: int
-
-# level beaten data -------------------------------------------------------------------------------
-var level_1_1_beaten = false
-var level_1_2_beaten = false
-var level_1_3_beaten = false
-var level_2_1_beaten = false
-var level_2_2_beaten = false
-var level_2_3_beaten = false
-var level_3_1_beaten = false
-var level_3_2_beaten = false
-var level_3_3_beaten = false
-var level_4_1_beaten = false
-var level_4_2_beaten = false
-var level_4_3_beaten = false
-var level_S_R_beaten = false
-
-# Coins reach this number a 1up is given
-const num_coins_for_1up: int = 100
-
-# maximum number of lives that mario can have. --------------------------------
-const max_num_lives: int = 99
-
-# maximum number of coins that mario can collect at once ----------------------
-const max_num_coins: int = 100
-
-#func _ready():
-
-func respawn_player():
-	if current_checkpoint != null:
-		player.position = current_checkpoint.global_position
-		
-func restart():
+func reset_game_state():
 	coins = 0
 	score = 0
 	lives = 5
-	get_tree().reload_current_scene()
+	player_mode = PlayerUpdated.PlayerMode.SMALL
+	level_finished = false
 
-#func load_world():
-	#get_tree().change_scene_to_file()
+# --- Player Logic ---
 
-#func quit():
-	#get_tree().quit()
-	
-func win():
-	emit_signal("level_beaten")
-
-func on_life_collected(life_gained:int):
-	lives += life_gained
-	emit_signal("gain_life", life_gained)
-
-func lose_life(life_lost:int):
-	lives -= life_lost
-	emit_signal("lost_life", life_lost)
-
-func on_points_scored(points_scored):
-	score += points_scored
-	emit_signal("gain_points", points_scored)
-
-func on_coin_collected(coins_gained:int):
-	coins += coins_gained
-	emit_signal("gain_coins", coins_gained)
-	if coins == num_coins_for_1up:
+func on_coin_collected(amount: int):
+	coins += amount
+	if coins >= COINS_FOR_1UP:
+		coins -= COINS_FOR_1UP
 		on_life_collected(1)
-		coins = 0
-		
-func level_complete():
-	if level_finished == true:
-		level_beaten.emit()
+	
+	gain_coins.emit(coins)
+
+func on_points_scored(amount: int):
+	score += amount
+	gain_points.emit(score)
+
+func on_life_collected(amount: int):
+	lives = clampi(lives + amount, 0, MAX_LIVES)
+	gain_life.emit(lives)
+
+func lose_life(amount: int):
+	lives -= amount
+	lost_life.emit(lives)
+	if lives <= 0:
+		handle_game_over()
+
+# --- Level & Respawn Logic ---
+
+func respawn_player():
+	if player and current_checkpoint:
+		player.global_position = current_checkpoint.global_position
+	elif player and spawn_point != Vector2.ZERO:
+		player.global_position = spawn_point
+
+func win():
+	level_finished = true
+	level_beaten.emit()
+
+func handle_game_over():
+	# GameBoy Super Mario Land usually sends you back to the title screen
+	reset_game_state()
+	get_tree().change_scene_to_file("res://Scenes/title_screen.tscn")

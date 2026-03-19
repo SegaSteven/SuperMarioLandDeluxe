@@ -14,7 +14,7 @@ var vertical_movement_start_position
 @onready var ray_cast_2dd: RayCast2D = $RayCast2DD
 @onready var area_2d: Area2D = $Area2D
 
-var player = Player
+var player = PlayerUpdated
 
 
 
@@ -45,6 +45,6 @@ func _physics_process(delta):
 	
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	if body is Player:
+	if body is PlayerUpdated:
 		GameManager.superstar = true
 		queue_free()

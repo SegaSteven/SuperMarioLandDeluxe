@@ -3,7 +3,7 @@ extends CharacterBody2D
 class_name Superball
 
 @onready var ray_cast_2d = $CollisionShape2D
-@onready var player: Player = $Player
+@onready var player: PlayerUpdated = $Player
 
 @export var horizontal_speed = 120
 @export var vertical_speed = 120

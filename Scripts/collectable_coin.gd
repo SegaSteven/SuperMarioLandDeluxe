@@ -6,7 +6,7 @@ class_name CollectableCoin
 @export var coins = 1
 
 	
-func _on_body_entered(body: Player):
+func _on_body_entered(body: PlayerUpdated):
 	$Sprite2D.hide()
 	GameManager.on_coin_collected(coins)
 	GameManager.on_points_scored(score)

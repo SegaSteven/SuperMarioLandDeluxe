@@ -5,8 +5,8 @@ class_name Brick
 @onready var gpu_particles_2d = $GPUParticles2D
 @onready var sprite_2d = $Sprite2D
 
-func bump(player_mode: Player.PlayerMode):
-	if player_mode == Player.PlayerMode.SMALL:
+func bump(player_mode: PlayerUpdated.PlayerMode):
+	if player_mode == PlayerUpdated.PlayerMode.SMALL:
 		super.bump(player_mode)
 		$HitHardBlock.play()
 	

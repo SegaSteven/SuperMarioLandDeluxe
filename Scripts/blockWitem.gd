@@ -18,7 +18,7 @@ var is_empty = false
 func _ready():
 	animated_sprite_2d.visible = !invisible
 
-func bump(player_mode: Player.PlayerMode):
+func bump(player_mode: PlayerUpdated.PlayerMode):
 	if is_empty:
 		$HitHardBlock.play()
 		return	

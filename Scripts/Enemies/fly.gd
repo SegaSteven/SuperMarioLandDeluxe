@@ -5,7 +5,7 @@ class_name Fly
 @export var score = 400
 
 @onready var Flysprite: AnimatedSprite2D = $AnimatedSprite2D
-@onready var player: Player = $"../../Player"
+@onready var player: PlayerUpdated = $"../../Player"
 @onready var mariocast_l: RayCast2D = $MariocastL
 @onready var mariocast_r: RayCast2D = $MariocastR
 

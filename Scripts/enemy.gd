@@ -85,6 +85,6 @@ func _on_area_2d_body_entered(body: Superball):
 	die_from_hit()
 	queue_free()
 	
-func _on_hitbox_entered(body: Player):
+func _on_hitbox_entered(body: PlayerUpdated):
 	die()
-	queue_free()
+	get_tree().create_timer(4).timeout.connect(queue_free)

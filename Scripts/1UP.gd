@@ -19,7 +19,7 @@ func _ready():
 	
 
 func _on_area_entered(area):
-	if area.get_parent() is Player:
+	if area.get_parent() is PlayerUpdated:
 		GameManager.on_life_collected(1)
 		GameManager.score += score
 		queue_free()
