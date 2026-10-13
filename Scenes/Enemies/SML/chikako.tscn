@@ -1,0 +1,46 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Scripts/Enemies/SML/orbiter.gd" id="script"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/Enemies/Placeholders/chikako_base.png" id="tex_base"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/Enemies/Placeholders/chikako_dead.png" id="tex_dead"]
+[ext_resource type="AudioStream" path="res://Assets/SFX/enemykilled.wav" id="snd0"]
+
+[sub_resource type="SpriteFrames" id="frames"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("tex_base")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("tex_dead")
+}],
+"loop": false,
+"name": &"dead",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="shape"]
+size = Vector2(6, 6)
+
+[node name="Chikako" type="CharacterBody2D"]
+script = ExtResource("script")
+radius = 16.0
+degrees_per_second = 160.0
+score = 0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("frames")
+animation = &"default"
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("shape")
+
+[node name="Enemykilled" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("snd0")
+

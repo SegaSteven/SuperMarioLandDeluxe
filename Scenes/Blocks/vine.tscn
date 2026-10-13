@@ -1,0 +1,7 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Scripts/Blocks/vine.gd" id="s"]
+
+[node name="Vine" type="Area2D"]
+z_index = 1
+script = ExtResource("s")

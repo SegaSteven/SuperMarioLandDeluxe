@@ -1,0 +1,40 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Scripts/PowerUps/player_fireball.gd" id="s"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/PowerUps/player_fireball.png" id="t"]
+[ext_resource type="AudioStream" path="res://Assets/SFX/fireball.wav" id="a"]
+
+[sub_resource type="SpriteFrames" id="frames"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("t")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="body"]
+size = Vector2(5, 5)
+
+[sub_resource type="RectangleShape2D" id="hit"]
+size = Vector2(7, 7)
+
+[node name="PlayerFireball" type="CharacterBody2D"]
+script = ExtResource("s")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("frames")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("body")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("hit")
+
+[node name="Fire" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("a")

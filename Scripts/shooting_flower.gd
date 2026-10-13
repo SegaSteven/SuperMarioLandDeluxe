@@ -1,15 +1,24 @@
 extends CharacterBody2D
 
 class_name ShootingFlower
+## Flower power-up. Pops out of a block and stays put.
 
-@onready var animated_sprite_2d = $AnimatedSprite2D
+@export var emerge_distance: float = 5.0
+@export var emerge_time: float = 0.3
 
-func _ready():
-	animated_sprite_2d.play("flower")
-	$Blockhititem.play()
-	var spawn_tween = get_tree().create_tween()
-	spawn_tween.tween_property(self, "position", position + Vector2(0, -4), .3)
-	spawn_tween.chain().tween_property(self, "postiion", position + Vector2(0, -8), 0.2)
 
-func free_change_scene():
-		queue_free()
+func _ready() -> void:
+	collision_layer = Layers.bit(Layers.BONUS)
+	collision_mask = 0
+	var sprite := get_node_or_null("AnimatedSprite2D") as AnimatedSprite2D
+	if sprite:
+		sprite.play("flower")
+	var sfx := get_node_or_null("Blockhititem") as AudioStreamPlayer
+	if sfx:
+		sfx.play()
+	var tween := create_tween()
+	tween.tween_property(self, "position:y", position.y - emerge_distance, emerge_time)
+
+
+func free_change_scene() -> void:
+	queue_free()

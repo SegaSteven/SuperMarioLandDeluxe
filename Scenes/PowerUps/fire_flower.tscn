@@ -1,0 +1,39 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Scripts/PowerUps/power_up_item.gd" id="s"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/Super_Flower1.png" id="t1"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/Super_Flower2.png" id="t2"]
+[ext_resource type="AudioStream" path="res://Assets/SFX/blockhititem.wav" id="a"]
+
+[sub_resource type="SpriteFrames" id="frames"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("t1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("t2")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="shape"]
+size = Vector2(7, 7)
+
+[node name="FireFlower" type="CharacterBody2D"]
+script = ExtResource("s")
+power_up_id = "fire"
+movement = 0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+modulate = Color(1, 0.55, 0.45, 1)
+sprite_frames = SubResource("frames")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("shape")
+
+[node name="Blockhititem" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("a")

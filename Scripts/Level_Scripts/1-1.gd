@@ -9,7 +9,7 @@ signal finished
 @onready var piped2_sciprt = preload("res://Scripts/pipeD2.gd")
 @onready var player_camera = $Camera2D
 @onready var player_mode = PlayerUpdated.PlayerMode
-@onready var flash = $Camera2D/Flash
+@onready var flash = get_node_or_null("Camera2D/Flash")
 @onready var ui_hide = $Camera2D/UI
 @onready var pauseSFX = $Pause/PauseSFX
 
@@ -21,8 +21,8 @@ signal finished
 @export var spawn_point2: Vector2
 
 # Pipe Node List
-@onready var Pipe1 = $Pipes/PipeD1
-@onready var Pipe2 = $Pipes/PipeD2
+@onready var Pipe1 = get_node_or_null("Pipes/PipeD1")
+@onready var Pipe2 = get_node_or_null("Pipes/PipeD2")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

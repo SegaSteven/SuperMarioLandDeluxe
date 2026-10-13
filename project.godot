@@ -12,7 +12,7 @@ config_version=5
 
 config/name="SML Test"
 run/main_scene="res://Scenes/logo_screen.tscn"
-config/features=PackedStringArray("4.3", "Forward Plus")
+config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.png"
 run/default_bus_layout="res://default_bus_layout.tres"
 
@@ -25,7 +25,6 @@ SceneSwitcher="*res://Scripts/Core/scene_switcher.gd"
 OverworldMan="*res://Scripts/World_Scripts/Overworld_Manager.gd"
 Signal_Debugger="*res://addons/SignalVisualizer/Debugger/SignalDebugger.gd"
 SceneManager="*res://addons/scene_manager/SceneManager.tscn"
-CountdownManager="*res://Scripts/Core/countdown_manager.gd"
 
 [display]
 

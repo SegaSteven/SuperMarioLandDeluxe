@@ -1,0 +1,17 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Scripts/Blocks/color_switch.gd" id="s"]
+[ext_resource type="AudioStream" path="res://Assets/SFX/powerup.wav" id="a"]
+
+[sub_resource type="RectangleShape2D" id="shape"]
+size = Vector2(16, 16)
+
+[node name="ColorSwitch" type="StaticBody2D"]
+z_index = 2
+script = ExtResource("s")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("shape")
+
+[node name="PressSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("a")

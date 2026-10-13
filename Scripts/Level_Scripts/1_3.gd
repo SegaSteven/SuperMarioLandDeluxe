@@ -7,8 +7,8 @@ signal level_completed_signal
 @onready var piped1_script = preload("res://Scripts/pipeD1.gd")
 @onready var piped2_sciprt = preload("res://Scripts/pipeD2.gd")
 @onready var player_camera = $Camera2D
-@onready var player_mode = Player.PlayerMode
-@onready var flash = $Camera2D/Flash
+@onready var player_mode = PlayerUpdated.PlayerMode
+@onready var flash = get_node_or_null("Camera2D/Flash")
 @onready var ui_hide = $Camera2D/UI
 @onready var pauseSFX = $Pause/PauseSFX
 
@@ -20,8 +20,8 @@ signal level_completed_signal
 @export var spawn_point2: Vector2
 
 # Pipe Node List
-@onready var Pipe1 = $Pipes/PipeD1
-@onready var Pipe2 = $Pipes/PipeD2
+@onready var Pipe1 = get_node_or_null("Pipes/PipeD1")
+@onready var Pipe2 = get_node_or_null("Pipes/PipeD2")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -68,8 +68,8 @@ func _on_player_super_mode_stop() -> void:
 
 
 func _on_door_normal_level_completed_signal() -> void:
-	GameManager.level_1_1_beaten = true
+	GameManager.win()
 
 
 func _on_door_normal_2_level_completed_signal() -> void:
-	GameManager.level_1_1_beaten = true
+	GameManager.win()

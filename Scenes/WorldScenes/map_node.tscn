@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://Scripts/World_Scripts/MapNode.gd" id="1_map"]
+[ext_resource type="Texture2D" uid="uid://bcbh1py5v822m" path="res://Assets/Sprites/WorldMap/LevelIcon1.png" id="2_a"]
+[ext_resource type="Texture2D" uid="uid://bro6ujvlpn6er" path="res://Assets/Sprites/WorldMap/LevelIcon2.png" id="3_b"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_icon"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_a")
+}],
+"loop": true,
+"name": &"complete",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_b")
+}],
+"loop": true,
+"name": &"locked",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_b")
+}],
+"loop": true,
+"name": &"unlocked",
+"speed": 3.0
+}]
+
+[node name="MapNode" type="Node2D" groups=["map_nodes"]]
+z_index = 4
+script = ExtResource("1_map")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_icon")
+animation = &"unlocked"

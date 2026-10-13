@@ -18,16 +18,16 @@ var mario_position = self.global_position
 
 @onready var marioarea_2d: Area2D = $Area2D
 
-@onready var area_2d: Area2D = $"../Ladder/Area2D"
-@onready var ladder: Sprite2D = $"../Ladder"
+@onready var area_2d: Area2D = get_node_or_null("../Ladder/Area2D")
+@onready var ladder: Sprite2D = get_node_or_null("../Ladder")
 var ladder_up = false
 var ladder_down = false
 var gravity = 350
 var facing_dir = -1
 
 # ladder areas:
-@onready var down_area: Area2D = $"../Ladder/DownArea"
-@onready var up_body: StaticBody2D = $"../Ladder/UpBody"
+@onready var down_area: Area2D = get_node_or_null("../Ladder/DownArea")
+@onready var up_body: StaticBody2D = get_node_or_null("../Ladder/UpBody")
 
 # raycast:
 @onready var ray_cast_2d: RayCast2D = $RayCast2D
@@ -158,13 +158,13 @@ func _on_bonus_flower_area_entered(area: Area2D) -> void:
 	elif player_mode == PlayerMode.BIG:
 		$Bonusgamegood.play()
 		$Powerup.play()
-		GameManager.player_mode = Player.PlayerMode.SHOOTING
+		GameManager.player_mode = PlayerUpdated.PlayerMode.SHOOTING
 		PlayerMode.BIG
 		play("big_idle")
 		mariostopped.emit()
 	else:
 		$Powerup.play()
-		GameManager.player_mode = Player.PlayerMode.SHOOTING
+		GameManager.player_mode = PlayerUpdated.PlayerMode.SHOOTING
 		PlayerMode.BIG
 		play("big_idle")
 		await get_tree().create_timer(0.1).timeout

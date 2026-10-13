@@ -1,7 +1,7 @@
-[gd_scene load_steps=34 format=3 uid="uid://b3e2uv1pq2x1o"]
+[gd_scene load_steps=43 format=3 uid="uid://b3e2uv1pq2x1o"]
 
 [ext_resource type="Texture2D" uid="uid://bu1r2nm12uem4" path="res://Assets/Sprites/Mario/Small_Idle.png" id="1_4e7f7"]
-[ext_resource type="Script" path="res://Scripts/Player_Updated.gd" id="1_ysewk"]
+[ext_resource type="Script" uid="uid://boxyyfjk6qqsc" path="res://Scripts/Player_Updated.gd" id="1_ysewk"]
 [ext_resource type="Texture2D" uid="uid://cbi0syfdvj5sg" path="res://Assets/Sprites/Mario/Big_crouch.png" id="2_d7ft8"]
 [ext_resource type="Texture2D" uid="uid://kb7btcj6dykb" path="res://Assets/Sprites/Mario/Big_idle.png" id="2_oo722"]
 [ext_resource type="Texture2D" uid="uid://c3ny5223bmbta" path="res://Assets/Sprites/Mario/Big_jump.png" id="3_rxm28"]
@@ -24,7 +24,7 @@
 [ext_resource type="Texture2D" uid="uid://bueq3rtwtb2wk" path="res://Assets/Sprites/Mario/Shooting_run3.png" id="16_wk07g"]
 [ext_resource type="Texture2D" uid="uid://rdgwc34ehee6" path="res://Assets/Sprites/Mario/Shooting_turn.png" id="17_l0q11"]
 [ext_resource type="Shape2D" uid="uid://dgjnainnjbb4x" path="res://Resources/CollisionShapes/Small_Mario_Collision_Shape_Normal.tres" id="17_n352i"]
-[ext_resource type="Script" path="res://Scripts/player_animated_sprite.gd" id="17_yi55g"]
+[ext_resource type="Script" uid="uid://ckc7gbcxqit2l" path="res://Scripts/player_animated_sprite.gd" id="17_yi55g"]
 [ext_resource type="AudioStream" uid="uid://ceeh32b7m8fec" path="res://Assets/SFX/jump.wav" id="18_s6mp0"]
 [ext_resource type="AudioStream" uid="uid://csmuh5qk1nadv" path="res://Assets/Audio/11 Lose Life.mp3" id="19_25kux"]
 [ext_resource type="AudioStream" uid="uid://dm4r2eigd2nk8" path="res://Assets/SFX/powerup.wav" id="21_agpjl"]
@@ -32,6 +32,15 @@
 [ext_resource type="AudioStream" uid="uid://g4dakxsfoesm" path="res://Assets/SFX/1up.wav" id="23_shel1"]
 [ext_resource type="AudioStream" uid="uid://h4dpa4cjh0vu" path="res://Assets/SFX/coin.wav" id="24_hn7uw"]
 [ext_resource type="AudioStream" uid="uid://dnck213i1gtw4" path="res://Assets/Audio/Original/Invincible (Can-Can).wav" id="25_ei0yy"]
+[ext_resource type="Script" uid="uid://d1me34uaonsmj" path="res://Scripts/Player/StateMachine.gd" id="sm_1"]
+[ext_resource type="Script" uid="uid://culyinw4a6q4o" path="res://Scripts/Player/States/ground.gd" id="sm_2"]
+[ext_resource type="Script" uid="uid://7vbahpr42de2" path="res://Scripts/Player/States/air.gd" id="sm_3"]
+[ext_resource type="Script" uid="uid://t8e3ylixfnwl" path="res://Scripts/Player/States/transform.gd" id="sm_4"]
+[ext_resource type="Script" uid="uid://dca38veunm6i8" path="res://Scripts/Player/States/pipe.gd" id="sm_5"]
+[ext_resource type="Script" uid="uid://d2rfy22cad6rw" path="res://Scripts/Player/States/dead.gd" id="sm_6"]
+[ext_resource type="Script" uid="uid://diixqxj7b73o1" path="res://Scripts/Player/States/vehicle.gd" id="sm_7"]
+[ext_resource type="Script" uid="uid://cmauri3dbyy0n" path="res://Scripts/Player/States/bunny_float.gd" id="sm_8"]
+[ext_resource type="Script" uid="uid://cal2s5irp8pnx" path="res://Scripts/Player/States/climb.gd" id="sm_9"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_5gq16"]
 animations = [{
@@ -236,6 +245,43 @@ stream = ExtResource("24_hn7uw")
 [node name="10Invincible(can-can)" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("25_ei0yy")
 
-[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_enteredParahnaPlant"]
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("sm_1")
+initial_state = NodePath("Ground")
+
+[node name="Ground" type="Node" parent="StateMachine"]
+script = ExtResource("sm_2")
+
+[node name="Air" type="Node" parent="StateMachine"]
+script = ExtResource("sm_3")
+
+[node name="Transform" type="Node" parent="StateMachine"]
+script = ExtResource("sm_4")
+allows_contacts = false
+allows_damage = false
+
+[node name="Pipe" type="Node" parent="StateMachine"]
+script = ExtResource("sm_5")
+allows_contacts = false
+allows_damage = false
+
+[node name="Dead" type="Node" parent="StateMachine"]
+script = ExtResource("sm_6")
+allows_contacts = false
+allows_damage = false
+
+[node name="Vehicle" type="Node" parent="StateMachine"]
+script = ExtResource("sm_7")
+allows_stomp = false
+allows_transform = false
+
+[node name="BunnyFloat" type="Node" parent="StateMachine"]
+script = ExtResource("sm_8")
+
+[node name="Climb" type="Node" parent="StateMachine"]
+script = ExtResource("sm_9")
+allows_stomp = false
+
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_enteredParahnaPlant"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

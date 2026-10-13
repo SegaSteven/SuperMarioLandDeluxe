@@ -1,10 +1,10 @@
 [gd_scene load_steps=14 format=3 uid="uid://db1o2gi610guw"]
 
-[ext_resource type="Script" path="res://Scripts/Enemies/parana_plant_pipe.gd" id="1_4q1pk"]
+[ext_resource type="Script" path="res://Scripts/Enemies/SML/parana_plant_pipe.gd" id="1_4q1pk"]
 [ext_resource type="Texture2D" uid="uid://s2p33iy1ytil" path="res://Assets/Sprites/Pipe_Top.png" id="2_wmlxr"]
 [ext_resource type="Texture2D" uid="uid://crtgq02rrucsp" path="res://Assets/Sprites/Pipe_Body.png" id="3_t2lio"]
 [ext_resource type="Texture2D" uid="uid://yuk8vm8lhv0o" path="res://Assets/Sprites/Enemies/ParanaPlant2.png" id="4_ic8q6"]
-[ext_resource type="Script" path="res://Scripts/Enemies/parana_plant.gd" id="4_q3pf8"]
+[ext_resource type="Script" path="res://Scripts/Enemies/SML/parana_plant.gd" id="4_q3pf8"]
 [ext_resource type="Texture2D" uid="uid://l847rw35crmr" path="res://Assets/Sprites/Enemies/ParanaPlant1.png" id="5_omel4"]
 [ext_resource type="AudioStream" uid="uid://dknrx7swi25xl" path="res://Assets/SFX/enemykilled.wav" id="7_5k1rq"]
 
@@ -83,7 +83,7 @@ modulate = Color(0.2, 0, 0.6, 1)
 position = Vector2(0.0373421, 4.01612)
 shape = SubResource("RectangleShape2D_jjefb")
 
-[node name="ParanhaPlant" type="Area2D" parent="."]
+[node name="ParanhaPlant" type="CharacterBody2D" parent="."]
 z_index = 1
 collision_layer = 256
 collision_mask = 65
@@ -112,9 +112,6 @@ rect = Rect2(-30, -10, 60, 20)
 [connection signal="area_entered" from="RightArea" to="ParanhaPlant" method="_on_right_area_area_entered"]
 [connection signal="area_entered" from="Top area" to="." method="_on_top_area_area_entered"]
 [connection signal="area_entered" from="Top area" to="ParanhaPlant" method="_on_top_area_area_entered"]
-[connection signal="area_entered" from="ParanhaPlant" to="." method="_on_paranha_plant_area_entered"]
-[connection signal="area_entered" from="ParanhaPlant" to="." method="_on_parana_plant_area_entered"]
-[connection signal="body_entered" from="ParanhaPlant" to="ParanhaPlant" method="_on_body_entered"]
 [connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
 [connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="ParanhaPlant" method="_on_visible_on_screen_notifier_2d_screen_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

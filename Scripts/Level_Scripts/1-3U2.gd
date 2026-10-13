@@ -3,8 +3,8 @@ extends LevelData
 class_name Level1_3U2
 
 @onready var player_camera = $Camera2D
-@onready var player_mode = Player.PlayerMode
-@onready var flash = $Camera2D/Flash
+@onready var player_mode = PlayerUpdated.PlayerMode
+@onready var flash = get_node_or_null("Camera2D/Flash")
 @onready var ui_hide = $Camera2D/UI
 @onready var pauseSFX = $Pause/PauseSFX
 
@@ -13,7 +13,7 @@ class_name Level1_3U2
 @export var spawn_point: Vector2
 
 # Pipe Node List
-@onready var Pipe1 = $PipeSide
+@onready var Pipe1 = get_node_or_null("PipeSide")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

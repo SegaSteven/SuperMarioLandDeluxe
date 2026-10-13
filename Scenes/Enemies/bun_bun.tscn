@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://dl5rej34rbwg5"]
 
 [ext_resource type="Texture2D" uid="uid://dygyssbplgiaa" path="res://Assets/Sprites/Enemies/Bunbun_dead.png" id="1_3kxmx"]
-[ext_resource type="Script" path="res://Scripts/Enemies/bun_bun.gd" id="1_pwqcf"]
+[ext_resource type="Script" path="res://Scripts/Enemies/SML/bun_bun.gd" id="1_pwqcf"]
 [ext_resource type="Texture2D" uid="uid://cxmm5thor8yv2" path="res://Assets/Sprites/Enemies/Bunbun_fly1.png" id="2_vews0"]
 [ext_resource type="Texture2D" uid="uid://dlg1e5byst1xh" path="res://Assets/Sprites/Enemies/Bunbun_fly2.png" id="3_jln3i"]
 [ext_resource type="AudioStream" uid="uid://dknrx7swi25xl" path="res://Assets/SFX/enemykilled.wav" id="4_jqbn4"]

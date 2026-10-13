@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://Scripts/torpedo.gd" id="1_s"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/SuperBall.png" id="2_t"]
+[ext_resource type="AudioStream" path="res://Assets/SFX/fireball.wav" id="3_a"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_t"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_t")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="Shape_body"]
+size = Vector2(6, 4)
+
+[sub_resource type="RectangleShape2D" id="Shape_hit"]
+size = Vector2(8, 6)
+
+[node name="Torpedo" type="CharacterBody2D"]
+script = ExtResource("1_s")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_t")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("Shape_body")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("Shape_hit")
+
+[node name="Fire" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_a")

@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://Scripts/Enemies/Bosses/boss_projectile.gd" id="1_s"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/FireBall.png" id="2_t"]
+[ext_resource type="AudioStream" path="res://Assets/SFX/enemyfireball.wav" id="3_a"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_f"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_t")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="Shape_f"]
+size = Vector2(6, 6)
+
+[node name="BossFireball" type="CharacterBody2D"]
+script = ExtResource("1_s")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_f")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("Shape_f")
+
+[node name="Fire" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_a")

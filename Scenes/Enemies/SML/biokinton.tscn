@@ -1,0 +1,75 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Scripts/Enemies/Bosses/boss.gd" id="script"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/Enemies/Placeholders/biokinton_alt.png" id="tex_alt"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/Enemies/Placeholders/biokinton_base.png" id="tex_base"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/Enemies/Placeholders/biokinton_dead.png" id="tex_dead"]
+[ext_resource type="AudioStream" path="res://Assets/SFX/enemykilled.wav" id="snd0"]
+[ext_resource type="AudioStream" path="res://Assets/SFX/bosshit.wav" id="snd1"]
+[ext_resource type="AudioStream" path="res://Assets/SFX/enemyfireball.wav" id="snd2"]
+[ext_resource type="PackedScene" path="res://Scenes/Enemies/SML/chicken.tscn" id="chicken"]
+
+[sub_resource type="SpriteFrames" id="frames"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("tex_base")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("tex_alt")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("tex_alt")
+}],
+"loop": true,
+"name": &"hurt",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("tex_dead")
+}],
+"loop": false,
+"name": &"dead",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="shape"]
+size = Vector2(28, 20)
+
+[node name="Biokinton" type="CharacterBody2D"]
+script = ExtResource("script")
+score = 5000
+max_health = 6
+hover = true
+hover_range = 56.0
+fire_interval = 1.4
+projectile_scene = ExtResource("chicken")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("frames")
+animation = &"walk"
+autoplay = "walk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("shape")
+
+[node name="Enemykilled" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("snd0")
+
+[node name="BossHit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("snd1")
+
+[node name="BossFire" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("snd2")
+

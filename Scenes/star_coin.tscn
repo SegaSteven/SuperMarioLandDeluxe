@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://Scripts/star_coin.gd" id="1_s"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/StarCoin/star_coin.png" id="2_t"]
+[ext_resource type="AudioStream" path="res://Assets/SFX/1up.wav" id="3_a"]
+
+[sub_resource type="CircleShape2D" id="Circle_c"]
+radius = 7.0
+
+[node name="StarCoin" type="Area2D"]
+z_index = 2
+script = ExtResource("1_s")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_t")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("Circle_c")
+
+[node name="Collect" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_a")

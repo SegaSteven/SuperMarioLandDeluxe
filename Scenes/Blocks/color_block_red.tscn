@@ -1,0 +1,6 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://Scenes/Blocks/color_block.tscn" id="b"]
+
+[node name="ColorBlock_red" instance=ExtResource("b")]
+color_name = "red"

@@ -1,0 +1,125 @@
+[gd_scene load_steps=14 format=3]
+
+[ext_resource type="Script" path="res://Scripts/Level_Scripts/auto_scroll_level.gd" id="1_lvl"]
+[ext_resource type="TileSet" path="res://TileSets/Birabuto.tres" id="2_tiles"]
+[ext_resource type="PackedScene" path="res://Scenes/player.tscn" id="3_player"]
+[ext_resource type="Script" path="res://Scripts/Core/auto_scroll_camera.gd" id="4_cam"]
+[ext_resource type="PackedScene" path="res://Scenes/UI.tscn" id="5_ui"]
+[ext_resource type="PackedScene" path="res://Scenes/pause.tscn" id="6_pause"]
+[ext_resource type="AudioStream" path="res://Assets/SFX/pause.wav" id="7_psfx"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/Mario/Small_Idle.png" id="8_placeholder"]
+[ext_resource type="PackedScene" path="res://Scenes/door_normal.tscn" id="9_door"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sub"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_placeholder")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_placeholder")
+}],
+"loop": true,
+"name": &"move",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_placeholder")
+}],
+"loop": false,
+"name": &"shoot",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="Shape_floor"]
+size = Vector2(2400, 16)
+
+[sub_resource type="RectangleShape2D" id="Shape_ceiling"]
+size = Vector2(2400, 16)
+
+[node name="MarinePopTemplate" type="Node" node_paths=PackedStringArray("ui", "player", "level_music") groups=["scene_manager_entity_nodes"]]
+process_mode = 3
+script = ExtResource("1_lvl")
+ui = NodePath("Camera2D/UI")
+player = NodePath("Player")
+level_music = NodePath("LevelMusic")
+metadata/entity_name = "2-3"
+
+[node name="Water" type="ColorRect" parent="."]
+offset_right = 2400.0
+offset_bottom = 144.0
+color = Color(0.25, 0.45, 0.75, 1)
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("2_tiles")
+format = 2
+
+[node name="TemporaryFloorAndCeiling" type="StaticBody2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+
+[node name="Floor" type="CollisionShape2D" parent="TemporaryFloorAndCeiling"]
+position = Vector2(1200, 144)
+shape = SubResource("Shape_floor")
+
+[node name="Ceiling" type="CollisionShape2D" parent="TemporaryFloorAndCeiling"]
+position = Vector2(1200, 0)
+shape = SubResource("Shape_ceiling")
+
+[node name="LevelMusic" type="AudioStreamPlayer" parent="."]
+
+[node name="Player" parent="." instance=ExtResource("3_player")]
+process_mode = 1
+position = Vector2(48, 72)
+
+[node name="VehicleSprite" type="AnimatedSprite2D" parent="Player"]
+visible = false
+sprite_frames = SubResource("SpriteFrames_sub")
+animation = &"idle"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+process_mode = 1
+position = Vector2(128, 72)
+limit_left = 0
+limit_top = 0
+limit_right = 2400
+limit_bottom = 144
+editor_draw_limits = true
+script = ExtResource("4_cam")
+
+[node name="UI" parent="Camera2D" instance=ExtResource("5_ui")]
+WorldName = "2-3"
+
+[node name="Flash" type="ColorRect" parent="Camera2D"]
+visible = false
+offset_left = -128.0
+offset_top = -72.0
+offset_right = 128.0
+offset_bottom = 72.0
+color = Color(0, 0, 0, 1)
+
+[node name="Pause" parent="." instance=ExtResource("6_pause")]
+offset_left = 187.271
+offset_right = 256.271
+
+[node name="PauseSFX" type="AudioStreamPlayer" parent="Pause"]
+stream = ExtResource("7_psfx")
+
+[node name="Enemies" type="Node" parent="."]
+
+[node name="Blocks" type="Node" parent="."]
+
+[node name="Coins" type="Node" parent="."]
+
+[node name="Doors" type="Node" parent="."]
+
+[node name="Door_normal" parent="Doors" node_paths=PackedStringArray("level_music") instance=ExtResource("9_door")]
+position = Vector2(-40, -56)
+level_scene_path = "res://Scenes/WorldScenes/world_map.tscn"
+level_music = NodePath("../../LevelMusic")

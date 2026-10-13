@@ -1,33 +1,35 @@
 extends CharacterBody2D
 
 class_name LifeHeart
+## Extra life heart. Pops out of a block in an arc and falls away - grab it quickly!
 
-@onready var shape_case_2d = $ShapeCast2D
+@export var score: int = 100
+@export var launch_velocity: Vector2 = Vector2(45, -140)
+@export var gravity: float = 300.0
 
-@export var score = 100
 
-func _ready():
-	$Blockhititem.play()
-	var die_tween = get_tree().create_tween()
-	die_tween.tween_property(self, "position", position + Vector2(3, -10), .04)
-	die_tween.chain().tween_property(self, "position", position + Vector2(5, -11), .08)
-	die_tween.chain().tween_property(self, "position", position + Vector2(8, -13), .06)
-	die_tween.chain().tween_property(self, "position", position + Vector2(15, -14), .1)
-	die_tween.chain().tween_property(self, "position", position + Vector2(20, -12), .08)
-	die_tween.chain().tween_property(self, "position", position + Vector2(25, -9), .1)
-	die_tween.chain().tween_property(self, "position", position + Vector2(25, 500), 10)
-	
+func _ready() -> void:
+	collision_layer = Layers.bit(Layers.BONUS)
+	collision_mask = 0
+	velocity = launch_velocity
+	var sfx := get_node_or_null("Blockhititem") as AudioStreamPlayer
+	if sfx:
+		sfx.play()
 
-func _on_area_entered(area):
-	if area.get_parent() is PlayerUpdated:
-		GameManager.on_life_collected(1)
-		GameManager.score += score
+
+func _physics_process(delta: float) -> void:
+	velocity.y += gravity * delta
+	position += velocity * delta
+	if global_position.y > 600.0:
 		queue_free()
 
 
-func _on_area_2d_area_entered(area: Area2D) -> void:
-	pass # Replace with function body.
+# Connected in the scene, no longer needed (Mario collects it - see Player_Updated.gd)
+func _on_area_entered(_area: Area2D) -> void:
+	pass
 
+func _on_area_2d_area_entered(_area: Area2D) -> void:
+	pass
 
-func _on_area_2d_body_entered(body: Node2D) -> void:
-	pass # Replace with function body.
+func _on_area_2d_body_entered(_body: Node2D) -> void:
+	pass

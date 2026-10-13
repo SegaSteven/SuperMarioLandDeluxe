@@ -1,0 +1,18 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Scripts/Enemies/SML/enemy_spawner.gd" id="script"]
+[ext_resource type="PackedScene" path="res://Scenes/Enemies/SML/ganchan.tscn" id="thing"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/Enemies/Placeholders/spawner_marker.png" id="tex"]
+[ext_resource type="AudioStream" path="res://Assets/SFX/bulletbill.wav" id="snd"]
+
+[sub_resource type="RectangleShape2D" id="shape"]
+size = Vector2(16, 16)
+
+[node name="GanchanDropper" type="Node2D"]
+script = ExtResource("script")
+spawn_scene = ExtResource("thing")
+interval = 2.5
+fire_towards_player = false
+
+[node name="SpawnSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("snd")

@@ -1,27 +1,21 @@
 extends Label
+## Blinking / pulsing text (e.g. "PRESS START").
+## The old version started a new 3 second timer every frame; now it just counts time.
 
-@export var speed : int = 5
-@export var fade : bool = false
+@export var speed: float = 5.0
+@export var fade: bool = false          ## true = pulse transparency, false = blink on/off
+@export var start_delay: float = 3.0    ## wait this long before it starts flashing
 
-var time = 0
-var sintime = 0
-var showing = true
+var _time: float = 0.0
 
-func flashMyText():
-	if !fade:
-		if sintime > 0:
-			showing = true
-		else:
-			showing = false
-			
+
+func _process(delta: float) -> void:
+	_time += delta
+	if _time < start_delay:
+		return
+	var wave := sin((_time - start_delay) * speed)
+	if fade:
+		visible = true
+		modulate.a = (wave + 1.0) * 0.5
 	else:
-		showing = true
-		modulate.a = sintime
-	visible = showing
-		
-func _physics_process(delta):
-	await get_tree().create_timer(3).timeout
-	flashMyText()
-	time += delta
-	sintime = sin(time*speed)
-	flashMyText()
+		visible = wave > 0.0

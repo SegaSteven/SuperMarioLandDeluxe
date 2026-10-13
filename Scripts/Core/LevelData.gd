@@ -61,7 +61,7 @@ var firsttime_load = false
 
 # OnReady references ----------------------------------------------------------
 @onready var PLAYER_SCENE = preload("res://Scenes/player.tscn")
-@onready var pause_label = get_node("Pause")
+@onready var pause_label = get_node_or_null("Pause")
 
 # Coins reach this number a 1up is given
 const num_coins_for_1up: int = 100
@@ -95,17 +95,18 @@ func save_state():
 	GameManager.coins_global = coins
 #
 func load_state():
-	emit_signal("gain_coins", coins)
-	emit_signal("gain_points", score)
+	GameManager.gain_coins.emit(coins)
+	GameManager.gain_points.emit(score)
 
 func fresh_start():
 	pass
 
 func win_level():
-	emit_signal("level_beaten")
-	emit_signal("gain_points" + str(score))
+	GameManager.win()
 
-func swap_pause_state():	
+func swap_pause_state():
+	if pause_label == null or level_music == null:
+		return
 	if not pause_label.visible:
 		pause_label.show()
 		music_position = level_music.get_playback_position()

@@ -1,0 +1,1116 @@
+================================================================================
+  SUPER MARIO LAND EXPANDED - HOW IT ALL WORKS
+  A guide to the rewritten scripts: what does what, and how to change things.
+================================================================================
+
+Everything here was tested in Godot 4.4.1 (all 222 scripts/scenes load, and
+automated play-tests passed for Mario, every enemy, every boss, star coins,
+pipes, both level exits, the overworld and the submarine level).
+
+Your levels, tilemaps, art, music and folder layout were NOT changed. New things
+were added next to them, and broken scripts were rewritten in place (same file
+names, same class names), so your existing scenes keep working.
+
+CONTENTS
+  1.  Installing the update
+  2.  The big ideas (read this first)
+  3.  Mario and his state machine
+  4.  Adding your own move to Mario (custom states)
+  5.  How enemies work
+  6.  Making a new enemy (step by step)
+  7.  Ready-made enemy types: hopping, flying, shooting
+  8.  Every Super Mario Land enemy (what's included)
+  9.  Nokobon (bomb Koopa)
+  10. Bosses and the switch behind the boss
+  11. Level exits and pipes (Destination Scene + Spawn)
+  12. Star coins
+  13. The overworld map (point-to-point movement)
+  14. Auto-scroll submarine / plane levels (Marine Pop, Sky Pop)
+  15. Star power
+  16. Saving progress
+  17. The debugger / memory bug - what it was
+  18. Collision layers cheat sheet
+  19. Things you might want to tidy next
+  20. Every file that was added or changed
+  21. Secret exits, hidden paths and secret levels
+  22. Power-ups and unlocking them (fire, bunny ears, speed shoes)
+  23. Switch palaces, colour switches and colour blocks
+  24. Vine blocks and climbing
+  25. The message box
+
+
+================================================================================
+1. INSTALLING THE UPDATE
+================================================================================
+
+  1. Close Godot.
+  2. Back up your project folder (or commit it in git - you already use git).
+  3. Unzip the update INTO your project folder, saying YES to replace files.
+     The folders inside the zip match your project (Scripts/, Scenes/, Assets/).
+  4. Open the project. Godot will import the new images (takes a few seconds).
+  5. Press Play.
+
+If Godot says a script has an error the first time, use Project > Reload Current
+Project once - it just needs to rebuild its list of class names.
+
+
+================================================================================
+2. THE BIG IDEAS (READ THIS FIRST)
+================================================================================
+
+The old code broke because each script was reaching into other scripts and
+checking lots of separate true/false variables, all in one huge file. The new
+code is built from a few simple ideas that repeat everywhere:
+
+  A) MARIO'S BODY ONLY BUMPS INTO THE WORLD.
+     Mario's CharacterBody2D collides with ground, blocks and pipes only.
+     Enemies and items are noticed by his Area2D ("hitbox"). That's why
+     enemies can't push Mario around, and why stomping works reliably.
+
+  B) ENEMIES DECIDE WHAT HAPPENS TO THEM.
+     When Mario touches an enemy he works out WHICH KIND of touch it was and
+     calls one function on the enemy:
+         enemy.stomp(mario)          - he landed on its head
+         enemy.touch_player(mario)   - any other touch
+         enemy.die_from_hit(dir)     - star power, block bump, explosion
+         enemy.hit_by_projectile(b)  - superball or torpedo
+     Each enemy script decides what those mean. A Goombo dies when stomped;
+     a Nokobon goes into its shell; Pionpi just lies flat for a moment.
+     So you never edit Mario to add a new enemy.
+
+  C) MARIO IS ALWAYS IN EXACTLY ONE STATE.
+     Ground, Air, Transform (growing/shrinking), Pipe, Dead, Vehicle.
+     Each state is its own small script. No more "is_jumping and not
+     is_dead and not in_pipe and ..." checks everywhere.
+
+  D) SETTINGS LIVE IN THE INSPECTOR.
+     Almost every number (speeds, jump height, hit points, timers, where a
+     pipe goes) is an @export variable. Click the node and change it in the
+     Inspector - you rarely need to open a script. Hover over a setting in
+     the Inspector to read its description.
+
+
+================================================================================
+3. MARIO AND HIS STATE MACHINE
+================================================================================
+
+Files:
+  Scenes/player.tscn               Mario's scene (same as before + StateMachine)
+  Scripts/Player_Updated.gd        Mario's shared "tools" (class PlayerUpdated)
+  Scripts/player_animated_sprite.gd  Picks small_run / big_jump etc.
+  Scripts/Player/StateMachine.gd   Runs the current state
+  Scripts/Player/PlayerState.gd    Base class every state extends
+  Scripts/Player/States/*.gd       The states themselves
+
+In player.tscn you'll now see:
+
+    Player
+     ├─ AnimatedSprite2D, Area2D, BodyCollisionShape, sounds... (unchanged)
+     └─ StateMachine
+         ├─ Ground      standing, walking, running, skidding, crouching
+         ├─ Air         jumping and falling (and the bounce after a stomp)
+         ├─ Transform   growing / getting the flower / shrinking (flickers)
+         ├─ Pipe        sliding into a pipe
+         ├─ Dead        death animation, then reload or game over
+         └─ Vehicle     submarine / plane (auto-scroll levels)
+
+Each physics frame, Player_Updated.gd asks the current state what to do. The
+state uses Mario's tools and decides when to switch to another state.
+
+MARIO'S TOOLS (in Player_Updated.gd) that states can use:
+  run_movement(delta)      the normal "Mario in control" frame: gravity,
+                           left/right, shooting, moving, blocks, pipes,
+                           camera edge, enemies/items, animation
+  apply_gravity(delta)     just gravity
+  apply_horizontal(delta, input)   just left/right movement
+  wants_to_jump()          true if jump was pressed in the last few frames
+  start_jump()             jump (sets speed, hitbox, plays sound)
+  check_contacts()         handle touching enemies and items
+  hurt(source)             something hurt Mario (shrink or die)
+  die()                    kill Mario
+  set_mode(mode)           change size instantly (SMALL / BIG / SHOOTING)
+  transform_to(mode, damage)   change size with the flicker animation
+  activate_star(seconds)   star power (no number = length of the star song)
+  shoot()                  throw a superball
+  bounce_off_enemy()       the little hop after a stomp
+  get_state_name()         e.g. &"Ground"
+
+SETTINGS (click Player, look in the Inspector):
+  Movement:  max_walk_speed, max_run_speed, walk_accel, stop_decel,
+             turn_decel (skid), air_decel, block_backtracking (can't walk
+             off the left of the screen, like the Game Boy)
+  Jumping:   jump_velocity, gravity_rise, gravity_fall, max_fall_speed,
+             jump_cut (short hop when you let go early), coyote_time (jump
+             just after leaving a ledge), jump_buffer (press jump just
+             before landing)
+  Stomping:  stomp_bounce, stomp_bounce_held, stomp_tolerance
+  Powerups:  star_duration (0 = song length), star_flash_speed,
+             star_warning_time, iframe_duration (blink after being hit),
+             max_superballs, pipe_center_tolerance
+
+DAMAGE RULES:
+  - Small Mario hit          -> dies
+  - Big / flower Mario hit   -> shrinks (Transform state), then blinks for
+                                iframe_duration seconds and can't be hurt
+  - While growing/shrinking, in a pipe, or dead -> can't be hurt at all
+    (each state has "allows_damage" ticked or not)
+  - Pits (DeathBox) kill instantly, even with the star
+
+
+================================================================================
+4. ADDING YOUR OWN MOVE TO MARIO (CUSTOM STATES)
+================================================================================
+
+Example: a spin jump that can break blocks, a swimming state, a climbing
+state for vines, a slide... Here's the recipe.
+
+  1. Make a new script, e.g. Scripts/Player/States/swim.gd:
+
+        extends PlayerState
+        ## Swimming: tap jump to paddle upwards, sink slowly.
+
+        @export var paddle_speed: float = -80.0
+        @export var sink_speed: float = 40.0
+
+        func enter(_msg: Dictionary) -> void:
+            player.velocity.y = 0.0
+
+        func physics_update(delta: float) -> void:
+            var input := Input.get_axis("left", "right")
+            player.apply_horizontal(delta, input)
+            player.velocity.y = move_toward(player.velocity.y, sink_speed, 200 * delta)
+            if Input.is_action_just_pressed("jump"):
+                player.velocity.y = paddle_speed
+            player.move_and_slide()
+            player.check_contacts()
+            player.animate(input)
+
+  2. Open Scenes/player.tscn. Right-click StateMachine > Add Child Node >
+     Node. Rename it "Swim" (the NAME is the state's name). Attach swim.gd.
+
+  3. Switch into it from anywhere:
+        player.state_machine.transition_to(&"Swim")
+     e.g. from an Area2D "water zone" in your level:
+        func _on_body_entered(body):
+            if body is PlayerUpdated:
+                body.state_machine.transition_to(&"Swim")
+     and back out with transition_to(&"Air").
+
+  Things a state can switch on/off in the Inspector:
+     allows_contacts    can enemies/items touch Mario in this state?
+     allows_damage      can Mario be hurt?
+     allows_stomp       can he squash enemies by landing on them?
+     allows_transform   can mushrooms/flowers change his size?
+  And a function a state can override:
+     on_hurt(source) -> bool    return true if you handle damage yourself
+                                (the submarine uses this: one hit = death)
+
+  You can listen to state changes:
+     player.state_machine.state_changed.connect(func(old, new): print(old, " -> ", new))
+
+
+================================================================================
+5. HOW ENEMIES WORK
+================================================================================
+
+File: Scripts/Enemies/enemy.gd  (class Enemy). Every enemy extends it.
+
+What the base class already does for you:
+  - Gravity and walking (Goombo-style), turning round at walls
+    (optionally at ledges too: turn_at_ledges)
+  - Waking up when it comes near the screen and deleting itself when it's
+    far behind the camera (no VisibleOnScreenNotifier needed any more)
+  - Squashing flat (die_flat) or flipping over and falling off screen
+    (die_from_hit), playing the "dead" animation and the "Enemykilled" sound
+  - Giving points and showing the floating points label
+  - Hurting Mario when touched
+
+Settings on every enemy (Inspector > Behaviour / Physics / Waking up):
+  score                   points for beating it
+  horizontal_speed        walking speed
+  start_direction         -1 walks left, 1 walks right
+  turn_at_ledges          turn round instead of walking off edges
+  can_be_stomped          false = touching it from above hurts too
+  immune_to_projectiles   superballs/torpedoes do nothing
+  immune_to_superballs    superballs pass through but torpedoes work (Honen)
+  hits_to_kill            superballs/torpedoes needed (Yurarin = 2)
+  sprite_faces_left       tick if your art faces left (most SML art does)
+  gravity, max_fall_speed
+  always_active           ignore the camera and always run
+  wake_margin             how far outside the screen it wakes up
+  despawn_margin          how far behind the camera before it's deleted
+
+Animations the base class plays if they exist on the AnimatedSprite2D:
+  "walk" or "default" (your choice - set autoplay), and "dead".
+
+Sound nodes it plays if they exist: an AudioStreamPlayer named "Enemykilled".
+
+
+================================================================================
+6. MAKING A NEW ENEMY (STEP BY STEP)
+================================================================================
+
+The easiest way: DUPLICATE an existing enemy scene that behaves similarly,
+swap the art and change the settings. E.g. duplicate kumo.tscn for any hopper.
+
+From scratch:
+  1. Scene > New Scene. Root node: CharacterBody2D. Name it.
+  2. Add children:
+       AnimatedSprite2D   - add your animations ("walk", "dead", ...)
+       CollisionShape2D   - a RectangleShape2D around the body
+       AudioStreamPlayer  - name it "Enemykilled", pick enemykilled.wav
+  3. Attach a script. First line:  extends Enemy
+     (or extends HopperEnemy / FlyerEnemy / ShooterEnemy - see section 7)
+  4. Save it in Scenes/Enemies/ and drag it into a level.
+
+That's a working walking enemy already. To make it do something different,
+override one or more of these in your script:
+
+    func _on_ready() -> void:
+        # setup (use this instead of _ready, so the base setup still runs)
+
+    func _alive_physics(delta: float) -> void:
+        # how it moves every frame while alive
+        apply_gravity(delta)
+        velocity.x = direction * horizontal_speed
+        move_and_slide()
+
+    func stomp(player) -> void:
+        # Mario landed on it. Default: die_flat()
+
+    func touch_player(player) -> void:
+        # Mario touched it. Default: player.hurt(self)
+
+    func hit_by_projectile(ball) -> void:
+        # superball/torpedo. Default: counts hits_to_kill, then die_from_hit()
+
+    func die_from_hit(from_direction: float = 1.0) -> void:
+        # star / block bump / explosion. Default: flip over and fall
+
+Handy helpers inside an enemy script:
+    get_player()              Mario (or null)
+    direction_to_player()     -1 if Mario is to the left, 1 if to the right
+    _face(dir)                flip the sprite to face a direction
+    _play_anim("name")        play an animation if it exists
+    _play_sfx("NodeName")     play a child AudioStreamPlayer if it exists
+    award_score()             give points + show the points label
+    die_flat() / die_from_hit()
+
+Tip: set default numbers in _init() rather than _on_ready():
+    func _init() -> void:
+        score = 400
+  _init runs BEFORE the Inspector values are applied, so you can still change
+  them per-enemy in the Inspector. (Setting them in _on_ready would overwrite
+  your Inspector changes - that was a bug in a few of the old scripts.)
+
+
+================================================================================
+7. READY-MADE ENEMY TYPES: HOPPING, FLYING, SHOOTING
+================================================================================
+
+These live in Scripts/Enemies/Templates/. Attach one to a new enemy and tune
+it in the Inspector - no code needed.
+
+--- HOPPING: hopper_enemy.gd (class HopperEnemy) ---------------------------
+  Waits on the ground, then hops. Examples: Kumo, Pionpi, Fly.
+    hop_speed          height of a normal hop
+    big_hop_speed      0 = never; otherwise every few hops it does a big one
+    hops_before_big    normal hops between big ones
+    wait_on_ground     pause between hops
+    air_speed          sideways speed in the air (0 = straight up and down)
+    face_player        turn towards Mario before each hop
+    anim_ground / anim_air   animation names
+
+--- FLYING / SWIMMING: flyer_enemy.gd (class FlyerEnemy) -------------------
+  No gravity. Underwater enemies use this too. Pick a "pattern":
+    STRAIGHT         straight line (Torion fish, Bullet Biff, Chicken)
+    WAVE             sideways, bobbing up and down (Batadon)
+    PATROL_UP_DOWN   up and down on the spot (Gunion)
+    PATROL_SIDE      left and right between two points
+    CHASE            slowly homes in on Mario (Yurarin)
+    DIVE             hovers, swoops down when Mario walks underneath
+  Settings: fly_speed, wave_height, wave_speed, patrol_distance,
+            chase_turn_speed, dive_trigger_width, dive_speed, anim_fly.
+  Stomping a flyer knocks it out of the sky. Untick can_be_stomped if it
+  should hurt instead.
+
+--- SHOOTING: shooter_enemy.gd (class ShooterEnemy) ------------------------
+  Fires a projectile every few seconds. Examples: Gao, Nyololin, Pompon
+  Flower, Yurarin Boo, Roketon.
+    projectile_scene   what it fires (boss_fireball.tscn by default)
+    aim                AT_PLAYER, FORWARD, BOTH_SIDES, ALL_DIRECTIONS, UP_ARC
+    fire_interval, first_shot_delay, shot_speed, shot_count (ALL_DIRECTIONS)
+    arc_up_speed, arc_gravity (UP_ARC lobs things up and over)
+    only_when_player_near   > 0 = only shoots when Mario is this close
+    movement           NONE, WALK, FLY_LEFT, DRIFT_TO_PLAYER, BOB
+    anim_idle / anim_shoot
+  A child AudioStreamPlayer named "Fire" plays on each shot.
+
+--- PROJECTILES: Bosses/boss_projectile.gd (class BossProjectile) ----------
+  Used for every enemy shot, not just bosses. Hurts Mario, can't be stomped,
+  superballs pass through it.
+    speed, arc_gravity, throw_up_speed, pass_through_walls, lifetime
+
+--- OTHER BUILDING BLOCKS (Scripts/Enemies/SML/) ---------------------------
+  orbiter.gd        circles round a point or a node (Roto Disc, Chikako, Tamao)
+  enemy_spawner.gd  keeps spawning a scene while on screen (Bullet Biff
+                    cannon, Ganchan rock dropper, fish schools...)
+
+
+================================================================================
+8. EVERY SUPER MARIO LAND ENEMY (WHAT'S INCLUDED)
+================================================================================
+
+Scenes are in Scenes/Enemies/ and Scenes/Enemies/SML/. The art in
+Assets/Sprites/Enemies/Placeholders/ is PLACEHOLDER: coloured shapes with a
+letter. To use your own art, open the scene, click AnimatedSprite2D, and
+replace the frames in each animation (keep the animation names).
+
+ WORLD 1 - BIRABUTO
+  Goombo ............ goomba.tscn          walks; stomp it
+  Nokobon ........... koopa.tscn           see section 9
+  Fly ............... Enemies/fly.tscn     small, small, BIG hops at Mario
+  Bunbun ............ Enemies/bun_bun.tscn flies in a wave, drops spears
+  Piranha Plant ..... Enemies/parana_plant_pipe.tscn  pops out of its pipe;
+                      stays hidden while Mario is right next to the pipe
+  Gao ............... SML/gao.tscn         statue, doesn't move, spits fire
+                      at Mario (even behind it). Stomp or superball. 800 pts
+
+ WORLD 2 - MUDA
+  Honen ............. SML/honen.tscn       skeleton fish, leaps straight up out
+                      of the water. Place it just below the surface.
+                      Stomp or torpedo; superballs pass through
+  Mekabon ........... SML/mekabon.tscn     robot; its head flies at Mario like
+                      a boomerang and comes back. Destroy the head and the body
+                      grows a new one. Whole robot 400 / head or body 100
+  Torion ............ SML/torion.tscn      fish swimming left
+  Yurarin ........... SML/yurarin.tscn     seahorse that drifts at Mario;
+                      2 torpedoes. 400 pts
+  Yurarin Boo ....... SML/yurarin_boo.tscn bigger seahorse that drifts AND
+                      shoots fireballs at Mario
+  Gunion ............ SML/gunion.tscn      bobs up and down; 2 hits split it
+                      into two halves that zoom at Mario. 800 pts
+
+ WORLD 3 - EASTON
+  Kumo .............. SML/kumo.tscn        hopping spider
+  Suu ............... SML/suu.tscn         spider on a thread; drops when Mario
+                      walks underneath, climbs back up. Place under a ceiling
+  Tokotoko .......... SML/tokotoko.tscn    running moai; sprints at Mario
+  Batadon ........... SML/batadon.tscn     flying moai head (wave)
+  Ganchan ........... SML/ganchan.tscn     bouncing boulder; can't be destroyed
+                      (only the star smashes it). Use ganchan_dropper.tscn to
+                      drop them from the sky
+
+ WORLD 4 - CHAI
+  Pionpi ............ SML/pionpi.tscn      hopping jiangshi. Stomping only
+                      knocks it flat - it gets back up! Only a superball
+                      defeats it. 800 pts
+  Nyololin .......... SML/nyololin.tscn    snake that fires in 8 directions;
+                      shots go through walls
+  Pompon Flower ..... SML/pompon_flower.tscn  lobs spores up and over at Mario
+  Chikako ........... SML/chikako.tscn     small spark circling a point
+  Bullet Biff ....... SML/bullet_biff.tscn + bullet_biff_cannon.tscn
+                      the cannon fires towards Mario; Mario can stand on it
+  Roketon ........... SML/roketon.tscn     plane that flies left and shoots
+                      (Sky Pop)
+  Chicken ........... SML/chicken.tscn     fast flying chicken (Sky Pop)
+  Roto Disc ......... SML/roto_disc.tscn   fireball circling a point
+
+ BOSSES (section 10)
+  King Totomesu (1-3) Bosses/example_boss.tscn  - uses the default boss setup
+  Dragonzamasu (2-3)  SML/dragonzamasu.tscn  hovers in the water, spits
+                      fire, guarded by two orbiting Tamao
+  Hiyoihoi (3-3) .... SML/hiyoihoi.tscn    throws Ganchan boulders in an arc
+  Biokinton (4-3) ... SML/biokinton.tscn   cloud that throws Chickens
+  Tatanga (final) ... SML/tatanga.tscn     ship that sways about and fires
+                      3-way spreads
+
+ Numbers (speeds, points, timers) are sensible guesses at the Game Boy
+ originals - tweak them in the Inspector until they feel right.
+
+
+================================================================================
+9. NOKOBON (BOMB KOOPA)
+================================================================================
+
+File: Scripts/Enemies/SML/koopa.gd.
+
+  Stomp it ........ hides in its shell, fuse starts (the shell is SAFE to touch)
+  Stomp again ..... explodes straight away
+  Superball ....... explodes straight away (untick superball_detonates if you'd
+                    rather it just died)
+  Star / block .... explodes
+  The explosion ... destroys every enemy within blast_radius. Other Nokobon
+                    caught in it go off too (chain reaction, chain_delay apart).
+                    Hurts Mario if he's within hurt_radius.
+
+Settings: fuse_time, explosion_time, blast_radius, hurt_radius,
+          superball_detonates, chain_delay.
+
+WHY BIG MARIO USED TO GET HIT TWICE: the explosion touched him on every frame
+it existed. Shrinking started a timer, but nothing blocked damage DURING the
+shrink animation, so the next frame hit him again. Now:
+  - each explosion can only hurt Mario once, and
+  - the Transform state ignores all damage while it plays, then the blink
+    (iframe_duration) protects him afterwards.
+
+
+================================================================================
+10. BOSSES AND THE SWITCH BEHIND THE BOSS
+================================================================================
+
+Files: Scripts/Enemies/Bosses/boss.gd (class Boss)
+       Scripts/Enemies/Bosses/boss_switch.gd (class BossSwitch)
+       Scenes/Enemies/Bosses/example_boss.tscn, boss_switch.tscn,
+       boss_fireball.tscn
+
+HOW IT WORKS (like the Game Boy game):
+  - Bosses can't be stomped (touching hurts Mario).
+  - Superballs (or torpedoes) take 1 health each. King Totomesu has 5.
+  - Star / block bumps / explosions also take 1 health (not an instant kill).
+  - At 0 health the boss is knocked out and falls off the screen.
+  - The SWITCH behind the boss: touch it and the boss is beaten instantly,
+    the music stops, and the exit appears. Even if you beat the boss with
+    superballs, you still touch the switch to open the exit (same as SML).
+
+SETTING UP A BOSS ROOM:
+  1. Drag a boss scene into the level (e.g. example_boss.tscn).
+  2. Drag Scenes/Enemies/Bosses/boss_switch.tscn behind it.
+  3. Put your exit door (door_normal) where it should be.
+  4. Click the switch. In the Inspector:
+       Bosses       - drag the boss in (empty = every boss in the level)
+       Reveal Nodes - drag the exit door in. It stays hidden and switched off
+                      until the switch is pressed.
+  Done.
+
+  For water/sky bosses with no switch (Dragonzamasu, Biokinton, Tatanga), use
+  the boss's own "Reveal On Defeat" list instead - drag the exit door into it.
+
+FINISHING THE WHOLE GAME AFTER TATANGA:
+  Click Tatanga and fill in "On Defeat Go To" with your ending scene (pick the
+  .tscn or paste a uid://). After "On Defeat Delay" seconds the level is marked
+  beaten and the game moves there. Your castle cutscenes are the OPENING (they
+  end on the title screen), so the ending scene is still to be made.
+
+BOSS SETTINGS (click the boss):
+  Boss health:   max_health, hurt_invincibility, stomp_damage (>0 = stomping
+                 hurts it, for a Mario-World style boss)
+  Movement:      walk_speed, patrol_distance (0 = stands still),
+                 jump_interval (0 = never), jump_speed
+  Hover:         hover (no gravity, floats), hover_range, hover_speed,
+                 hover_sway_x
+  Attack:        projectile_scene, fire_interval, fire_offset,
+                 shots_per_volley, volley_gap, spread_count, spread_angle,
+                 throw_velocity (lob in an arc - Hiyoihoi's boulders)
+  When beaten:   reveal_on_defeat, on_defeat_go_to, on_defeat_spawn,
+                 on_defeat_delay, on_defeat_finishes_level
+  Animations:    anim_walk, anim_jump, anim_attack, anim_hurt
+  Sounds:        child AudioStreamPlayers named "BossHit" and "BossFire"
+
+  Signals you can connect: health_changed(current, maximum) - e.g. for a
+  boss health bar - and defeated(boss).
+
+A COMPLETELY CUSTOM BOSS: make a script that extends Boss and override
+_boss_behaviour(delta). Use shoot_projectile() to fire and take_damage(n) /
+defeat() if you need them:
+
+    extends Boss
+    func _boss_behaviour(delta):
+        velocity.x = direction_to_player() * walk_speed   # chase Mario
+        if is_on_floor() and randf() < 0.01:
+            velocity.y = -jump_speed
+            shoot_projectile(true)                        # aimed at Mario
+
+
+================================================================================
+11. LEVEL EXITS AND PIPES  (Destination Scene + Spawn)
+================================================================================
+
+Every door and pipe now holds its OWN destination. Click it and fill in two
+boxes in the Inspector - no editing level scripts.
+
+  Destination Scene   click the folder icon and pick the .tscn, OR paste a UID.
+                      To get a UID: in the FileSystem dock right-click a scene
+                      > Copy UID (it looks like uid://b3e2uv1pq2x1o).
+                      UIDs keep working even if you rename/move the scene.
+  Destination Spawn   x, y where Mario appears in that scene.
+                      Tip: open the destination scene, move your mouse to the
+                      spot - the coordinates show at the bottom of the 2D view.
+
+DOWN PIPES (PipeD1 / PipeD2):  Destination group > destination_scene,
+  destination_spawn, transition_pattern. Stand on the pipe, hold down.
+  If destination_scene is EMPTY the pipe works the old way (the level
+  script's _on_player_scene_over_d_1_change / _2_ decides) - so your existing
+  levels keep working, and you can switch pipes over one at a time.
+
+SIDE PIPES (PipeSide): same Destination boxes. Walk into it.
+  Empty = old way (the level script's _on_player_scene_under_change).
+
+LEVEL EXITS (door_normal.gd - used by BOTH exits):
+  level_scene_path   where to go: the world map, or the bonus room for the
+                     upper exit (pick the .tscn or paste a uid://)
+  spawn_point        where Mario appears there. For the world map leave it at
+                     (0, 0) - Mario goes back to the tile he entered from.
+  exit_type          NORMAL or BONUS (both count as beating the level)
+  fanfare_time       seconds of "level end" music before moving on
+  Either exit marks the level beaten and saves any star coins (section 12).
+
+  NOTE: in door_normal.tscn the trigger box (CollisionShape2D) sits ~2400px to
+  the right of the door node. When placing an exit, move the CollisionShape2D
+  child, not just the door.
+
+All of this goes through ONE function, so travel works the same everywhere:
+    GameManager.travel_to(scene, spawn, {"pattern": "squares", "speed": 4})
+You can call it from any script (e.g. a warp zone or a cutscene).
+
+
+================================================================================
+12. STAR COINS
+================================================================================
+
+Files: Scripts/star_coin.gd, Scenes/star_coin.tscn,
+       Assets/Sprites/StarCoin/ (placeholder art - replace freely)
+
+  1. Drag Scenes/star_coin.tscn into a level. Set Coin Number to 1, 2 or 3.
+     Each level needs one of each. They work in underground rooms too.
+  2. On the overworld, click the level's MapNode and set
+     star_coins_in_level (3 by default, 0 = don't show coins for this tile).
+
+  How they behave (like New Super Mario Bros):
+  - Collected coins only SAVE when you finish the level (either exit).
+    If Mario dies first, they come back.
+  - A coin you saved on an earlier run shows see-through. Grabbing it again
+    just gives points.
+  - On the map, under the level name, 3 coin icons show for the tile Mario is
+    standing on: FILLED = got it, HOLLOW = still to find.
+
+  Settings on the coin: coin_number, points, bob_height.
+  Map HUD position: click WorldUI (inside world_ui.tscn) > coins_position.
+  Or add your own HBoxContainer called "StarCoins" to world_ui.tscn and it
+  will be used instead (then you can lay it out however you like).
+
+  From code: OverworldMan.star_coins_for("1-1") -> [true, false, true]
+             OverworldMan.star_coin_count("1-1") -> 2
+
+
+================================================================================
+13. THE OVERWORLD MAP (POINT-TO-POINT MOVEMENT, LIKE SUPER MARIO WORLD)
+================================================================================
+
+Files: Scripts/World_Scripts/MapNode.gd, MapPath.gd, overworld_player.gd
+       Scenes/WorldScenes/map_node.tscn
+
+The map is now made of STOPS (MapNodes) joined by PATHS (MapPaths) that you
+DRAW in the editor. Mario walks along the line you drew. You never edit the
+player script to add levels. world_map.tscn and pyramid_map.tscn are already
+converted - look at the "MapNodes" node in each to see examples.
+
+MAPNODE - a stop on the map (level, dock, crossroads, or a portal):
+  Drag Scenes/WorldScenes/map_node.tscn into the map's MapNodes node.
+    level_name          shown on the HUD; also the level's ID ("1-1")
+    area_name           e.g. BIRABUTO
+    level_scene_path    the level (.tscn or uid://). Empty = not a level
+    spawn_point         where Mario starts INSIDE that level
+    show_icon           show the level icon
+    idle_animation      Mario's pose standing here
+    star_coins_in_level 0-3
+    Portal group:  goto_scene, goto_spawn_point, auto_goto
+                   (a stop that takes you to another map, e.g. the pyramid)
+
+MAPPATH - a route from one stop to another:
+  1. Select the MapNode the path STARTS at. Add Child Node > Path2D.
+     Attach Scripts/World_Scripts/MapPath.gd.
+  2. Inspector: Target = the MapNode it leads to.
+                Direction = the d-pad direction that starts the walk.
+  3. With the path selected, use the "Add Point" tool in the toolbar to click
+     out the route. Start at the MapNode (0,0). No points = straight line.
+  4. That's it. Mario can walk it backwards too (opposite direction key).
+
+  Animating the walk (the bit you wanted to control):
+    point_animations   one entry per point. Entry N = the animation used while
+                       walking from point N-1 to point N: "Up", "Down",
+                       "Left", "Right", "Water_Up", "Water_Left"... Leave an
+                       entry empty and it's picked from the direction.
+    all_water          use the Water_ animations for the whole path
+    speed              walking speed (pixels per second)
+    smooth             follow curves instead of straight segments
+    animation_player + play_animation   play an AnimationPlayer animation
+                       when Mario starts the walk (a bridge appearing, etc.)
+
+  Locking paths:
+    require_source_beaten   can only walk forward once this level is beaten
+    required_level          e.g. "1-2" must be beaten first
+    bidirectional           untick for one-way paths
+    reverse_direction       which key walks it backwards (AUTO = opposite)
+
+  OverworldPlayer settings: start_node (first ever position), snap_to_pixels,
+  debug_unlock_all (ignore locks while testing).
+
+Coming back from a level, Mario returns to the tile he entered it from, and a
+beaten level's icon changes to "complete".
+
+
+================================================================================
+14. AUTO-SCROLL SUBMARINE / PLANE LEVELS (MARINE POP, SKY POP)
+================================================================================
+
+Files: Scenes/Levels/Templates/marine_pop_template.tscn
+       Scripts/Level_Scripts/auto_scroll_level.gd  (class AutoScrollLevel)
+       Scripts/Core/auto_scroll_camera.gd          (class AutoScrollCamera)
+       Scripts/Player/States/vehicle.gd            (Mario's Vehicle state)
+       Scripts/torpedo.gd, Scenes/torpedo.tscn
+
+TO MAKE ONE:
+  1. Duplicate Scenes/Levels/Templates/marine_pop_template.tscn into
+     Scenes/Levels/ and rename it (e.g. 2-3.tscn).
+  2. Paint your tiles on the TileMap (it uses Birabuto.tres - swap the
+     TileSet for your water tiles). Delete "TemporaryFloorAndCeiling" once
+     your tiles have collision.
+  3. Pick music for LevelMusic.
+  4. Sub art: click Player > VehicleSprite. It has animations "idle", "move",
+     "shoot" with Mario's sprite as a placeholder - replace the frames.
+  5. Add enemies under Enemies (Torion, Yurarin, Gunion, Honen...).
+  6. Move the exit (Doors/Door_normal) to the end - remember to move its
+     CollisionShape2D (see section 11).
+  7. Point a MapNode at it.
+
+What happens: as the level starts, Mario switches to the Vehicle state. The
+camera scrolls right on its own. Mario moves freely in 8 directions, can't
+leave the screen, fires torpedoes with the action button, and gets crushed
+if the screen pushes him into a wall. Touching an enemy = lose a life.
+
+VEHICLE SETTINGS (Player > StateMachine > Vehicle):
+  move_speed, acceleration, drift (e.g. (0, 8) to sink slowly),
+  screen_margin, projectile_scene (torpedo.tscn), max_projectiles,
+  fire_offset, one_hit_kill (untick = big Mario shrinks instead of dying),
+  crush_against_walls, vehicle_size (collision box), sprite_node.
+  NOTE: those settings are on the Vehicle node inside player.tscn, so they
+  change it for every level. To change them for ONE level, right-click the
+  Player in that level > Editable Children, then edit Vehicle there.
+
+CAMERA SETTINGS (Camera2D in the level):
+  scroll_speed, start_delay, vertical_speed (levels that scroll up/down),
+  speed_zones (list of Vector2(x, new_speed): when the screen reaches x the
+  speed changes; 0 = stop there, e.g. for a boss), and Limit Right = where
+  the scrolling stops for good.
+  From code: $Camera2D.stop_scrolling() / resume_scrolling().
+
+SKY POP: same template - change the background, use the Sky Pop sprite,
+use Roketon / Chicken / Biokinton, and give the plane a bullet scene instead
+of the torpedo if you like (any scene with torpedo.gd works).
+
+
+================================================================================
+15. STAR POWER
+================================================================================
+
+The old version was ~200 lines of "sprite off, wait 0.1, sprite on, wait 0.1"
+written out by hand to roughly match the song. Now:
+  - The flashing is ONE looping tween (_flash in Player_Updated.gd).
+  - The star lasts exactly as long as the star song: it reads the length from
+    the audio file. Swap the song and it still lines up.
+  - It flashes faster for the last star_warning_time seconds as a warning.
+  - Pausing the game pauses the star timer too.
+  - A second star restarts the timer instead of overlapping.
+Settings: star_duration (0 = song length), star_flash_speed, star_warning_time.
+
+
+================================================================================
+16. SAVING PROGRESS
+================================================================================
+
+Finished levels and star coins are saved to a file automatically
+(user://save_progress.cfg) and loaded when the game starts.
+
+  OverworldMan.is_beaten("1-1")          true/false
+  OverworldMan.reset_progress()          wipe the save (New Game button,
+                                         or while testing)
+Where the file is on your PC: Project > Open User Data Folder.
+
+Lives, score and coins are NOT saved (they reset like the Game Boy). If you
+want them saved, add them to save_progress() / load_progress() in
+Scripts/World_Scripts/Overworld_Manager.gd - it's the same pattern.
+
+
+================================================================================
+17. THE DEBUGGER / MEMORY BUG - WHAT IT WAS
+================================================================================
+
+The errors piling up in the debugger (and the memory climbing) came from code
+that ran EVERY FRAME (60 times a second) and created something new each time:
+
+  1. ui.gd: _process() called .connect() on three signals every frame.
+     Connecting an already-connected signal is an error, so Godot logged
+     3 errors x 60 frames = 180 errors per second, forever. THIS was the big
+     one. Signals now connect once in _ready().
+  2. letter_screen.gd: started a new 10-second timer every frame; after 10
+     seconds it tried to change scene 60 times a second.
+  3. Flashing_Text.gd: started a new 3-second timer every frame (about 180
+     paused functions alive at any moment).
+  4. Pyramid_player.gd / old fly.gd / old bun_bun.gd / old overworld_player.gd:
+     "await create_timer(...)" inside _process, same problem.
+  5. Old tile scripts re-emitted a "level finished" signal every frame.
+
+THE RULE TO REMEMBER: in _process / _physics_process, never call .connect(),
+never "await get_tree().create_timer()", never create_tween() unless it's
+behind an if that only happens once. Use a float that counts down instead:
+    var timer := 2.0
+    func _process(delta):
+        timer -= delta
+        if timer <= 0.0:
+            timer = 2.0
+            do_the_thing()
+
+
+================================================================================
+18. COLLISION LAYERS CHEAT SHEET
+================================================================================
+
+(Project Settings > Layer Names > 2D Physics - unchanged from your project.)
+Scripts use names from Scripts/Core/Layers.gd, e.g. Layers.bit(Layers.ENEMY).
+
+  1 player        Mario's body and hitbox
+  2 ground        tilemaps, floors
+  3 enemy         every enemy body (including enemy shots)
+  4 koopa_stomp   (old, kept)
+  5 obstacle      blocks, bricks, pipes, cannons
+  6 bonus         mushrooms, flowers, stars, hearts
+  7 fireball      superballs, torpedoes
+  8 map_tile      overworld
+  9 ParahnaPlant  piranha plants
+
+  Mario's body hits:  ground + obstacle  (2, 5)
+  Mario's hitbox sees: enemy, koopa_stomp, bonus, plant  (3, 4, 6, 9)
+  Enemies hit:        ground + obstacle  (2, 5) - they never block Mario
+  Superballs hit the world; their Area2D sees enemies + plants.
+The scripts set these themselves in _ready(), so you don't need to tick
+boxes when you make a new enemy.
+
+
+================================================================================
+19. THINGS YOU MIGHT WANT TO TIDY NEXT
+================================================================================
+
+  - (Done - see section 28: the .tmp crash files, the old map tile scripts,
+    Pyramid_player.gd and other unused files have been deleted.)
+  - The pipe spawn points stored in 1-1's level script (spawn_point1/2 =
+    -29, 21) look odd. Now's a good time to set each pipe's own Destination
+    Spawn instead (section 11).
+  - Level scripts (1-1.gd, 1-2.gd...) are nearly identical. Once all your
+    pipes use Destination Scene, they can all share one script.
+  - Replace placeholder art: Assets/Sprites/Enemies/Placeholders/,
+    Assets/Sprites/StarCoin/, the example boss, and the sub (VehicleSprite).
+  - The in-level HUD doesn't show star coins yet (only the map does). The
+    UI script could read GameManager.pending_star_coins the same way.
+
+
+================================================================================
+20. EVERY FILE THAT WAS ADDED OR CHANGED
+================================================================================
+
+CHANGED (rewritten in place - same name, same class):
+  Scripts/Player_Updated.gd           Mario's tools + state machine hookup
+  Scripts/player_animated_sprite.gd   animation picking
+  Scripts/Enemies/enemy.gd            shared enemy base
+  Scripts/Enemies/SML/goomba.gd, koopa.gd, fly.gd, bun_bun.gd, arrow_drop.gd,
+                  parana_plant.gd, parana_plant_pipe.gd
+  Scripts/shroom.gd, shooting_flower.gd, super_stars.gd, 1UP.gd, superball.gd
+  Scripts/questionblock.gd, blockWitem.gd
+  Scripts/pipeD1.gd, pipeD2.gd, pipe_side.gd  (Destination boxes)
+  Scripts/door_normal.gd              both level exits
+  Scripts/falling_platform.gd, mario_bonus_room.gd,
+  Scripts/ui.gd, letter_screen.gd, Flashing_Text.gd   (bug fixes)
+  Scripts/Level_Scripts/*.gd          small fixes (old Player references etc.)
+  Scripts/Core/GameManager.gd         travel_to, star coins, lives fix
+  Scripts/Core/LevelData.gd, RunTimeLevel.gd   (crash fixes)
+  Scripts/World_Scripts/overworld_player.gd, Overworld_Manager.gd,
+                  world_ui.gd
+  Scenes/player.tscn                  + StateMachine node and states
+  Scenes/WorldScenes/world_map.tscn, pyramid_map.tscn   MapNodes + MapPaths
+  Scenes/Enemies/parana_plant_pipe.tscn, arrow_drop.tscn  -> CharacterBody2D
+
+ADDED:
+  HOW_IT_WORKS.txt                    this guide
+  Scripts/Core/Layers.gd, auto_scroll_camera.gd
+  Scripts/Player/StateMachine.gd, PlayerState.gd, States/*.gd
+  Scripts/World_Scripts/MapNode.gd, MapPath.gd
+  Scripts/Enemies/Templates/hopper_enemy.gd, flyer_enemy.gd, shooter_enemy.gd
+  Scripts/Enemies/Bosses/boss.gd, boss_projectile.gd, boss_switch.gd
+  Scripts/Enemies/SML/*.gd            the Super Mario Land enemies
+  Scripts/Level_Scripts/auto_scroll_level.gd
+  Scripts/star_coin.gd, torpedo.gd
+  Scripts/Player/PowerUps.gd, States/bunny_float.gd, States/climb.gd
+  Scripts/PowerUps/power_up_item.gd, player_fireball.gd
+  Scripts/Blocks/color_block.gd, color_switch.gd, vine_block.gd, vine.gd
+  Scripts/UI/message_box.gd, Scripts/Level_Scripts/basic_level.gd
+  Scenes/PowerUps/*.tscn, Scenes/Blocks/*.tscn
+  Scenes/Levels/SwitchPalaces/*.tscn, Templates/switch_palace_template.tscn
+  Assets/Sprites/PowerUps/*.png
+  Scenes/WorldScenes/map_node.tscn
+  Scenes/Enemies/Bosses/*.tscn, Scenes/Enemies/SML/*.tscn
+  Scenes/Levels/Templates/marine_pop_template.tscn
+  Scenes/star_coin.tscn, torpedo.tscn
+  Assets/Sprites/Enemies/Placeholders/*.png, Assets/Sprites/StarCoin/*.png
+
+
+================================================================================
+21. SECRET EXITS, HIDDEN PATHS AND SECRET LEVELS
+================================================================================
+
+A secret exit opens a hidden path on the map, Super Mario World style. Unlocks
+are just names you make up, like "star_road_1".
+
+IN THE LEVEL - the secret exit:
+  Use a normal exit (door_normal). Set Exit Type = SECRET and Unlocks =
+  star_road_1 (several: "star_road_1, powerup_bunny"). It still counts as
+  beating the level.
+
+ON THE MAP - the hidden path and level:
+  1. Add the secret level's MapNode. Set Required Unlock = star_road_1.
+     It stays invisible until then.
+  2. Draw a MapPath to it from a normal level (section 13). Set its Required
+     Unlock = star_road_1 too. It can't be walked, either way, until then.
+  3. Optional on the path: Reveal Nodes (a TileMap layer with the path tiles,
+     a bridge...) - hidden until unlocked. Draw Dots = show the route as dots.
+
+  The first time you come back to the map after unlocking, the path draws
+  itself dot by dot (input paused), then the level icon appears.
+
+From code: OverworldMan.unlock("star_road_1"), OverworldMan.is_unlocked(...).
+Unlocks are saved with the rest of the progress.
+
+
+================================================================================
+22. POWER-UPS AND UNLOCKING THEM
+================================================================================
+
+The whole list is ONE file: Scripts/Player/PowerUps.gd.
+
+  Power-up          Mario mode   Unlocked at start   Unlocked by
+  Super Mushroom    BIG          yes                 -
+  Superball Flower  SHOOTING     yes                 -
+  Fire Flower       FIRE         no                  RED switch
+  Bunny Ears        BUNNY        no                  PINK switch
+  Speed Shoes       (timed)      no                  BLUE switch
+
+  Fire Flower  - throws fireballs that bounce along the ground and burn out
+                 when they hit a wall (the superball ricochets instead).
+  Bunny Ears   - hold jump while falling to float down slowly (the BunnyFloat
+                 state). Super Mario Land 2's carrot.
+  Speed Shoes  - for 10 seconds (like the star) Mario runs twice as fast and
+                 leaves a blue ghost trail. Stacks with the star.
+
+Items (Scenes/PowerUps/): fire_flower.tscn (red), carrot.tscn,
+speed_shoes.tscn (blue). One script for all of them: power_up_item.gd -
+set Power Up Id, and Movement (STAY / WALK / BOUNCE).
+
+LOCKED POWER-UPS: put the item in a ? block's Spawned Scene as normal. Until
+it's unlocked, the block gives a mushroom (small Mario) or Superball Flower
+instead. An item placed straight in a level always works.
+
+Placeholder art: until you draw frames named fire_idle, bunny_run,
+bunny_float etc., Mario uses his big frames tinted (the "tint" in
+PowerUps.gd). Getting hit with any power-up drops Mario to small.
+
+ADDING YOUR OWN POWER-UP (e.g. a cape):
+  1. Add CAPE at the END of the PlayerMode enum in Player_Updated.gd.
+  2. Add an entry to LIST in PowerUps.gd (copy "bunny" and change it).
+  3. Duplicate Scenes/PowerUps/fire_flower.tscn, set Power Up Id = "cape".
+  4. Its ability = a new Mario state (section 4). Name it in air_hold_state,
+     or switch to it from your own code.
+  5. To make a switch unlock it: "switch": "blue"/"red"/"pink", or add a new
+     colour to SWITCH_COLORS.
+
+From code: mario.give_power_up("fire"), PowerUps.unlock("bunny"),
+PowerUps.is_unlocked("speed_shoes").
+
+
+================================================================================
+23. SWITCH PALACES, COLOUR SWITCHES AND COLOUR BLOCKS
+================================================================================
+
+Like Super Mario World. Three colours: BLUE (speed shoes), RED (fire flower),
+PINK (bunny ears).
+
+THE LEVELS: Scenes/Levels/SwitchPalaces/switch_palace_blue.tscn, _red, _pink
+(and Templates/switch_palace_template.tscn to make more). Each has the big
+switch, some outline blocks, a floor to replace with your tiles, and uses
+basic_level.gd (a general level script you can use for any new level).
+
+THE SWITCH (Scenes/Blocks/color_switch_<colour>.tscn): Mario jumps on it ->
+  1. that colour's blocks everywhere turn on (saved),
+  2. that colour's power-up is unlocked,
+  3. the music stops and a message box pops up. It says the switch is
+     active and blocks have changed - NOT what it does. The player finds out.
+     (Edit the switch's Message to change the words; %s = the colour name.)
+  4. when the player presses jump, the level counts as finished and the game
+     goes back to the map.
+
+ON THE MAP: on the palace's MapNode set Switch Color. The tile shows a
+placeholder switch; once pressed it's drawn flat and the level CAN'T be
+entered again. Normal levels stay replayable. (Replayable = false does the
+same for any one-time level.) Put it behind a secret exit (section 21) so
+players have to find it.
+
+COLOUR BLOCKS (Scenes/Blocks/color_block_<colour>.tscn and
+color_question_<colour>.tscn), placed in ANY level. In the Inspector:
+  Color Name   blue / red / pink
+  Kind         SOLID    - a plain block once switched on
+               QUESTION - a ? block giving that colour's power-up once
+  Show Outline untick to make it invisible until switched on
+Before the switch: a dotted outline - Mario and enemies pass through.
+After: solid. Use them for bridges over pits, shortcuts, walls that block
+enemies, or ? blocks with the new power-up.
+
+
+================================================================================
+24. VINE BLOCKS AND CLIMBING
+================================================================================
+
+Like the NES game: Scenes/Blocks/vine_block.tscn (a green-tinted ? block).
+Bump it and a vine grows up out of it. Hold Up on the vine to climb (the Climb
+state): Up/Down climb, Jump lets go, Left/Right step off.
+
+Vine Block settings:
+  vine_height, grow_speed
+  destination_scene + destination_spawn - leave empty for a plain ladder up
+     to somewhere in this level (e.g. a ledge with a SECRET exit). Fill them
+     in and climbing to the top takes Mario there, like a pipe (a bonus sky
+     area that ends at a secret exit).
+A vine can also be placed in a level directly (Scenes/Blocks/vine.tscn,
+tick Start Grown). Climbing animation: add "climb" to Mario's
+AnimatedSprite2D (until then his jump frame is used).
+
+
+================================================================================
+25. THE MESSAGE BOX
+================================================================================
+
+Scripts/UI/message_box.gd - a Super Mario World style box. Pauses the game,
+waits for jump/action/start (it ignores a button already held when it
+opened, and can't be skipped in the first 0.6 s). Use it anywhere, e.g. a
+hint block or a cutscene:
+    var box := MessageBox.open(get_tree(), "WELCOME TO STAR ROAD!", Color.YELLOW)
+    await box.closed
+
+Have fun building the rest of the game!
+
+
+================================================================================
+26. TIME BONUS AT THE END OF A LEVEL
+================================================================================
+
+Like Super Mario Land: the moment Mario touches the exit door, the clock
+FREEZES. The level-clear music plays, then the clock counts down to 000 and
+every unit left is added to the score (10 points each, same as the Game Boy
+game), with the timerscore.wav sound playing while it counts. Then Mario
+leaves the level.
+
+Pressing the boss switch does the same: the clock freezes straight away, and
+after the boss has fallen (Time Bonus Delay, 1.5 s) the time is counted into
+the score. The exit door that appears afterwards finds 000 left, so it just
+plays the fanfare and goes.
+
+All of the counting lives in the level UI (Scripts/ui.gd). Click the UI node
+in a level and look under "Time Bonus":
+  Points Per Time Unit      10
+  Tally Units Per Second    how fast it counts (130 = 400 takes about 3 s)
+  Tally Sound               empty = res://Assets/SFX/timerscore.wav
+  Restart Sound Each Unit   tick this (with bonustime_stagecomplete.wav as
+                            the sound) if you want a "blip" for every unit
+
+On the exit door (door_normal.gd):
+  Time Bonus                untick to skip the count for this door
+  Count During Fanfare      tick = count while the music plays, not after
+  Pause After Count         short wait at 000 before leaving
+
+On the boss switch (boss_switch.gd):
+  Time Bonus, Time Bonus Delay
+
+From your own scripts:
+  var ui := UI.find(get_tree())
+  ui.stop_time()                  # freeze the clock
+  await ui.tally_time_bonus()     # count it into the score, wait until done
+
+Note: the clock ticks once a second (the Timer node in UI.tscn). In the Game
+Boy game one unit is about 2/3 of a second; set that Timer's Wait Time to
+0.667 if you want it to match.
+
+
+================================================================================
+27. MARIO'S SPEED AND KEEPING MOMENTUM THROUGH POWER-UPS
+================================================================================
+
+SPEED: running is now 90 (was 120) and walking stays 60. At 60 frames a
+second that's 1.5 px and 1 px a frame, which is roughly how fast Mario moves
+on the Game Boy. Change them on the Player node: Movement > Max Walk Speed /
+Max Run Speed. (The speed shoes still double whatever these are.)
+
+MOMENTUM: getting a power-up (or shrinking from a hit) no longer stops Mario.
+The Transform state (Scripts/Player/States/transform.gd) now keeps moving him
+while he flickers: he carries on running, keeps rising or falling through a
+jump, and you can still steer and do a short hop by letting go of jump. The
+flicker shows the run/jump/stand frame of each size, so it looks right while
+moving.
+
+If you'd rather have the NES-style freeze, click Player > StateMachine >
+Transform and tick Freeze On Power Up (and/or Freeze On Damage). Mario then
+stops in place while flickering and carries on with exactly the speed he had
+afterwards, instead of dropping.
+
+
+================================================================================
+28. FILES THAT WERE DELETED (NOT NEEDED ANY MORE)
+================================================================================
+
+These weren't used by anything in the game. Your git history still has them if
+you ever want one back.
+
+  Scenes/*.tmp, Scenes/Levels/*.tmp      Godot crash leftovers (14 files)
+  character_body_2d.gd                   empty Godot template script
+  Scripts/door.gd                        old door (door_normal.gd replaced it)
+  Scripts/scene_data.gd                  unused (GameManager holds this now)
+  Scripts/scene_switcher.gd              duplicate of Scripts/Core/scene_switcher.gd
+  Scripts/fireball.gd, Scenes/fireball.tscn
+                                         first superball attempt (superball.tscn
+                                         replaced it)
+  Scenes/super_star.tscn                 older star (super_stars.tscn is used)
+  Scenes/pipe_enterance.tscn             older pipe (pipeD1/pipeD2/pipe_side used)
+  Scripts/Core/countdown_manager.gd, Scenes/countdown_manager.tscn
+                                         and the CountdownManager autoload: never
+                                         read (the time lives in LevelData)
+  Scripts/World_Scripts/LevelTiles/      OverworldTile.gd, PyramidTile.gd,
+                                         start.gd - the old map system
+  Scenes/WorldScenes/interactive_level_tile.tscn,
+  Scenes/WorldScenes/interactive_overworld_tile.tscn   old map tiles
+  Scripts/World_Scripts/Pyramid_player.gd   old pyramid map player
+  (and the 3 old tile signal handlers at the end of Overworld_Manager.gd)
+
+KEPT on purpose even though no level uses them YET - they're parts for you
+to place: every enemy in Scenes/Enemies/, the colour blocks, switches and vine
+block, the switch palaces and level templates, door_normal / door_bonus,
+star_coin, Sea.tscn, the castle cutscene (castle_scenept1/2 and
+Scripts/Cutscene/ - nothing goes to it yet; point Tatanga's On Defeat Go To at
+res://Scenes/castle_scenept1.tscn for the ending), and the addons.
+
+
+================================================================================
+29. WHERE THE ENEMY SCRIPTS LIVE
+================================================================================
+
+  Scripts/Enemies/enemy.gd          the shared base every enemy extends (Enemy)
+  Scripts/Enemies/SML/              every Super Mario Land enemy: goomba.gd,
+                                    koopa.gd, fly.gd, bun_bun.gd, arrow_drop.gd,
+                                    parana_plant.gd, parana_plant_pipe.gd, plus
+                                    pionpi, honen, mekabon, gunion and the rest
+  Scripts/Enemies/Templates/        hopper / flyer / shooter starting points
+  Scripts/Enemies/Bosses/           boss.gd, boss_switch.gd, boss_projectile.gd
+
+goomba.gd, koopa.gd and enemy.gd used to sit loose in Scripts/, and the fly,
+bun_bun, arrow_drop and piranha plant scripts in Scripts/Enemies/. Every scene
+that uses them was updated to the new paths. Code that names a class (Enemy,
+Goomba, Koopa...) never cared where the file is, so nothing else changed.
+
+Moving files yourself later: do it inside Godot's FileSystem dock (drag and
+drop). Godot then fixes every scene that points at the file. Moving files in
+Windows Explorer / Finder doesn't, and scenes can show "missing dependencies".
