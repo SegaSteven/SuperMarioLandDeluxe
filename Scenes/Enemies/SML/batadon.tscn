@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://byu4se40vn2hi"]
+[gd_scene load_steps=7 format=3 uid="uid://b8q5ae7k0qcko"]
 
 [ext_resource type="Script" uid="uid://gk2vrkw1bi2k" path="res://Scripts/Enemies/Templates/flyer_enemy.gd" id="script"]
 [ext_resource type="AudioStream" uid="uid://dknrx7swi25xl" path="res://Assets/SFX/enemykilled.wav" id="snd0"]

@@ -111,6 +111,7 @@ const DEFAULT_STATES = {
 	&"Vehicle": preload("res://Scripts/Player/States/vehicle.gd"),
 	&"BunnyFloat": preload("res://Scripts/Player/States/bunny_float.gd"),
 	&"Climb": preload("res://Scripts/Player/States/climb.gd"),
+	&"Hidden": preload("res://Scripts/Player/States/hidden.gd"),
 }
 
 
@@ -133,6 +134,10 @@ func _ready():
 
 	if GameManager.spawn_point != Vector2.ZERO:
 		global_position = GameManager.spawn_point
+	# Back from losing a life after touching a checkpoint in this level: start there
+	if owner and GameManager.has_checkpoint_in(owner.scene_file_path):
+		global_position = GameManager.checkpoint_position
+		snap_to_floor()
 
 	_setup_state_machine()
 
@@ -374,6 +379,26 @@ func _is_stomping(enemy: Enemy) -> bool:
 	return get_feet_y() <= enemy.get_top_y() + stomp_tolerance
 
 
+## Puts Mario safely on the floor where he is (used when starting at a checkpoint). If the
+## spot is inside the ground or a wall, he's moved up until he's clear, then dropped onto
+## whatever is below - so a checkpoint doesn't have to sit exactly on the ground.
+## Waits one physics frame so the level's collision is ready.
+func snap_to_floor(max_lift: float = 160.0, search_down: float = 160.0) -> void:
+	await get_tree().physics_frame
+	if not is_inside_tree():
+		return
+	var lifted := 0.0
+	# Inside something? (can't even move up by 1 px) -> step up until free
+	while test_move(global_transform, Vector2(0, -1)) and lifted < max_lift:
+		global_position.y -= 4.0
+		lifted += 4.0
+	# Drop onto the floor below
+	var hit := move_and_collide(Vector2(0, search_down), true)
+	if hit:
+		global_position += hit.get_travel()
+	velocity = Vector2.ZERO
+
+
 func get_feet_y() -> float:
 	var shape := body_collision_shape.shape as RectangleShape2D
 	var half_height := shape.size.y * 0.5 if shape else 4.0
@@ -570,6 +595,11 @@ func set_mode(new_mode: PlayerMode) -> void:
 
 ## Colours Mario's sprite for power-ups that don't have their own frames yet (PowerUps.gd "tint").
 func apply_power_up_tint() -> void:
+	# A palette swap (AnimatedSprite2D > Palette Swap) replaces the old whole-sprite tint
+	var spr := animated_sprite_2d as PlayerAnimatedSprite
+	if spr and spr.has_palette_for_mode(player_mode):
+		animated_sprite_2d.self_modulate = Color(1, 1, 1)
+		return
 	animated_sprite_2d.self_modulate = PowerUps.for_mode(player_mode).get("tint", Color(1, 1, 1))
 
 

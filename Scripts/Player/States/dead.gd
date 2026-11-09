@@ -1,5 +1,6 @@
 extends PlayerState
-## Mario's death: hop up, fall off screen, then reload the level (or game over).
+## Mario's death: hop up, fall off screen, then start again - at the last checkpoint if one was
+## touched (see checkpoint.gd), otherwise the scene reloads (or game over).
 
 
 func _init() -> void:
@@ -36,5 +37,11 @@ func _run_death() -> void:
 	await get_tree().create_timer(0.8).timeout
 	if GameManager.is_game_over():
 		GameManager.handle_game_over()
+		return
+	# Touched a checkpoint? Start again there (its level, even if Mario died down a pipe).
+	var restart := GameManager.death_restart_scene()
+	if restart != "":
+		GameManager.spawn_point = GameManager.checkpoint_position
+		get_tree().call_deferred("change_scene_to_file", restart)
 	else:
 		get_tree().call_deferred("reload_current_scene")

@@ -1114,3 +1114,181 @@ Goomba, Koopa...) never cared where the file is, so nothing else changed.
 Moving files yourself later: do it inside Godot's FileSystem dock (drag and
 drop). Godot then fixes every scene that points at the file. Moving files in
 Windows Explorer / Finder doesn't, and scenes can show "missing dependencies".
+
+
+================================================================================
+30. THE LOAD ROOM AND SAVE FILES
+================================================================================
+
+Title screen -> (Start, fade) -> the load room: Scenes/LoadRoom/load_room.tscn
+
+WHAT THE PLAYER DOES
+  - Walk Mario about. Each of the 3 UFOs is a save file, with a ladder under
+    it. Climb a ladder (Up) and at the top Mario gets in, the UFO lifts off
+    and that file starts:
+      empty file           -> Daisy's letter (Letter_Screen), then the map
+      file with progress   -> straight back to the map, on the tile he was on
+  - Far right: the SAM cannon (says ERASE on it). Walk into it to get in.
+      "DELETE SAVE DATA?" pops up above it, a red crosshair flashes on a UFO.
+      Left / Right   aim at another UFO
+      Jump           fire: missile -> the UFO explodes -> the file is deleted
+                     -> a new, empty UFO drops in from above the screen
+                     (an empty file just says NO DATA)
+      Run (action)   Mario jumps back out
+
+WHAT EACH UFO SHOWS (above it)
+  nothing          empty file
+  0 - 12           main levels beaten
+  star + 1 - 5     Star Road levels beaten (star 5 = the whole game)
+  3 tiny 2x2 blocks underneath: blue / red / pink, only for the switch
+  palaces that file has pressed
+
+SAVE FILES
+  user://save_slot_1.cfg, _2, _3   (on Windows: %APPDATA%\Godot\app_userdata\
+  <project name>\). Your old single save (save_progress.cfg) is moved into
+  file 1 the first time the game runs.
+  The game saves by itself the moment anything changes: a level beaten (exit
+  door or boss), star coins, a secret exit / unlock, a switch pressed, and
+  where Mario is standing on the map.
+
+  The level lists that the UFO numbers count are at the top of
+  Scripts/World_Scripts/Overworld_Manager.gd:
+    MAIN_LEVELS       "1-1" ... "4-3"   (the level_name on each MapNode)
+    STAR_ROAD_LEVELS  "STAR 1" ... "STAR 5"  <- give your Star Road MapNodes
+                      these level names, or change the list to match yours
+    SAVE_SWITCHES     "blue", "red", "pink"
+
+  From code:
+    OverworldMan.current_slot             which file is being played
+    OverworldMan.select_slot(2)           start file 2 (true = it was new)
+    OverworldMan.delete_slot(2)           delete file 2
+    OverworldMan.slot_summary(2)          what the UFO shows
+    OverworldMan.save_progress()          save now (normally automatic)
+
+FILES
+  Scripts/LoadRoom/load_room.gd    the room: where files go (New File Scene,
+                                   Default Map Scene), Mario's start position
+  Scripts/LoadRoom/save_ufo.gd     a UFO / save file (Slot 1-3)
+  Scripts/LoadRoom/ladder.gd       a ladder (a Vine Mario climbs); its Ufo
+                                   box says which UFO is at the top
+  Scripts/LoadRoom/sam_cannon.gd   the cannon
+  Scripts/LoadRoom/sam_missile.gd, sam_explosion.gd   placeholder effects
+  Scripts/Player/States/hidden.gd  new Mario state: inside something
+                                   (invisible, can't move or be hurt)
+  Scenes/LoadRoom/*.tscn           the room and each piece
+
+ADDING YOUR ART (the placeholder drawing switches off by itself)
+  UFO:        add a Sprite2D or AnimatedSprite2D child called "Body"
+  Star:       Star Texture on each UFO
+  Cannon:     Sprite2D children "Base" (the stand) and "Barrel" (drawn
+              pointing RIGHT - it turns to aim)
+  Missile:    Missile Texture on the cannon (pointing right)
+  Explosion:  Explosion Frames on the cannon (a SpriteFrames with an
+              animation called "default")
+  Ladder:     delete the _draw() function in ladder.gd and add a Sprite2D
+  Room:       replace the Background / FloorArt rectangles with a TileMap;
+              the invisible floor and walls are the "Walls" node
+  Music:      put a stream on the Music node and tick Autoplay
+  Sounds:     the cannon's Sounds group (defaults: doorway, coin,
+              bulletbill, nokobomb, bonusgamebad); the UFO's Board Sound
+
+The cannon's words: Label Text ("ERASE") and Prompt Text on the cannon.
+Text in this room uses Label nodes with your pixel font at size 7, same as
+the map (drawing that font with draw_string shows white boxes).
+
+
+================================================================================
+31. CLIMBING ANIMATIONS, POWER-UP ANIMATION SETS AND PALETTE SWAPS
+================================================================================
+
+MARIO'S ANIMATIONS (Player > AnimatedSprite2D > SpriteFrames panel)
+  small_   idle run jump turn down climb
+  big_     idle run jump turn down climb
+  shooting_ (superball) idle run jump turn down climb  + shoot, death
+  fire_    idle run jump turn down climb  (copies of the SHOOTING frames)
+  bunny_   idle run jump turn down climb  + bunny_float
+  speed_   idle run jump turn down climb  (speed shoes, not for small Mario)
+The new ones start as copies of the big frames (climb = the jump frame),
+except fire_, which copies the superball's shooting_ frames: Fire Mario is the
+superball Mario recoloured with the fire palette (and uses the same "shoot"
+throwing pose).
+Swap in your own frames whenever you like - nothing else needs changing.
+
+WHICH ONE PLAYS
+  Climbing a ladder or vine plays <set>_climb for whatever Mario is:
+    small -> small_climb, mushroom -> big_climb, Fire Flower -> fire_climb,
+    bunny ears -> bunny_climb, speed shoes on -> speed_climb,
+    superball -> shooting_climb.
+  It only animates while he's moving and pauses on the frame when he stops.
+  If an animation is missing it falls back: <set>_climb -> big/small_climb
+  -> the jump frame.
+  Speed shoes: while they're on, speed_<action> is tried first (big sizes
+  only), then the power-up's own set.
+
+PALETTE SWAP (Player > AnimatedSprite2D > Inspector > Palette Swap)
+  Recolours the frames for each power-up so the copies look different until
+  you draw your own. Each list has 6 colours: [cap & shirt, overalls,
+  overall shading] for big Mario's frames, then the same 3 for the superball
+  (shooting) frames:
+    Palette From    big:       red e6131a, blue 457db0, dark 173550
+                    superball: blue 312caf, green 43b102, dark green 2c680c
+    Palette Fire    orange e85a00, overalls blue 457db0 / 173550 (both halves)
+    Palette Bunny   pink   ff6fbf
+    Palette Speed   blue   2a6cf5, light-blue overalls
+  The superball itself has no palette, so it keeps its own blue and green.
+  Click a colour to change it. Palette Swap On unticked = no recolouring.
+  Palette Only Actions: e.g. just "climb" to recolour only the climb frames.
+  Palette Extra: more power-ups, e.g. "cape" -> [yellow, ...].
+  Palette Tolerance: how close a pixel must be to count (0.06 is fine for
+  pixel art).
+  The shader is res://Shaders/palette_swap.gdshader. Star flashing and
+  fades still work on top of it. With a palette set, the old whole-sprite
+  tint from PowerUps.gd isn't used for that power-up.
+
+  Once you've drawn real frames for a power-up, either untick Palette Swap
+  On, or empty that power-up's palette list.
+
+
+================================================================================
+32. CHECKPOINTS
+================================================================================
+
+Scene: res://Scenes/checkpoint.tscn   Script: Scripts/checkpoint.gd
+
+WHAT IT DOES
+  Mario walks through a checkpoint -> it becomes his restart point. If he loses
+  a life, the level starts again AT THE CHECKPOINT instead of the beginning,
+  even if he died down a pipe afterwards (he's taken back to the level the
+  checkpoint is in). He lands on the floor there: if the spot is inside the
+  ground, a block or a pipe, he's lifted out and stands on top of it.
+  The checkpoint is forgotten when he goes back to the map or finishes the
+  level. Going down pipes and through doors inside the level keeps it.
+  Several in one level: the one furthest RIGHT that he's touched wins, so
+  walking back past an earlier one doesn't move him backwards.
+
+ADDING ONE TO A LEVEL
+  1. Drag res://Scenes/checkpoint.tscn into the level (your levels keep them
+     under a "Checkpoints" node).
+  2. Move it to where Mario should restart.
+  3. Make the trigger tall so he can't jump over it - scale the checkpoint
+     (your 1-1 ones use Scale y = 6.44) or its Area2D > CollisionShape2D.
+  It's invisible in the game. In the editor it shows a little flag (yellow;
+  green once it's the active one when Show In Game is on) and a blue dot at
+  the restart point.
+
+INSPECTOR
+  Spawn Offset    restart point relative to the checkpoint (0,0 = right on it)
+  Only Forward    don't replace a checkpoint further right (on by default)
+  Show In Game    draw the flag while playing (for testing)
+  Reach Sound     optional sound when it's touched
+  Spawnpoint      old setting: active as soon as the level starts
+  Signal "reached" fires when it becomes the restart point.
+
+FROM CODE (GameManager)
+  has_checkpoint(), clear_checkpoint()
+  checkpoint_scene / checkpoint_position   where Mario will restart
+  respawn_player()   puts Mario at the checkpoint (level scripts call it)
+
+NOTE for 1-1: Checkpoint2 sits inside the green pipe at x 824, so Mario
+restarts standing on the pipe. Move it a little left/right if you'd rather
+he started on the ground.

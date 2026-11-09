@@ -1,0 +1,201 @@
+[gd_scene load_steps=15 format=3 uid="uid://hpgjlbhraqdh"]
+
+[ext_resource type="Script" uid="uid://drm4h2cctm3vv" path="res://Scripts/LoadRoom/load_room.gd" id="1"]
+[ext_resource type="PackedScene" uid="uid://b3e2uv1pq2x1o" path="res://Scenes/player.tscn" id="2"]
+[ext_resource type="Texture2D" uid="uid://brgfc6rfpig4r" path="res://Assets/Sprites/Backgrounds/Clouds.png" id="2_dl0wh"]
+[ext_resource type="TileSet" uid="uid://u07nu88mt2ny" path="res://TileSets/main.tres" id="2_fl0av"]
+[ext_resource type="PackedScene" uid="uid://dji6m65sdb581" path="res://Scenes/LoadRoom/save_ufo.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://154epyt6ylu2" path="res://Scenes/LoadRoom/ladder.tscn" id="4"]
+[ext_resource type="PackedScene" uid="uid://bhvviyfaomsdk" path="res://Scenes/LoadRoom/sam_cannon.tscn" id="5"]
+[ext_resource type="AudioStream" uid="uid://ld71vgvfvxus" path="res://Assets/Audio/New/SAVEROOM.wav" id="5_geiau"]
+[ext_resource type="LabelSettings" uid="uid://bsexttycxsh6o" path="res://pause.tres" id="9_obv6h"]
+
+[sub_resource type="RectangleShape2D" id="Shape_floor"]
+size = Vector2(300, 16)
+
+[sub_resource type="RectangleShape2D" id="Shape_wall"]
+size = Vector2(24, 200)
+
+[sub_resource type="Animation" id="Animation_hgn06"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-8, 120)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Player:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_obv6h"]
+resource_name = "Walk_In"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.966667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-8, 120), Vector2(24, 120)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Player:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ukvix"]
+_data = {
+&"RESET": SubResource("Animation_hgn06"),
+&"Walk_In": SubResource("Animation_obv6h")
+}
+
+[node name="LoadRoom" type="Node2D"]
+script = ExtResource("1")
+start_position = Vector2(24, -8)
+
+[node name="Background" type="ColorRect" parent="."]
+offset_right = 256.0
+offset_bottom = 144.0
+color = Color(0.301961, 0.65098, 1, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background"]
+position = Vector2(160, 56)
+texture = ExtResource("2_dl0wh")
+
+[node name="FloorArt" type="ColorRect" parent="."]
+offset_top = 128.0
+offset_right = 256.0
+offset_bottom = 144.0
+color = Color(0.32, 0.26, 0.2, 1)
+
+[node name="TileMap2" type="TileMap" parent="."]
+tile_set = ExtResource("2_fl0av")
+format = 2
+layer_0/tile_data = PackedInt32Array(983069, 655360, 3, 786461, 655360, 3)
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("2_fl0av")
+format = 2
+layer_0/tile_data = PackedInt32Array(0, 262145, 3, 65536, 262145, 4, 1, 327681, 3, 65537, 327681, 4, 131072, 262145, 3, 196608, 262145, 4, 131073, 327681, 3, 196609, 327681, 4, 262144, 262145, 3, 327680, 262145, 4, 262145, 327681, 3, 327681, 327681, 4, 393216, 262145, 3, 458752, 262145, 4, 393217, 327681, 3, 458753, 327681, 4, 524288, 262145, 3, 589824, 262145, 4, 524289, 327681, 3, 589825, 327681, 4, 655360, 262145, 3, 720896, 262145, 4, 655361, 327681, 3, 720897, 327681, 4, 786432, 262145, 3, 851968, 262145, 4, 786433, 327681, 3, 851969, 327681, 4, 917504, 262145, 3, 983040, 262145, 4, 917505, 327681, 3, 983041, 327681, 4, 917534, 458752, 5, 983070, 524288, 5, 917535, 524288, 5, 983071, 458752, 5, 786462, 524288, 5, 851998, 458752, 5, 786463, 458752, 5, 851999, 524288, 5, 655390, 458752, 5, 720926, 458752, 5, 655391, 524288, 5, 720927, 524288, 5, 524318, 458752, 5, 589854, 524288, 5, 524319, 524288, 5, 589855, 458752, 5, 30, 458752, 5, 65566, 458752, 5, 31, 524288, 5, 65567, 524288, 5, 131102, 524288, 5, 196638, 458752, 5, 131103, 458752, 5, 196639, 524288, 5, 262174, 458752, 5, 327710, 524288, 5, 262175, 524288, 5, 327711, 458752, 5, 393246, 458752, 5, 458782, 458752, 5, 393247, 524288, 5, 458783, 524288, 5, 1048578, 65536, 2, 1114114, 65536, 3, 1048579, 65536, 2, 1114115, 65536, 3, 1048580, 65536, 2, 1114116, 65536, 3, 1048581, 65536, 2, 1114117, 65536, 3, 1048582, 65536, 2, 1114118, 65536, 3, 1048583, 65536, 2, 1114119, 65536, 3, 1048584, 65536, 2, 1114120, 65536, 3, 1048585, 65536, 2, 1114121, 65536, 3, 1048586, 65536, 2, 1114122, 65536, 3, 1048587, 65536, 2, 1114123, 65536, 3, 1048588, 65536, 2, 1114124, 65536, 3, 1048589, 65536, 2, 1114125, 65536, 3, 1048590, 65536, 2, 1114126, 65536, 3, 1048591, 65536, 2, 1114127, 65536, 3, 1048592, 65536, 2, 1114128, 65536, 3, 1048593, 65536, 2, 1114129, 65536, 3, 1048594, 65536, 2, 1114130, 65536, 3, 1048595, 65536, 2, 1114131, 65536, 3, 1048596, 65536, 2, 1114132, 65536, 3, 1048597, 65536, 2, 1114133, 65536, 3, 1048598, 65536, 2, 1114134, 65536, 3, 1048599, 65536, 2, 1114135, 65536, 3, 1048600, 65536, 2, 1114136, 65536, 3, 1048601, 65536, 2, 1114137, 65536, 3, 1048602, 65536, 2, 1114138, 65536, 3, 1048603, 65536, 2, 1114139, 65536, 3, 1048604, 65536, 2, 1114140, 65536, 3, 1048605, 65536, 2, 1114141, 65536, 3, 1048606, 65536, 2, 1114142, 65536, 3, 1048607, 65536, 2, 1114143, 65536, 3, 1048576, 65536, 2, 1114112, 65536, 3, 1048577, 65536, 2, 1114113, 65536, 3, 983049, 524288, 0, 983050, 589824, 0, 983051, 524288, 0, 917516, 524288, 0, 851981, 524288, 0, 851982, 589824, 0, 917519, 589824, 0, 983056, 589824, 0, 917517, 655360, 3, 917518, 720896, 3, 983053, 655360, 3, 983054, 720896, 3, 983052, 655360, 3, 983055, 720896, 3, 983064, 524288, 0, 917529, 524288, 0, 851994, 524288, 0, 786459, 524288, 0, 720924, 524288, 0, 655389, 524288, 0, 983065, 655360, 1, 983066, 655360, 1, 983067, 655360, 1, 983068, 655360, 1, 983069, 458752, 4, 917533, 655360, 1, 917532, 655360, 1, 917531, 655360, 1, 917530, 655360, 1, 851996, 655360, 1, 851995, 655360, 1, 851997, 655360, 1, 786461, 458752, 4, 786460, 655360, 1, 720925, 655360, 1, 589853, 458752, 4, 327709, 458752, 4, 131101, 458752, 4)
+
+[node name="Walls" type="StaticBody2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+
+[node name="Floor" type="CollisionShape2D" parent="Walls"]
+position = Vector2(128, 136)
+shape = SubResource("Shape_floor")
+
+[node name="LeftWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(4, 72)
+shape = SubResource("Shape_wall")
+
+[node name="RightWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(260, 72)
+shape = SubResource("Shape_wall")
+
+[node name="UFO1" parent="." instance=ExtResource("3")]
+position = Vector2(56, 48)
+info_offset = Vector2(0, -14)
+
+[node name="UFO2" parent="." instance=ExtResource("3")]
+position = Vector2(104, 48)
+slot = 2
+info_offset = Vector2(0, -14)
+
+[node name="UFO3" parent="." instance=ExtResource("3")]
+position = Vector2(152, 48)
+slot = 3
+info_offset = Vector2(0, -14)
+
+[node name="Ladder1" parent="." instance=ExtResource("4")]
+position = Vector2(56, 128)
+ufo = NodePath("../UFO1")
+rail_color = Color(0, 0, 0, 1)
+max_height = 65.0
+color = Color(0.215902, 0.215902, 0.215902, 1)
+
+[node name="Ladder2" parent="." instance=ExtResource("4")]
+position = Vector2(104, 128)
+ufo = NodePath("../UFO2")
+rail_color = Color(0, 0, 0, 1)
+max_height = 65.0
+color = Color(0.793018, 0.000489393, 0.793012, 1)
+
+[node name="Ladder3" parent="." instance=ExtResource("4")]
+position = Vector2(152, 128)
+ufo = NodePath("../UFO3")
+rail_color = Color(0, 0, 0, 1)
+max_height = 65.0
+color = Color(0.333333, 0.333333, 0.333333, 1)
+
+[node name="SamCannon" parent="." instance=ExtResource("5")]
+position = Vector2(211.021, 125.957)
+label_text = ""
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_geiau")
+autoplay = true
+
+[node name="Player" parent="." instance=ExtResource("2")]
+self_modulate = Color(0.0333333, 0.0333333, 0.0333333, 1)
+position = Vector2(-8, 120)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(128, 72)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_ukvix")
+}
+
+[node name="Label" type="Label" parent="."]
+offset_left = 35.759
+offset_top = 7.80215
+offset_right = 75.759
+offset_bottom = 30.8022
+text = "FILE1"
+label_settings = ExtResource("9_obv6h")
+
+[node name="Label2" type="Label" parent="."]
+offset_left = 83.759
+offset_top = 7.80215
+offset_right = 123.759
+offset_bottom = 30.8022
+text = "FILE2"
+label_settings = ExtResource("9_obv6h")
+
+[node name="Label3" type="Label" parent="."]
+offset_left = 132.155
+offset_top = 8.19784
+offset_right = 172.155
+offset_bottom = 31.1978
+text = "FILE3"
+label_settings = ExtResource("9_obv6h")

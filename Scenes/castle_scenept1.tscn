@@ -1,7 +1,7 @@
 [gd_scene load_steps=36 format=3 uid="uid://dh2w33oro61vc"]
 
-[ext_resource type="Script" path="res://Scripts/Cutscene/castle_scenept_1.gd" id="1_1s0ca"]
-[ext_resource type="Script" path="res://Scripts/Cutscene/cutscene_camera.gd" id="1_g4ayr"]
+[ext_resource type="Script" uid="uid://eex7o1orhkl7" path="res://Scripts/Cutscene/castle_scenept_1.gd" id="1_1s0ca"]
+[ext_resource type="Script" uid="uid://ccovn0wrydlep" path="res://Scripts/Cutscene/cutscene_camera.gd" id="1_g4ayr"]
 [ext_resource type="Texture2D" uid="uid://dlo3d5vp4wtjg" path="res://Assets/Sprites/Mario/Small_run1.png" id="2_13u66"]
 [ext_resource type="AudioStream" uid="uid://5vlvsco8sfnx" path="res://Assets/Audio/16 Princess Daisy.mp3" id="2_pgy0j"]
 [ext_resource type="Texture2D" uid="uid://baul2ukxp5a13" path="res://Assets/Sprites/Mario/Small_run2.png" id="3_botfc"]
@@ -10,24 +10,24 @@
 [ext_resource type="Texture2D" uid="uid://cs076i1d5hi2a" path="res://Assets/Sprites/Mario/Small_run3.png" id="4_2yijf"]
 [ext_resource type="AudioStream" uid="uid://cskaf0mi7grl" path="res://Assets/Audio/New/Chase Down Tatanga_1.wav" id="4_kheby"]
 [ext_resource type="Texture2D" uid="uid://dygjakn7haglm" path="res://Assets/Cutscenes/Window.png" id="4_q0idq"]
-[ext_resource type="Script" path="res://Scripts/Cutscene/window.gd" id="5_bc232"]
+[ext_resource type="Script" uid="uid://bamiqwvewd8mh" path="res://Scripts/Cutscene/window.gd" id="5_bc232"]
 [ext_resource type="Texture2D" uid="uid://cyuh0q46q7ju2" path="res://Assets/Cutscenes/FlightCS01BG2.png" id="5_g7gtq"]
 [ext_resource type="Texture2D" uid="uid://kb7btcj6dykb" path="res://Assets/Sprites/Mario/Big_idle.png" id="5_yhoif"]
 [ext_resource type="Texture2D" uid="uid://hokinmv5swdi" path="res://Assets/Cutscenes/Glass_Piece.png" id="6_jur44"]
 [ext_resource type="Texture2D" uid="uid://bvwqxyamt1lvg" path="res://Assets/Sprites/Mario/Big_run1.png" id="6_k0d37"]
 [ext_resource type="Texture2D" uid="uid://b5k1qxur5qnvy" path="res://Assets/Sprites/Mario/Big_run2.png" id="7_jnqcv"]
-[ext_resource type="Script" path="res://Scripts/Cutscene/gpu_particles_2d.gd" id="7_vutth"]
+[ext_resource type="Script" uid="uid://t8q067gbt211" path="res://Scripts/Cutscene/gpu_particles_2d.gd" id="7_vutth"]
 [ext_resource type="Texture2D" uid="uid://ytb4na58nwxk" path="res://Assets/Sprites/Mario/Big_run3.png" id="8_xkp7g"]
 [ext_resource type="Texture2D" uid="uid://bu1r2nm12uem4" path="res://Assets/Sprites/Mario/Small_Idle.png" id="9_6g65j"]
-[ext_resource type="Script" path="res://Scripts/Cutscene/mario_cutscene.gd" id="10_vehbo"]
+[ext_resource type="Script" uid="uid://dgn5j0jjgkr6x" path="res://Scripts/Cutscene/mario_cutscene.gd" id="10_vehbo"]
 [ext_resource type="Texture2D" uid="uid://du4pkan1qfg1i" path="res://Assets/Cutscenes/Daisy_arms.png" id="14_fl7no"]
 [ext_resource type="Texture2D" uid="uid://dfuqivwe7q30g" path="res://Assets/Cutscenes/Daisy_idle.png" id="15_tasg6"]
-[ext_resource type="Script" path="res://Scripts/Cutscene/daisy.gd" id="16_el021"]
+[ext_resource type="Script" uid="uid://ca1awqnd53gig" path="res://Scripts/Cutscene/daisy.gd" id="16_el021"]
 [ext_resource type="Texture2D" uid="uid://cha4v7eqvgjae" path="res://Assets/Cutscenes/Tatanga.png" id="16_q58xt"]
-[ext_resource type="Script" path="res://Scripts/Cutscene/tatanga_1.gd" id="19_vte8e"]
+[ext_resource type="Script" uid="uid://cympynmaumf2s" path="res://Scripts/Cutscene/tatanga_1.gd" id="19_vte8e"]
 [ext_resource type="FontFile" uid="uid://jiobqv87vkb1" path="res://Assets/Fonts/super-mario-land-gb-doublecase.ttf" id="20_3fv6k"]
-[ext_resource type="Script" path="res://Scripts/Cutscene/text_behind.gd" id="20_8h6rw"]
-[ext_resource type="Script" path="res://Scripts/Cutscene/label.gd" id="21_ni1yd"]
+[ext_resource type="Script" uid="uid://ceh0c8affygm7" path="res://Scripts/Cutscene/text_behind.gd" id="20_8h6rw"]
+[ext_resource type="Script" uid="uid://bjyndifhtwtvj" path="res://Scripts/Cutscene/label.gd" id="21_ni1yd"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_bm4xo"]
 animations = [{
@@ -179,12 +179,12 @@ script = ExtResource("5_bc232")
 position = Vector2(256, 72)
 emitting = false
 amount = 10
-process_material = SubResource("ParticleProcessMaterial_on4qm")
 texture = ExtResource("6_jur44")
 lifetime = 0.2
 one_shot = true
 explosiveness = 1.0
 local_coords = true
+process_material = SubResource("ParticleProcessMaterial_on4qm")
 script = ExtResource("7_vutth")
 
 [node name="Mario" type="AnimatedSprite2D" parent="."]

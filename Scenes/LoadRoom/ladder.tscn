@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://154epyt6ylu2"]
+
+[ext_resource type="Script" uid="uid://cooc8b385rfp2" path="res://Scripts/LoadRoom/ladder.gd" id="1"]
+
+[node name="Ladder" type="Area2D"]
+script = ExtResource("1")
+max_height = 72.0

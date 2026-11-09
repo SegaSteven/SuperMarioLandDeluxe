@@ -2,7 +2,7 @@ extends Node
 
 @onready var ui_data = preload("res://Scripts/ui.gd")
 @onready var ScoreCard = $SCORE
-@export var next_scene = "res://Scenes/Letter_Screen.tscn"
+@export var next_scene = "res://Scenes/LoadRoom/load_room.tscn"   
 @onready var title_logo: Sprite2D = $Background/TitleLogo
 @onready var deluxe: AnimatedSprite2D = $Background/Deluxe
 
@@ -18,4 +18,4 @@ func set_score(points: int):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("Start"):
-		SceneManager.change_scene(next_scene, {"pattern": "vertical", "speed": 4})
+		SceneManager.change_scene(next_scene, {"pattern": "fade", "speed": 3})

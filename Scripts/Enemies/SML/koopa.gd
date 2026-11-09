@@ -15,16 +15,15 @@ enum KoopaState { WALKING, SHELL, EXPLODING }
 @export_group("Bomb")
 @export var fuse_time: float = 1.5            ## seconds in the shell before it explodes
 @export var explosion_time: float = 0.8       ## how long the explosion stays on screen
-@export var blast_radius: float = 0.0        ## enemies inside this distance are destroyed
-@export var hurt_radius: float = 0.0         ## Mario inside this distance gets hurt
+@export var blast_radius: float = 28.0        ## enemies inside this distance are destroyed
+@export var hurt_radius: float = 20.0         ## Mario inside this distance gets hurt
 @export var superball_detonates: bool = true
 @export var chain_delay: float = 0.15         ## gap before a neighbouring Nokobon goes off
 
 const SHELL_SHAPE = preload("res://Resources/CollisionShapes/koopa_shell_collision_shape.tres")
 const FULL_SHAPE = preload("res://Resources/CollisionShapes/koopa_full_collision_shape.tres")
 const EXPLODE_SHAPE = preload("res://Resources/CollisionShapes/koopa_explode_collision_shape.tres")
-const FULL_SHAPE_POSITION = Vector2(0, 1.5)
-const SHELL_SHAPE_POSITION = Vector2(0, 4)
+const SHELL_SHAPE_POSITION = Vector2(0, 6)
 const EXPLODE_SHAPE_POSITION = Vector2(0, 3)
 
 var state: KoopaState = KoopaState.WALKING

@@ -4,7 +4,8 @@ extends PlayerState
 ## At the top of a vine with a Destination Scene, Mario travels there.
 
 @export var climb_speed: float = 40.0
-@export var anim_climb: StringName = &"climb"      ## falls back to the jump frame if missing
+## Animation: small_climb / big_climb (or fire_climb, bunny_climb, speed_climb...) on Mario's
+## AnimatedSprite2D. It only plays while Mario is moving up or down; it pauses when he stops.
 
 var vine: Vine
 
@@ -36,6 +37,8 @@ func physics_update(_delta: float) -> void:
 	var feet := player.get_feet_y()
 	if feet <= vine.top_y() + 2.0:
 		player.global_position.y += (vine.top_y() + 2.0) - feet
+		if v < 0.0 and vine.has_method("reached_top") and vine.reached_top(player):
+			return                              # e.g. a load room ladder took Mario into a UFO
 		if vine.has_destination() and vine.is_fully_grown() and v < 0.0:
 			machine.transition_to(&"Pipe", {"offset": Vector2(0, -16), "pipe": vine})
 			return
@@ -52,12 +55,11 @@ func physics_update(_delta: float) -> void:
 
 
 func _animate(v: float) -> void:
-	var sprite: AnimatedSprite2D = player.animated_sprite_2d
-	if sprite.sprite_frames.has_animation(anim_climb):
-		sprite.play(anim_climb)
+	var sprite := player.animated_sprite_2d as PlayerAnimatedSprite
+	if sprite:
+		sprite.play_climb(player.player_mode, v != 0.0)
 	else:
 		player.animate(0.0)
-	sprite.speed_scale = 1.0 if v != 0.0 else 0.0
 
 
 func exit() -> void:

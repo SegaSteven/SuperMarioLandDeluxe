@@ -46,6 +46,14 @@
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("3_rxm28")
+}],
+"loop": true,
+"name": &"big_climb",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("2_d7ft8")
 }],
 "loop": true,
@@ -92,10 +100,126 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("3_rxm28")
+}],
+"loop": true,
+"name": &"bunny_climb",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_d7ft8")
+}],
+"loop": true,
+"name": &"bunny_down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_rxm28")
+}],
+"loop": true,
+"name": &"bunny_float",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_oo722")
+}],
+"loop": true,
+"name": &"bunny_idle",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_rxm28")
+}],
+"loop": true,
+"name": &"bunny_jump",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_omerw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_kqyer")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_1sqrq")
+}],
+"loop": true,
+"name": &"bunny_run",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_844ib")
+}],
+"loop": true,
+"name": &"bunny_turn",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("8_pxemc")
 }],
 "loop": true,
 "name": &"death",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("13_0gnus")
+}],
+"loop": true,
+"name": &"fire_climb",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_cw8hj")
+}],
+"loop": true,
+"name": &"fire_down",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("12_8vtre")
+}],
+"loop": true,
+"name": &"fire_idle",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("13_0gnus")
+}],
+"loop": true,
+"name": &"fire_jump",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("14_pu3gx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_8on63")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_wk07g")
+}],
+"loop": true,
+"name": &"fire_run",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("17_l0q11")
+}],
+"loop": true,
+"name": &"fire_turn",
 "speed": 10.0
 }, {
 "frames": [{
@@ -105,6 +229,14 @@ animations = [{
 "loop": false,
 "name": &"shoot",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("13_0gnus")
+}],
+"loop": true,
+"name": &"shooting_climb",
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -154,6 +286,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("11_akeyl")
+}],
+"loop": true,
+"name": &"small_climb",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("1_4e7f7")
 }],
 "loop": true,
@@ -197,6 +337,60 @@ animations = [{
 "loop": true,
 "name": &"small_turn",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_rxm28")
+}],
+"loop": true,
+"name": &"speed_climb",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_d7ft8")
+}],
+"loop": true,
+"name": &"speed_down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_oo722")
+}],
+"loop": true,
+"name": &"speed_idle",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_rxm28")
+}],
+"loop": true,
+"name": &"speed_jump",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_omerw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_kqyer")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_1sqrq")
+}],
+"loop": true,
+"name": &"speed_run",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_844ib")
+}],
+"loop": true,
+"name": &"speed_turn",
+"speed": 10.0
 }]
 
 [node name="Player" type="CharacterBody2D"]
@@ -206,8 +400,12 @@ script = ExtResource("1_ysewk")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_5gq16")
-animation = &"big_run"
+animation = &"small_run"
 script = ExtResource("17_yi55g")
+palette_from = PackedColorArray(0.901961, 0.0745098, 0.101961, 1, 0.270588, 0.490196, 0.690196, 1, 0.0901961, 0.207843, 0.313726, 1, 0.192157, 0.172549, 0.686275, 1, 0.262745, 0.694118, 0.00784314, 1, 0.172549, 0.407843, 0.0470588, 1)
+palette_fire = PackedColorArray(0.909804, 0.352941, 0, 1, 0.270588, 0.490196, 0.690196, 1, 0.0901961, 0.207843, 0.313726, 1, 0.909804, 0.352941, 0, 1, 0.270588, 0.490196, 0.690196, 1, 0.0901961, 0.207843, 0.313726, 1)
+palette_bunny = PackedColorArray(1, 0.435294, 0.74902, 1, 0.270588, 0.490196, 0.690196, 1, 0.0901961, 0.207843, 0.313726, 1, 1, 0.435294, 0.74902, 1, 0.270588, 0.490196, 0.690196, 1, 0.0901961, 0.207843, 0.313726, 1)
+palette_speed = PackedColorArray(0.164706, 0.423529, 0.960784, 1, 0.560784, 0.827451, 1, 1, 0.227451, 0.541176, 0.752941, 1, 0.164706, 0.423529, 0.960784, 1, 0.560784, 0.827451, 1, 1, 0.227451, 0.541176, 0.752941, 1)
 
 [node name="ShootingPoint" type="Marker2D" parent="AnimatedSprite2D"]
 position = Vector2(6, -1)

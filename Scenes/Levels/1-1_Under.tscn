@@ -1,10 +1,10 @@
 [gd_scene load_steps=16 format=3 uid="uid://rccofgi2ew23"]
 
-[ext_resource type="Script" path="res://Scripts/Level_Scripts/1-1U1.gd" id="1_813xr"]
+[ext_resource type="Script" uid="uid://cuc04ec6q3577" path="res://Scripts/Level_Scripts/1-1U1.gd" id="1_813xr"]
 [ext_resource type="AudioStream" uid="uid://dkvyq0vuwbrvm" path="res://Assets/Audio/Original/Pipe Room.wav" id="1_ligrk"]
 [ext_resource type="Texture2D" uid="uid://bvk171culi5t0" path="res://Assets/Tilesets/Global.png" id="2_7axt7"]
 [ext_resource type="Texture2D" uid="uid://cgadwoljj5s5o" path="res://Assets/Sprites/Backgrounds/Underground.png" id="2_nspi3"]
-[ext_resource type="Script" path="res://Scripts/camera_2d.gd" id="4_g5uec"]
+[ext_resource type="Script" uid="uid://decrtemqpdib1" path="res://Scripts/camera_2d.gd" id="4_g5uec"]
 [ext_resource type="AudioStream" uid="uid://ca12j5b15rehi" path="res://Assets/SFX/pause.wav" id="4_w7fln"]
 [ext_resource type="PackedScene" uid="uid://b3e2uv1pq2x1o" path="res://Scenes/player.tscn" id="5_6f2n6"]
 [ext_resource type="PackedScene" uid="uid://cy62lavp30u4a" path="res://Scenes/pause.tscn" id="7_4s0fe"]

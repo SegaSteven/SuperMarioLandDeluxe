@@ -171,6 +171,7 @@ func _stand_on(node: MapNode) -> void:
 	OverworldMan.area_name = node.area_name
 	OverworldMan.level_scene_path = node.level_scene_path
 	OverworldMan.last_node_name = String(node.name)
+	OverworldMan.last_map_scene = get_tree().current_scene.scene_file_path
 	OverworldMan.current_star_coin_total = node.star_coins_in_level if node.is_level() else 0
 	if node.is_level():
 		GameManager.spawn_point = node.spawn_point
@@ -203,7 +204,7 @@ func _go_to_other_map() -> void:
 
 func _enter_level() -> void:
 	input_free = false
-	GameManager.current_checkpoint = null
+	GameManager.clear_checkpoint()
 	GameManager.clear_pending_star_coins()
 	GameManager.spawn_point = current_node.spawn_point
 	var level_path := current_node.level_scene_path

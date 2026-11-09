@@ -1,8 +1,30 @@
 extends Node2D
 ## Autoload "OverworldMan": remembers overworld progress between scenes, and saves it to disk
 ## so finished levels and star coins are still there next time the game is opened.
+##
+## SAVE FILES: there are 3 (one per UFO in the load room). current_slot is the one being
+## played; every change (level beaten, star coin, unlock, switch) is written to it straight
+## away. Files live at user://save_slot_1.cfg ... user://save_slot_3.cfg.
 
-const SAVE_PATH := "user://save_progress.cfg"
+const SLOT_COUNT := 3
+const SLOT_PATH := "user://save_slot_%d.cfg"
+const OLD_SAVE_PATH := "user://save_progress.cfg"      ## the single save from before (moved to slot 1)
+
+## The 12 main levels (level_name on their MapNodes). The load room counts how many are beaten.
+const MAIN_LEVELS: Array[String] = [
+	"1-1", "1-2", "1-3", "2-1", "2-2", "2-3",
+	"3-1", "3-2", "3-3", "4-1", "4-2", "4-3",
+]
+## The 5 Star Road bonus levels. Give their MapNodes these level names (or change the list).
+## Once any is beaten the load room shows a star and how many (star 5 = everything done).
+const STAR_ROAD_LEVELS: Array[String] = ["STAR 1", "STAR 2", "STAR 3", "STAR 4", "STAR 5"]
+## Switch colours shown as little blocks under each UFO (see PowerUps.SWITCH_COLORS).
+const SAVE_SWITCHES: Array[String] = ["blue", "red", "pink"]
+
+## Which save file is being played (1, 2 or 3).
+var current_slot: int = 1
+## The map scene Mario was last on (so continuing a file goes back to that map).
+var last_map_scene: String = ""
 
 ## Emitted the moment something is unlocked (colour blocks listen to turn solid straight away).
 signal unlocked(key: String)
@@ -28,6 +50,7 @@ var pending_reveals: Array[String] = []
 
 
 func _ready() -> void:
+	_move_old_save()
 	load_progress()
 
 
@@ -93,30 +116,97 @@ func is_unlocked(key: String) -> bool:
 
 
 # --- Saving -----------------------------------------------------------------
+func slot_path(slot: int) -> String:
+	return SLOT_PATH % slot
+
+
+func slot_exists(slot: int) -> bool:
+	return FileAccess.file_exists(slot_path(slot))
+
+
+## Writes the current file. Called automatically whenever something changes.
 func save_progress() -> void:
 	var cfg := ConfigFile.new()
 	cfg.set_value("progress", "beaten", beaten)
 	cfg.set_value("progress", "star_coins", star_coins)
 	cfg.set_value("progress", "unlocks", unlocks)
-	cfg.save(SAVE_PATH)
+	cfg.set_value("map", "last_node_name", last_node_name)
+	cfg.set_value("map", "last_map_scene", last_map_scene)
+	cfg.save(slot_path(current_slot))
 
 
 func load_progress() -> void:
+	_clear_memory()
 	var cfg := ConfigFile.new()
-	if cfg.load(SAVE_PATH) != OK:
+	if cfg.load(slot_path(current_slot)) != OK:
 		return
 	beaten = cfg.get_value("progress", "beaten", {})
 	star_coins = cfg.get_value("progress", "star_coins", {})
 	unlocks = cfg.get_value("progress", "unlocks", {})
+	last_node_name = cfg.get_value("map", "last_node_name", "")
+	last_map_scene = cfg.get_value("map", "last_map_scene", "")
 
 
-## Wipes all saved progress (call from a "New Game" button, or the debugger while testing).
+## Starts playing a save file. Returns true if it was a NEW (empty) file - it's created now,
+## so its UFO shows 0 straight away.
+func select_slot(slot: int) -> bool:
+	current_slot = clampi(slot, 1, SLOT_COUNT)
+	var is_new := not slot_exists(current_slot)
+	load_progress()
+	if is_new:
+		save_progress()
+	return is_new
+
+
+## Deletes a save file for good (the SAM cannon in the load room uses this).
+func delete_slot(slot: int) -> void:
+	if slot_exists(slot):
+		DirAccess.remove_absolute(ProjectSettings.globalize_path(slot_path(slot)))
+	if slot == current_slot:
+		_clear_memory()
+
+
+## What the load room shows for a file:
+##   {"exists": bool, "levels": 0-12, "star_levels": 0-5, "switches": {"blue": bool, ...}}
+func slot_summary(slot: int) -> Dictionary:
+	var out := {"exists": false, "levels": 0, "star_levels": 0, "switches": {}}
+	for c in SAVE_SWITCHES:
+		out.switches[c] = false
+	var cfg := ConfigFile.new()
+	if cfg.load(slot_path(slot)) != OK:
+		return out
+	out.exists = true
+	var b: Dictionary = cfg.get_value("progress", "beaten", {})
+	var u: Dictionary = cfg.get_value("progress", "unlocks", {})
+	for id in MAIN_LEVELS:
+		if b.get(id, false):
+			out.levels += 1
+	for id in STAR_ROAD_LEVELS:
+		if b.get(id, false):
+			out.star_levels += 1
+	for c in SAVE_SWITCHES:
+		out.switches[c] = u.get("switch_" + c, false)
+	return out
+
+
+## Wipes the CURRENT file (memory and disk). Testing / a "New Game" button.
 func reset_progress() -> void:
-	beaten.clear()
-	star_coins.clear()
-	unlocks.clear()
+	delete_slot(current_slot)
+	_clear_memory()
+
+
+func _clear_memory() -> void:
+	beaten = {}
+	star_coins = {}
+	unlocks = {}
 	pending_reveals.clear()
 	last_node_name = ""
+	last_map_scene = ""
 	spawn_point = Vector2.ZERO
-	if FileAccess.file_exists(SAVE_PATH):
-		DirAccess.remove_absolute(ProjectSettings.globalize_path(SAVE_PATH))
+
+
+## The game used to have one save file. If it's there, it becomes file 1.
+func _move_old_save() -> void:
+	if FileAccess.file_exists(OLD_SAVE_PATH) and not slot_exists(1):
+		DirAccess.rename_absolute(ProjectSettings.globalize_path(OLD_SAVE_PATH),
+			ProjectSettings.globalize_path(slot_path(1)))

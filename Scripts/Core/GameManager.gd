@@ -22,7 +22,14 @@ var pre_level: String = ""
 var player: CharacterBody2D
 var player_mode: PlayerUpdated.PlayerMode = PlayerUpdated.PlayerMode.SMALL
 var spawn_point: Vector2 = Vector2.ZERO
-var current_checkpoint: Checkpoint
+var current_checkpoint: Checkpoint      # the checkpoint node touched (only valid until the scene reloads)
+
+# The last checkpoint touched in the level being played. Kept when Mario dies (the level
+# reloads and he starts here) and when he goes down pipes; cleared when he goes back to the
+# map or finishes the level.
+var checkpoint_scene: String = ""       # the scene the checkpoint is in (res://...tscn)
+var checkpoint_position: Vector2 = Vector2.ZERO
+var checkpoint_name: String = ""         # its node path in that scene
 
 # Star coins picked up in the level being played. Only saved when the level is finished
 # (like New Super Mario Bros). Indexes 0, 1, 2.
@@ -49,7 +56,7 @@ func reset_game_state():
 	lives = 5
 	player_mode = PlayerUpdated.PlayerMode.SMALL
 	level_finished = false
-	current_checkpoint = null
+	clear_checkpoint()
 	spawn_point = Vector2.ZERO
 
 # --- Scoring -----------------------------------------------------------------
@@ -81,13 +88,73 @@ func is_game_over() -> bool:
 
 # --- Level / respawn ---------------------------------------------------------
 
+## Puts Mario at the checkpoint if one was touched in THIS scene, otherwise at spawn_point.
+## Level scripts call this in _ready (the player also does it by itself).
 func respawn_player():
 	if not is_instance_valid(player):
 		return
-	if is_instance_valid(current_checkpoint):
-		player.global_position = current_checkpoint.global_position
+	if has_checkpoint_in(_scene_of(player)):
+		player.global_position = checkpoint_position
+		if player.has_method("snap_to_floor"):
+			player.snap_to_floor()
 	elif spawn_point != Vector2.ZERO:
 		player.global_position = spawn_point
+
+
+## Called by a Checkpoint when Mario touches it. Returns true if it became the new one
+## (a checkpoint further back in the level doesn't replace one further on).
+func set_checkpoint(cp: Node2D, spawn: Vector2, only_forward: bool = true) -> bool:
+	var scene := _scene_of(cp)
+	if only_forward and checkpoint_scene == scene and spawn.x < checkpoint_position.x:
+		return false
+	checkpoint_scene = scene
+	checkpoint_position = spawn
+	checkpoint_name = String(cp.owner.get_path_to(cp)) if cp.owner else String(cp.name)
+	current_checkpoint = cp as Checkpoint
+	return true
+
+
+func clear_checkpoint() -> void:
+	checkpoint_scene = ""
+	checkpoint_position = Vector2.ZERO
+	checkpoint_name = ""
+	current_checkpoint = null
+
+
+func has_checkpoint() -> bool:
+	return checkpoint_scene != ""
+
+
+func has_checkpoint_in(scene_path: String) -> bool:
+	return checkpoint_scene != "" and checkpoint_scene == scene_path
+
+
+## True if this checkpoint node is the one Mario last touched.
+func is_current_checkpoint(cp: Node) -> bool:
+	if not has_checkpoint_in(_scene_of(cp)):
+		return false
+	var path := String(cp.owner.get_path_to(cp)) if cp.owner else String(cp.name)
+	return path == checkpoint_name
+
+
+## Where Mario should start again after losing a life.
+##   checkpoint touched -> its level (even if he died down a pipe), at the checkpoint
+##   no checkpoint      -> "" = reload the scene he died in
+func death_restart_scene() -> String:
+	if has_checkpoint() and ResourceLoader.exists(checkpoint_scene):
+		return checkpoint_scene
+	return ""
+
+
+## The level scene a node belongs to (its owner's file, or the running scene's).
+func _scene_of(n: Node) -> String:
+	if n == null:
+		return ""
+	if n.owner and n.owner.scene_file_path != "":
+		return n.owner.scene_file_path
+	if n.is_inside_tree() and n.get_tree().current_scene:
+		return n.get_tree().current_scene.scene_file_path
+	return n.scene_file_path
 
 func start_level():
 	level_finished = false
@@ -95,7 +162,7 @@ func start_level():
 
 func win():
 	level_finished = true
-	current_checkpoint = null
+	clear_checkpoint()
 	OverworldMan.commit_star_coins(OverworldMan.level_name, pending_star_coins)
 	pending_star_coins.clear()
 	level_beaten.emit()
@@ -128,7 +195,9 @@ func travel_to(scene: String, spawn: Vector2 = Vector2.ZERO, transition: Diction
 		player_mode = player.player_mode
 	spawn_point = spawn
 	OverworldMan.spawn_point = spawn
-	current_checkpoint = null
+	# Pipes and doors inside a level keep the checkpoint; going to a map forgets it
+	if scene.contains("WorldScenes") or scene.ends_with("_map.tscn"):
+		clear_checkpoint()
 	SceneManager.change_scene(scene, transition)
 
 
