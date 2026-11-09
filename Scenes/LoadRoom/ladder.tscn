@@ -1,7 +1,25 @@
-[gd_scene load_steps=2 format=3 uid="uid://154epyt6ylu2"]
+[gd_scene load_steps=3 format=3 uid="uid://154epyt6ylu2"]
 
 [ext_resource type="Script" uid="uid://cooc8b385rfp2" path="res://Scripts/LoadRoom/ladder.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://cp5rxbrym40sq" path="res://Assets/Sprites/LoadRoom/Ladder.png" id="2_q45mc"]
 
 [node name="Ladder" type="Area2D"]
 script = ExtResource("1")
 max_height = 72.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-3.99832, -64.9994)
+texture = ExtResource("2_q45mc")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 3.995, 8, 35)
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+offset_left = -4.0
+offset_top = -44.0
+offset_right = 4.0
+texture = ExtResource("2_q45mc")
+region_rect = Rect2(0, 0, 8, 6)
+patch_margin_top = 2
+axis_stretch_vertical = 1

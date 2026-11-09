@@ -122,43 +122,42 @@ position = Vector2(260, 72)
 shape = SubResource("Shape_wall")
 
 [node name="UFO1" parent="." instance=ExtResource("3")]
-position = Vector2(56, 48)
-info_offset = Vector2(0, -14)
+position = Vector2(56, 69.7629)
 
 [node name="UFO2" parent="." instance=ExtResource("3")]
-position = Vector2(104, 48)
+position = Vector2(104, 69.7629)
 slot = 2
-info_offset = Vector2(0, -14)
 
 [node name="UFO3" parent="." instance=ExtResource("3")]
-position = Vector2(152, 48)
+position = Vector2(152, 69.7629)
 slot = 3
-info_offset = Vector2(0, -14)
 
 [node name="Ladder1" parent="." instance=ExtResource("4")]
 position = Vector2(56, 128)
 ufo = NodePath("../UFO1")
-rail_color = Color(0, 0, 0, 1)
-max_height = 65.0
+rail_color = Color(0, 0, 0, 0)
+max_height = 42.0
 color = Color(0.215902, 0.215902, 0.215902, 1)
 
 [node name="Ladder2" parent="." instance=ExtResource("4")]
 position = Vector2(104, 128)
 ufo = NodePath("../UFO2")
-rail_color = Color(0, 0, 0, 1)
-max_height = 65.0
+rail_color = Color(0, 0, 0, 0)
+max_height = 42.0
 color = Color(0.793018, 0.000489393, 0.793012, 1)
 
 [node name="Ladder3" parent="." instance=ExtResource("4")]
 position = Vector2(152, 128)
 ufo = NodePath("../UFO3")
-rail_color = Color(0, 0, 0, 1)
-max_height = 65.0
+rail_color = Color(0, 0, 0, 0)
+max_height = 42.0
 color = Color(0.333333, 0.333333, 0.333333, 1)
 
 [node name="SamCannon" parent="." instance=ExtResource("5")]
 position = Vector2(211.021, 125.957)
 label_text = ""
+prompt_text = ""
+prompt_offset = Vector2(50, -50)
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_geiau")
@@ -178,24 +177,32 @@ libraries = {
 
 [node name="Label" type="Label" parent="."]
 offset_left = 35.759
-offset_top = 7.80215
+offset_top = 26.5183
 offset_right = 75.759
-offset_bottom = 30.8022
+offset_bottom = 49.5183
 text = "FILE1"
 label_settings = ExtResource("9_obv6h")
 
 [node name="Label2" type="Label" parent="."]
 offset_left = 83.759
-offset_top = 7.80215
+offset_top = 26.5183
 offset_right = 123.759
-offset_bottom = 30.8022
+offset_bottom = 49.5183
 text = "FILE2"
 label_settings = ExtResource("9_obv6h")
 
 [node name="Label3" type="Label" parent="."]
 offset_left = 132.155
-offset_top = 8.19784
+offset_top = 26.914
 offset_right = 172.155
-offset_bottom = 31.1978
+offset_bottom = 49.914
 text = "FILE3"
+label_settings = ExtResource("9_obv6h")
+
+[node name="Label4" type="Label" parent="."]
+offset_left = 26.0872
+offset_top = 9.32556
+offset_right = 186.087
+offset_bottom = 32.3256
+text = "PICK YOUR SAVE DATA?"
 label_settings = ExtResource("9_obv6h")
