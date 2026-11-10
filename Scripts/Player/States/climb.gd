@@ -2,6 +2,8 @@ extends PlayerState
 ## Climbing a vine (or anything in the "vines" group). Entered from Ground/Air by pressing Up
 ## while touching a vine. Up/Down to climb, Left/Right to let go sideways, Jump to jump off.
 ## At the top of a vine with a Destination Scene, Mario travels there.
+## Auto climb (a vine or ladder with auto_climb on, e.g. the load room ladders): one tap of Up
+## and Mario climbs all the way to the top by himself - no other buttons do anything meanwhile.
 
 @export var climb_speed: float = 40.0
 ## Animation: small_climb / big_climb (or fire_climb, bunny_climb, speed_climb...) on Mario's
@@ -26,8 +28,10 @@ func physics_update(_delta: float) -> void:
 		machine.transition_to(&"Air")
 		return
 
-	var v := Input.get_axis("Up", "down")
-	player.velocity = Vector2(0, v * climb_speed)
+	var auto: bool = vine.get("auto_climb") == true
+	var v := -1.0 if auto else Input.get_axis("Up", "down")
+	var speed: float = vine.get("auto_climb_speed") if auto and vine.get("auto_climb_speed") else climb_speed
+	player.velocity = Vector2(0, v * speed)
 	player.move_and_slide()
 	player.check_contacts()
 	if not machine.is_in(name):
@@ -44,6 +48,8 @@ func physics_update(_delta: float) -> void:
 			return
 
 	_animate(v)
+	if auto:
+		return                                  # no jumping or stepping off on the way up
 
 	if Input.is_action_just_pressed("jump"):
 		player.start_jump()

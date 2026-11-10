@@ -112,6 +112,7 @@ const DEFAULT_STATES = {
 	&"BunnyFloat": preload("res://Scripts/Player/States/bunny_float.gd"),
 	&"Climb": preload("res://Scripts/Player/States/climb.gd"),
 	&"Hidden": preload("res://Scripts/Player/States/hidden.gd"),
+	&"Scripted": preload("res://Scripts/Player/States/scripted.gd"),
 }
 
 

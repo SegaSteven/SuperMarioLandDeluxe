@@ -1123,9 +1123,10 @@ Windows Explorer / Finder doesn't, and scenes can show "missing dependencies".
 Title screen -> (Start, fade) -> the load room: Scenes/LoadRoom/load_room.tscn
 
 WHAT THE PLAYER DOES
+  - (It opens with the speedboat intro - section 33.)
   - Walk Mario about. Each of the 3 UFOs is a save file, with a ladder under
-    it. Climb a ladder (Up) and at the top Mario gets in, the UFO lifts off
-    and that file starts:
+    it. Tap Up at a ladder and Mario climbs to the top by himself, gets in,
+    the UFO lifts off and that file starts:
       empty file           -> Daisy's letter (Letter_Screen), then the map
       file with progress   -> straight back to the map, on the tile he was on
   - Far right: the SAM cannon (says ERASE on it). Walk into it to get in.
@@ -1292,3 +1293,146 @@ FROM CODE (GameManager)
 NOTE for 1-1: Checkpoint2 sits inside the green pipe at x 824, so Mario
 restarts standing on the pipe. Move it a little left/right if you'd rather
 he started on the ground.
+
+
+================================================================================
+33. THE LOAD ROOM'S SPEEDBOAT INTRO
+================================================================================
+
+Every time you come into the load room from the title screen:
+  1. The room starts looking at the sea, the dock and the edge of the room.
+  2. After a short wait (so the squares wipe has finished) the speedboat comes
+     in fast from the left with Mario on it, spray behind it, engine sound,
+     and stops sharply at the dock with a splash.
+  3. Mario does one jump from the boat to his Start Position (the LoadRoom
+     node's Start Position, landing just above the ground) while the camera
+     pans over to the UFOs.
+  4. The camera locks on the UFO screen (the boat is out of sight) and the
+     invisible wall (Walls > LeftWall) switches on so he can't go back.
+Press Start to skip it. The left brick column was removed so he can come in.
+
+NODES IN load_room.tscn
+  Intro      Scripts/LoadRoom/load_room_intro.gd - all the timings:
+             Play Intro (untick = no intro), Start Delay, Boat Start X,
+             Boat Dock X, Boat Time, Boat Sound (optional horn), Pause After
+             Docking, Land X (-1 = Start Position), Floor Y, Land Above Ground,
+             Jump Height, Jump Time, Camera Start X / End X, Pan Time,
+             Skip Action. Signal "finished".
+  Boat       Scripts/LoadRoom/load_room_boat.gd
+             Sprite Moving   Assets/Sprites/LoadRoom/Speedboat_moving.png
+                             (with the wave/spray - shown while moving)
+             Sprite Stopped  Assets/Sprites/LoadRoom/Speedboat_stopped.png
+                             (no wave - shown once it stops)
+             Draw over those two PNGs (keep them the same size), or pick your
+             own. Sprite Origin = the pixel on the waterline under the middle
+             of the boat. Deck Offset = where Mario's feet go. Moving Speed =
+             how fast counts as moving. Or add a "Body" Sprite2D /
+             AnimatedSprite2D child to do it your own way.
+             Sound: Engine Sound (Assets/SFX/boat_engine.wav, loops while
+             moving, pitch follows the speed), Engine Volume / Pitch Slow /
+             Pitch Fast, Stop Sound (Assets/SFX/boat_stop.wav, the splash).
+  Dock       Scripts/LoadRoom/load_room_dock.gd - scenery only, drawn BEHIND
+             the boat (it's above Boat in the scene tree). Add a "Body"
+             Sprite2D for your art (its position = the right-hand end).
+  SkyLeft, Sea, SeaTop   plain colour rectangles for the sea area - replace
+             with your own art / TileMap.
+
+New Mario state: Scripted (Scripts/Player/States/scripted.gd) - a cutscene is
+moving him: visible, no control, can't be hurt. Use it for your own cutscenes:
+  player.state_machine.transition_to(&"Scripted")  ...  &"Ground"
+
+
+================================================================================
+34. LOAD ROOM LADDERS CLIMB BY THEMSELVES
+================================================================================
+
+Tap Up at the bottom of a load room ladder: Mario climbs all the way up on his
+own (no other buttons do anything on the way) and gets into the UFO. It uses
+the climb animation for whatever he is (small_climb, big_climb, fire_climb...).
+On each Ladder: Auto Climb (untick = hold Up / Down like a vine) and Auto Climb
+Speed. Any vine can do it too: give it auto_climb = true.
+
+
+================================================================================
+35. SPRITE SLOTS: VINE, CROSSHAIR
+================================================================================
+
+VINE (Scripts/Blocks/vine.gd, Scenes/Blocks/vine.tscn)
+  Vine Texture      one piece of vine (e.g. 8 x 8). It's repeated from the
+                    bottom up as the vine grows. Empty = drawn green stem.
+  Vine Top Texture  optional picture for the very top.
+
+SAM CANNON CROSSHAIR (Scripts/LoadRoom/sam_cannon.gd)
+  Crosshair Texture  your aiming picture, centred on the UFO being aimed at.
+                     Empty = the drawn circle.
+  Crosshair Blink    flash it on and off (on by default).
+  Crosshair Color    colour of the drawn circle (yours is white).
+  The drawn "Mario's head in the hatch" only shows with the drawn cannon.
+
+
+================================================================================
+36. TITLE SCREEN MENU AND THE OPTIONS BOX
+================================================================================
+
+TITLE (Scripts/title_screen.gd, Scenes/title_screen.tscn)
+  START on the left, OPTIONS on the right. Left / Right moves the mushroom
+  (Shroom); the one it's on is white, the other medium grey. Start or Jump
+  picks.
+    START    flashes, plays Assets/SFX/coin_reverb.wav (the coin sound with
+             reverb - your coin.wav is untouched), the title music stops,
+             half a second later the squares wipe to the load room.
+    OPTIONS  opens the Options box (the music goes quieter while it's open).
+  Inspector: Start Sound, Wait Before Transition, Stop Music On Start,
+  Transition, and under Menu: Selected Color, Unselected Color, Flash On
+  Time, Flash Off Time, Cursor Gap, Move Sound (optional).
+  The copyright line is part of Title_ScreenBG.png - it now says 2026.
+
+OPTIONS BOX (Scripts/UI/options_menu.gd)
+  Black box, red and white trim, white text. Up / Down = row, Left / Right =
+  change it, the mushroom shows the row.
+    Game Volume   10 bars - the whole game (music + sounds, Master bus)
+    Display Mode  Fullscreen / Windowed (white = the one in use, grey = not)
+    Key Binding   Default / Custom. Choosing Custom opens the key box.
+    Back          Jump / Start closes the box (Action / run also closes it)
+
+KEY BOX (Scripts/UI/key_bind_box.gd)
+  Jump, Action, Left, Right, Up, Down and their keys. Pick one, press Jump /
+  Start, then press the new key (Esc = keep the old one). "Done" closes it.
+  Controller buttons stay as they were. Default puts the Input Map keys back.
+
+SETTINGS (autoload GameSettings, Scripts/Core/game_settings.gd)
+  Saved in user://settings.cfg and put back every time the game starts.
+  From code: GameSettings.set_volume(0-10), set_fullscreen(true/false),
+  set_custom_keys(true/false), bind("jump", event), key_name("jump").
+  Open the box from anywhere: var box := OptionsMenu.open(get_tree(), music)
+  then  await box.closed.
+  The box grows out of a small black square in 3 steps and shrinks back the
+  same way (section 37).
+
+
+================================================================================
+37. THE PAUSED BOX (IN LEVELS)
+================================================================================
+
+Press Pause in a level: the game freezes (Mario, enemies, the TIME counter -
+everything) and the level music pauses. The Paused box grows out of a small
+black square in the middle of the screen in 3 quick steps. It's the same
+menu as Options, with "Paused" and the two hearts from the old pause bar at
+the top:
+    Game Volume, Display Mode, Key Binding   (same as on the title screen)
+    Exit Level      back to the map tile you came in from, without finishing
+                    the level (the checkpoint and this run's star coins are
+                    dropped)
+    Exit to Title   back to the title screen
+Press Pause again to carry on: the box shrinks away, the music carries on
+from where it was. (Action doesn't close this one.)
+
+PAUSE MUSIC: put your track at res://Assets/Audio/pause_music.wav (or .ogg /
+.mp3) and every level plays it while paused. Or set Pause Music on a level's
+root node (the level script) to give that level its own.
+
+HOW IT'S WIRED: every level already calls swap_pause_state() when Pause is
+pressed (in its _input). That's in Scripts/Core/LevelData.gd and now opens
+the box (OptionsMenu.open_paused). The old "Pause" bar node is just hidden.
+The animation settings are on the box (Scripts/UI/options_menu.gd):
+grow_steps (3), grow_step_time (0.05 s), start_size (12 x 12).

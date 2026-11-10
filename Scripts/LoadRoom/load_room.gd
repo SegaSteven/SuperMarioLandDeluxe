@@ -1,34 +1,34 @@
 extends Node2D
 
-
 class_name LoadRoom
 
-## The load room (comes after the title screen). Mario walks about, climbs a ladder into one
-## of the 3 UFOs to play that save file, or uses the SAM cannon on the right to delete one.
+## The load room (comes after the title screen). It opens with the boat intro (Intro node), then
+## Mario walks about, taps Up at a ladder to climb into one of the 3 UFOs and play that save
+## file, or uses the SAM cannon on the right to delete one.
 ##   picked a NEW (empty) file   -> New File Scene (Daisy's letter), then the map
 ##   picked a file with progress -> straight back to the map he was last on
 
 @export_file("*.tscn") var new_file_scene: String = "res://Scenes/Letter_Screen.tscn"
 @export_file("*.tscn") var default_map_scene: String = "res://Scenes/WorldScenes/world_map.tscn"
-@export var start_position: Vector2 = Vector2(20, 112)
-@export var transition: Dictionary = {"pattern": "fade", "speed": 3}
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
+## Where Mario stands when the room starts (the boat intro jumps him here).
+@export var start_position: Vector2 = Vector2(24, 120)
+## The wipe used when leaving the room (to the letter or the map). "squares" = your squares wipe.
+@export var transition: Dictionary = {"pattern": "squares", "speed": 4}
 
 @onready var player: PlayerUpdated = $Player
+## The boat intro (Intro node). Untick its Play Intro to start straight on the UFO screen.
+@onready var intro: LoadRoomIntro = get_node_or_null("Intro")
 
 
 func _ready() -> void:
 	GameManager.reset_game_state()
 	player.set_mode(PlayerUpdated.PlayerMode.SMALL)
-	player.animated_sprite_2d.play("%s_run")
 	player.global_position = start_position
-	player.input_pickable = false
-	
-
-	
 	for ufo in get_tree().get_nodes_in_group("save_ufos"):
 		ufo.boarded.connect(_start_file)
 		ufo.refresh()
+	if intro and intro.play_intro:
+		intro.play(player, start_position)
 
 
 func _start_file(slot: int) -> void:

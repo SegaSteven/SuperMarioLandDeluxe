@@ -220,7 +220,7 @@ script = ExtResource("1_dqufe")
 
 [node name="Shroom" type="Sprite2D" parent="."]
 z_index = 1
-position = Vector2(-22.8427, 52.3072)
+position = Vector2(-72, 52.3072)
 texture = ExtResource("2_gxcbv")
 
 [node name="Background" type="Node" parent="."]
@@ -403,13 +403,20 @@ frame = 3
 frame_progress = 0.26322
 
 [node name="SCORE" type="Label" parent="."]
-offset_left = -23.5563
+offset_left = -66.0
 offset_top = 48.0294
-offset_right = 24.4437
+offset_right = -18.0
 offset_bottom = 56.0294
 text = "START"
 label_settings = SubResource("LabelSettings_j05mn")
-horizontal_alignment = 2
+
+[node name="OPTIONS" type="Label" parent="."]
+offset_left = 18.0
+offset_top = 48.0294
+offset_right = 74.0
+offset_bottom = 56.0294
+text = "OPTIONS"
+label_settings = SubResource("LabelSettings_j05mn")
 
 [node name="TitleScreen" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("34_w45yx")

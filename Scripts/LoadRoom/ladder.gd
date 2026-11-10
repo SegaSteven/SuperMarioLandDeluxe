@@ -6,9 +6,12 @@ class_name Ladder
 ## Ufo: drag a SaveUfo in. Climbing off the top of the ladder puts Mario in that UFO.
 
 @export var ufo: NodePath
+## One tap of Up and Mario climbs to the top by himself (no control on the way up).
+@export var auto_climb: bool = true
+@export var auto_climb_speed: float = 40.0
 @export var rail_color: Color = Color(0.75, 0.5, 0.25)
 @export var rung_spacing: float = 6.0
-@onready var sprite_2d: Sprite2D = $Sprite2D
+@onready var sprite_2d: Sprite2D = get_node_or_null("Sprite2D")
 
 
 func _init() -> void:
@@ -26,6 +29,8 @@ func reached_top(player: PlayerUpdated) -> bool:
 
 ## Placeholder art: two rails and rungs. Delete this function and add a Sprite2D for real art.
 func _draw() -> void:
+	if sprite_2d == null:
+		return
 	sprite_2d.region_enabled = true
 	# Set region_rect to a Rect2(x, y, width, height)
 	sprite_2d.region_rect = Rect2(32, 0, 16, 16)

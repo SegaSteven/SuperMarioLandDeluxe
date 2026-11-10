@@ -10,7 +10,8 @@ class_name SamCannon
 ##
 ## ART: add a Sprite2D child "Base" (the stand) and a Sprite2D child "Barrel" (rotates to aim,
 ## pointing RIGHT in the picture) - the placeholder drawing switches off for each one you add.
-## Missile Texture / Explosion Frames replace the drawn missile and explosion.
+## Missile Texture / Explosion Frames replace the drawn missile and explosion, and
+## Crosshair Texture replaces the drawn aiming circle.
 
 @export var label_text: String = "ERASE"                ## written on the gun
 @export var prompt_text: String = "DELETE\nSAVE DATA?"   ## pops up above while Mario is in it
@@ -20,6 +21,10 @@ class_name SamCannon
 @export var missile_speed: float = 160.0
 @export var missile_texture: Texture2D
 @export var explosion_frames: SpriteFrames               ## needs an animation called "default"
+## YOUR ART for the aiming crosshair (drawn centred on the UFO). Empty = the drawn circle.
+@export var crosshair_texture: Texture2D
+@export var crosshair_blink: bool = true                 ## flash on and off while aiming
+@export var crosshair_color: Color = Color(1, 1, 1)      ## colour of the drawn circle
 @export var exit_jump: Vector2 = Vector2(-60, -200)      ## how Mario jumps back out
 @export var exit_offset: Vector2 = Vector2(-30, -18)    ## where he pops out (left of the gun, so he lands clear)
 @export_group("Sounds")
@@ -230,13 +235,17 @@ func _draw() -> void:
 	# (the words on the gun and the question are Label children: GunLabel, PromptLabel)
 
 	if occupied:
-		# Mario's head poking out of the hatch
-		draw_rect(Rect2(-8, -21, 5, 4), Color(0.9, 0.2, 0.15))
+		# Mario's head poking out of the hatch (placeholder - only with the drawn cannon)
+		if get_node_or_null("Base") == null:
+			draw_rect(Rect2(-8, -21, 5, 4), Color(0.9, 0.2, 0.15))
 		# Crosshair on the UFO being aimed at
 		var t := target()
-		if t and not firing and int(_t * 4.0) % 2 == 0:
+		if t and not firing and (not crosshair_blink or int(_t * 4.0) % 2 == 0):
 			var c := to_local(t.target_position())
-			var col := Color(1, 1, 1)
+			if crosshair_texture:
+				draw_texture(crosshair_texture, (c - crosshair_texture.get_size() * 0.5).round())
+				return
+			var col := crosshair_color
 			draw_arc(c, 9.0, 0, TAU, 16, col, 1.0)
 			draw_line(c + Vector2(-12, 0), c + Vector2(-6, 0), col, 1.0)
 			draw_line(c + Vector2(6, 0), c + Vector2(12, 0), col, 1.0)

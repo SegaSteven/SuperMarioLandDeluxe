@@ -11,6 +11,17 @@ class_name Vine
 @export_file("*.tscn") var destination_scene: String = ""
 @export var destination_spawn: Vector2 = Vector2.ZERO
 @export var color: Color = Color(0.25, 0.75, 0.3)
+## YOUR ART: a picture of one piece of vine (e.g. 8 x 8). It's repeated from the bottom up as
+## the vine grows, so it can be any height. Empty = the drawn placeholder stem.
+@export var vine_texture: Texture2D:
+	set(v):
+		vine_texture = v
+		queue_redraw()
+## Optional picture for the very top of the vine (drawn once, above the repeated part).
+@export var vine_top_texture: Texture2D:
+	set(v):
+		vine_top_texture = v
+		queue_redraw()
 
 var height: float = 0.0
 var _shape: RectangleShape2D
@@ -60,8 +71,17 @@ func travel() -> void:
 	GameManager.travel_to(destination_scene, destination_spawn, {"pattern": "squares", "speed": 4})
 
 
-## Placeholder art: a green stem with leaves every 8 px. Replace with a sprite if you like.
+## Draws Vine Texture (repeated) if you've given one, otherwise a placeholder green stem.
 func _draw() -> void:
+	if vine_texture:
+		var w := vine_texture.get_width()
+		var top_h := vine_top_texture.get_height() if vine_top_texture else 0
+		var body_h := maxf(height - top_h, 0.0)
+		draw_texture_rect(vine_texture, Rect2(-w * 0.5, -body_h, w, body_h), true)
+		if vine_top_texture and height > 0.0:
+			var tw := vine_top_texture.get_width()
+			draw_texture(vine_top_texture, Vector2(-tw * 0.5, -height))
+		return
 	draw_line(Vector2(0, 0), Vector2(0, -height), color, 1.5)
 	var y := 4.0
 	var left := true
