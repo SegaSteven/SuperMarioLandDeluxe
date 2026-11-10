@@ -8,7 +8,8 @@ class_name LoadRoomBoat
 ## They start as Assets/Sprites/LoadRoom/Speedboat_moving.png and Speedboat_stopped.png -
 ## draw over those, or pick your own. Sprite Origin is the pixel in the picture that sits on
 ## this node's position (the waterline under the middle of the boat).
-## (Or add a Sprite2D / AnimatedSprite2D child called "Body" to do it your own way.)
+## (Or add your own children instead: "Body" (Sprite2D or AnimatedSprite2D) is shown while
+## the boat is moving, and "BodyStopped" (if there is one) is shown instead once it stops.)
 ## With no pictures at all, a placeholder boat is drawn.
 ## Deck Offset is where Mario stands (his feet), relative to this node.
 ## Sounds: the engine (Assets/SFX/boat_engine.wav) loops while it moves and the splash
@@ -75,9 +76,16 @@ func _process(delta: float) -> void:
 	var fast := clampf(absf(speed) / 200.0, 0.0, 1.0)
 	bob = sin(_t * bob_speed) * bob_height * (1.0 - fast)
 	var body := get_node_or_null("Body") as Node2D
+	var stopped_body := get_node_or_null("BodyStopped") as Node2D
+	var moving := is_moving()
 	if body:
 		body.position.y = bob
 		body.rotation = -0.06 * fast
+		if stopped_body:
+			body.visible = moving
+	if stopped_body:
+		stopped_body.position.y = bob
+		stopped_body.visible = not moving or body == null
 	var spray := get_node_or_null("Spray") as CanvasItem
 	if spray:
 		spray.visible = fast > 0.1

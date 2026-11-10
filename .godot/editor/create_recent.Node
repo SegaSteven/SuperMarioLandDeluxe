@@ -1,8 +1,9 @@
+Sprite2D
+AnimatedSprite2D
+Node
 NinePatchRect
 TextureRect
-Sprite2D
 Label
-AnimatedSprite2D
 TileMap
 AnimationPlayer
 TileMapLayer
@@ -10,6 +11,4 @@ CollisionShape2D
 CharacterBody2D
 Area2D
 Camera2D
-Node
 ColorRect
-ParallaxLayer

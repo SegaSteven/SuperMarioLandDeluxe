@@ -22,7 +22,10 @@ signal finished
 
 @export_group("Boat")
 @export var boat_start_x: float = -260.0        ## off-screen to the left
-@export var boat_dock_x: float = -24.0          ## where it stops (alongside the dock, by the room's edge)
+## On: the boat stops where you've put the Boat node in the scene (move it in the editor).
+## Off: it stops at Boat Dock X instead.
+@export var dock_at_scene_position: bool = true
+@export var boat_dock_x: float = -24.0          ## where it stops when Dock At Scene Position is off
 @export var boat_time: float = 1.1              ## how long it takes to come in (a speedboat: fast, then stops sharply)
 @export var boat_sound: AudioStream             ## e.g. a horn as it docks (optional)
 @export var pause_after_docking: float = 0.4
@@ -50,6 +53,7 @@ var _skip: bool = false
 var _start_was_down: bool = true
 var _tweens: Array[Tween] = []
 var _land_x: float = 24.0
+var _dock_x: float = -24.0
 var _jump_from: Vector2
 var _jump_to: Vector2
 
@@ -72,6 +76,7 @@ func play(player: PlayerUpdated, start_position: Vector2 = Vector2(24, 120)) -> 
 		camera().position.x = camera_start_x
 	var b := boat()
 	if b:
+		_dock_x = b.position.x if dock_at_scene_position else boat_dock_x
 		b.position.x = boat_start_x
 		b.visible = true
 
@@ -85,7 +90,7 @@ func play(player: PlayerUpdated, start_position: Vector2 = Vector2(24, 120)) -> 
 	# 1. The boat sails in with Mario on deck, slowing down as it docks
 	var t := _tween()
 	if b:
-		t.tween_property(b, "position:x", boat_dock_x, boat_time).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+		t.tween_property(b, "position:x", _dock_x, boat_time).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	else:
 		t.tween_interval(boat_time)
 	while t.is_running() and not _skip:
@@ -145,7 +150,7 @@ func _finish() -> void:
 	_tweens.clear()
 	var b := boat()
 	if b:
-		b.position.x = boat_dock_x
+		b.position.x = _dock_x
 	if camera():
 		camera().position.x = camera_end_x
 	_set_wall(true)

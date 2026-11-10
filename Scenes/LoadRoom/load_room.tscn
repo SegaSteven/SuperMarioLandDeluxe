@@ -1,29 +1,72 @@
-[gd_scene load_steps=15 format=3 uid="uid://hpgjlbhraqdh"]
+[gd_scene load_steps=27 format=3 uid="uid://hpgjlbhraqdh"]
 
 [ext_resource type="Script" uid="uid://drm4h2cctm3vv" path="res://Scripts/LoadRoom/load_room.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://b3e2uv1pq2x1o" path="res://Scenes/player.tscn" id="2"]
+[ext_resource type="Texture2D" uid="uid://b153q8pe2uf32" path="res://Assets/Sprites/LoadRoom/SeaWaves1.png" id="2_7bl5r"]
 [ext_resource type="Texture2D" uid="uid://brgfc6rfpig4r" path="res://Assets/Sprites/Backgrounds/Clouds.png" id="2_dl0wh"]
 [ext_resource type="TileSet" uid="uid://u07nu88mt2ny" path="res://TileSets/main.tres" id="2_fl0av"]
 [ext_resource type="PackedScene" uid="uid://dji6m65sdb581" path="res://Scenes/LoadRoom/save_ufo.tscn" id="3"]
+[ext_resource type="Texture2D" uid="uid://c0l0lobcq16oe" path="res://Assets/Sprites/LoadRoom/SeaWaves2.png" id="3_saxlx"]
 [ext_resource type="PackedScene" uid="uid://154epyt6ylu2" path="res://Scenes/LoadRoom/ladder.tscn" id="4"]
+[ext_resource type="Texture2D" uid="uid://b0aogrh4wv41w" path="res://Assets/Sprites/LoadRoom/SeaWaves3.png" id="4_ntfyc"]
 [ext_resource type="PackedScene" uid="uid://bhvviyfaomsdk" path="res://Scenes/LoadRoom/sam_cannon.tscn" id="5"]
 [ext_resource type="AudioStream" uid="uid://ld71vgvfvxus" path="res://Assets/Audio/New/SAVEROOM.wav" id="5_geiau"]
-[ext_resource type="Script" path="res://Scripts/LoadRoom/load_room_intro.gd" id="intro_1"]
-[ext_resource type="Script" path="res://Scripts/LoadRoom/load_room_boat.gd" id="boat_1"]
-[ext_resource type="Script" path="res://Scripts/LoadRoom/load_room_dock.gd" id="dock_1"]
-[ext_resource type="Texture2D" path="res://Assets/Sprites/LoadRoom/Speedboat_moving.png" id="boat_mov"]
-[ext_resource type="Texture2D" path="res://Assets/Sprites/LoadRoom/Speedboat_stopped.png" id="boat_stop"]
 [ext_resource type="LabelSettings" uid="uid://bsexttycxsh6o" path="res://pause.tres" id="9_obv6h"]
+[ext_resource type="Texture2D" uid="uid://cn6xeako3abbk" path="res://Assets/Sprites/LoadRoom/Dock.png" id="11_saxlx"]
+[ext_resource type="Texture2D" uid="uid://dqvgsn1aej6yo" path="res://Assets/Sprites/LoadRoom/Boat1.png" id="14_eorh0"]
+[ext_resource type="Texture2D" uid="uid://caqc2gewr1x05" path="res://Assets/Sprites/LoadRoom/Boat2.png" id="15_7to42"]
+[ext_resource type="Texture2D" uid="uid://d0nxqf50rhwx8" path="res://Assets/Sprites/LoadRoom/Boat3.png" id="16_wex7w"]
+[ext_resource type="Texture2D" uid="uid://dkkv6fodrrf16" path="res://Assets/Sprites/LoadRoom/Boat4.png" id="17_2pcis"]
+[ext_resource type="Script" uid="uid://cnlnnng1rw18i" path="res://Scripts/LoadRoom/load_room_boat.gd" id="boat_1"]
+[ext_resource type="Texture2D" uid="uid://43h0qxjpxqk6" path="res://Assets/Sprites/LoadRoom/Speedboat_stopped.png" id="boat_stop"]
+[ext_resource type="Script" uid="uid://bsbewrvfulvgm" path="res://Scripts/LoadRoom/load_room_dock.gd" id="dock_1"]
+[ext_resource type="Script" uid="uid://cvrwtjeh06e4w" path="res://Scripts/LoadRoom/load_room_intro.gd" id="intro_1"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xal34"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_7bl5r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_saxlx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ntfyc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="Shape_floor"]
-size = Vector2(300, 16)
+size = Vector2(278, 16)
 
 [sub_resource type="RectangleShape2D" id="Shape_wall"]
-size = Vector2(24, 200)
+size = Vector2(16, 180)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_k561r"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("14_eorh0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_7to42")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_wex7w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_2pcis")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
 
 [node name="LoadRoom" type="Node2D"]
 script = ExtResource("1")
-start_position = Vector2(24, 120)
 
 [node name="SkyLeft" type="ColorRect" parent="."]
 offset_left = -256.0
@@ -31,16 +74,199 @@ offset_bottom = 144.0
 color = Color(0.301961, 0.65098, 1, 1)
 metadata/_edit_lock_ = true
 
-[node name="Sea" type="ColorRect" parent="."]
-offset_left = -256.0
-offset_top = 124.0
-offset_bottom = 144.0
-color = Color(0.12, 0.33, 0.75, 1)
+[node name="SeaSprites" type="Node" parent="."]
 
-[node name="SeaTop" type="ColorRect" parent="Sea"]
-offset_right = 256.0
-offset_bottom = 2.0
-color = Color(0.75, 0.9, 1, 1)
+[node name="sea" type="AnimatedSprite2D" parent="SeaSprites"]
+position = Vector2(-256, 132)
+sprite_frames = SubResource("SpriteFrames_xal34")
+autoplay = "default"
+centered = false
+
+[node name="sea2" type="AnimatedSprite2D" parent="SeaSprites"]
+position = Vector2(-248, 132)
+sprite_frames = SubResource("SpriteFrames_xal34")
+autoplay = "default"
+centered = false
+
+[node name="sea3" type="AnimatedSprite2D" parent="SeaSprites"]
+position = Vector2(-240, 132)
+sprite_frames = SubResource("SpriteFrames_xal34")
+autoplay = "default"
+centered = false
+
+[node name="sea4" type="AnimatedSprite2D" parent="SeaSprites"]
+position = Vector2(-232, 132)
+sprite_frames = SubResource("SpriteFrames_xal34")
+autoplay = "default"
+centered = false
+
+[node name="sea5" type="AnimatedSprite2D" parent="SeaSprites"]
+position = Vector2(-224, 132)
+sprite_frames = SubResource("SpriteFrames_xal34")
+autoplay = "default"
+centered = false
+
+[node name="sea6" type="AnimatedSprite2D" parent="SeaSprites"]
+position = Vector2(-216, 132)
+sprite_frames = SubResource("SpriteFrames_xal34")
+autoplay = "default"
+centered = false
+
+[node name="sea7" type="AnimatedSprite2D" parent="SeaSprites"]
+position = Vector2(-208, 132)
+sprite_frames = SubResource("SpriteFrames_xal34")
+autoplay = "default"
+centered = false
+
+[node name="sea8" type="AnimatedSprite2D" parent="SeaSprites"]
+position = Vector2(-200, 132)
+sprite_frames = SubResource("SpriteFrames_xal34")
+autoplay = "default"
+centered = false
+
+[node name="sea9" type="AnimatedSprite2D" parent="SeaSprites"]
+position = Vector2(-192, 132)
+sprite_frames = SubResource("SpriteFrames_xal34")
+autoplay = "default"
+centered = false
+
+[node name="sea10" type="AnimatedSprite2D" parent="SeaSprites"]
+position = Vector2(-184, 132)
+sprite_frames = SubResource("SpriteFrames_xal34")
+autoplay = "default"
+centered = false
+
+[node name="sea11" type="AnimatedSprite2D" parent="SeaSprites"]
+position = Vector2(-176, 132)
+sprite_frames = SubResource("SpriteFrames_xal34")
+autoplay = "default"
+centered = false
+
+[node name="sea12" type="AnimatedSprite2D" parent="SeaSprites"]
+position = Vector2(-168, 132)
+sprite_frames = SubResource("SpriteFrames_xal34")
+autoplay = "default"
+centered = false
+
+[node name="sea13" type="AnimatedSprite2D" parent="SeaSprites"]
+position = Vector2(-160, 132)
+sprite_frames = SubResource("SpriteFrames_xal34")
+autoplay = "default"
+centered = false
+
+[node name="sea14" type="AnimatedSprite2D" parent="SeaSprites"]
+position = Vector2(-152, 132)
+sprite_frames = SubResource("SpriteFrames_xal34")
+autoplay = "default"
+centered = false
+
+[node name="sea15" type="AnimatedSprite2D" parent="SeaSprites"]
+position = Vector2(-144, 132)
+sprite_frames = SubResource("SpriteFrames_xal34")
+autoplay = "default"
+centered = false
+
+[node name="sea16" type="AnimatedSprite2D" parent="SeaSprites"]
+position = Vector2(-136, 132)
+sprite_frames = SubResource("SpriteFrames_xal34")
+autoplay = "default"
+centered = false
+
+[node name="sea17" type="AnimatedSprite2D" parent="SeaSprites"]
+position = Vector2(-128, 132)
+sprite_frames = SubResource("SpriteFrames_xal34")
+autoplay = "default"
+centered = false
+
+[node name="sea18" type="AnimatedSprite2D" parent="SeaSprites"]
+position = Vector2(-120, 132)
+sprite_frames = SubResource("SpriteFrames_xal34")
+autoplay = "default"
+centered = false
+
+[node name="sea19" type="AnimatedSprite2D" parent="SeaSprites"]
+position = Vector2(-112, 132)
+sprite_frames = SubResource("SpriteFrames_xal34")
+autoplay = "default"
+centered = false
+
+[node name="sea20" type="AnimatedSprite2D" parent="SeaSprites"]
+position = Vector2(-104, 132)
+sprite_frames = SubResource("SpriteFrames_xal34")
+autoplay = "default"
+centered = false
+
+[node name="sea21" type="AnimatedSprite2D" parent="SeaSprites"]
+position = Vector2(-96, 132)
+sprite_frames = SubResource("SpriteFrames_xal34")
+autoplay = "default"
+centered = false
+
+[node name="sea22" type="AnimatedSprite2D" parent="SeaSprites"]
+position = Vector2(-88, 132)
+sprite_frames = SubResource("SpriteFrames_xal34")
+autoplay = "default"
+centered = false
+
+[node name="sea23" type="AnimatedSprite2D" parent="SeaSprites"]
+position = Vector2(-80, 132)
+sprite_frames = SubResource("SpriteFrames_xal34")
+autoplay = "default"
+centered = false
+
+[node name="sea24" type="AnimatedSprite2D" parent="SeaSprites"]
+position = Vector2(-72, 132)
+sprite_frames = SubResource("SpriteFrames_xal34")
+autoplay = "default"
+centered = false
+
+[node name="sea25" type="AnimatedSprite2D" parent="SeaSprites"]
+position = Vector2(-64, 132)
+sprite_frames = SubResource("SpriteFrames_xal34")
+autoplay = "default"
+centered = false
+
+[node name="sea26" type="AnimatedSprite2D" parent="SeaSprites"]
+position = Vector2(-56, 132)
+sprite_frames = SubResource("SpriteFrames_xal34")
+autoplay = "default"
+centered = false
+
+[node name="sea27" type="AnimatedSprite2D" parent="SeaSprites"]
+position = Vector2(-48, 132)
+sprite_frames = SubResource("SpriteFrames_xal34")
+autoplay = "default"
+centered = false
+
+[node name="sea28" type="AnimatedSprite2D" parent="SeaSprites"]
+position = Vector2(-40, 132)
+sprite_frames = SubResource("SpriteFrames_xal34")
+autoplay = "default"
+centered = false
+
+[node name="sea29" type="AnimatedSprite2D" parent="SeaSprites"]
+position = Vector2(-32, 132)
+sprite_frames = SubResource("SpriteFrames_xal34")
+autoplay = "default"
+centered = false
+
+[node name="sea30" type="AnimatedSprite2D" parent="SeaSprites"]
+position = Vector2(-24, 132)
+sprite_frames = SubResource("SpriteFrames_xal34")
+autoplay = "default"
+centered = false
+
+[node name="sea31" type="AnimatedSprite2D" parent="SeaSprites"]
+position = Vector2(-16, 132)
+sprite_frames = SubResource("SpriteFrames_xal34")
+autoplay = "default"
+centered = false
+
+[node name="sea32" type="AnimatedSprite2D" parent="SeaSprites"]
+position = Vector2(-8, 132)
+sprite_frames = SubResource("SpriteFrames_xal34")
+autoplay = "default"
+centered = false
 
 [node name="Background" type="ColorRect" parent="."]
 offset_right = 256.0
@@ -49,6 +275,14 @@ color = Color(0.301961, 0.65098, 1, 1)
 
 [node name="Sprite2D" type="Sprite2D" parent="Background"]
 position = Vector2(160, 56)
+texture = ExtResource("2_dl0wh")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Background"]
+position = Vector2(-288, 64)
+texture = ExtResource("2_dl0wh")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Background"]
+position = Vector2(-8, 64)
 texture = ExtResource("2_dl0wh")
 
 [node name="FloorArt" type="ColorRect" parent="."]
@@ -60,7 +294,7 @@ color = Color(0.32, 0.26, 0.2, 1)
 [node name="TileMap2" type="TileMap" parent="."]
 tile_set = ExtResource("2_fl0av")
 format = 2
-layer_0/tile_data = PackedInt32Array(983069, 655360, 3, 786461, 655360, 3)
+layer_0/tile_data = PackedInt32Array(983069, 655360, 3, 786461, 655360, 3, 393188, 65536, 0, 458724, 65536, 1, 393189, 131072, 0, 458725, 131072, 1, 393190, 196608, 0, 458726, 196608, 1, 393191, 262144, 0, 458727, 262144, 1, 262127, 65536, 0, 327663, 65536, 1, 262128, 131072, 0, 327664, 131072, 1, 262129, 196608, 0, 327665, 131072, 1, 262130, 131072, 0, 327666, 131072, 1, 262131, 196608, 0, 327667, 196608, 1, 262132, 262144, 0, 327668, 262144, 1, 589804, 65536, 0, 655340, 65536, 1, 589805, 131072, 0, 655341, 131072, 1, 589806, 196608, 0, 655342, 196608, 1, 589807, 262144, 0, 655343, 262144, 1, 327704, 196608, 0, 393240, 196608, 1, 327705, 131072, 0, 393241, 131072, 1, 327706, 196608, 0, 393242, 196608, 1, 327707, 262144, 0, 393243, 262144, 1, 393220, 65536, 0, 458756, 65536, 1, 393221, 131072, 0, 458757, 131072, 1, 393222, 196608, 0, 458758, 196608, 1, 393223, 262144, 0, 458759, 262144, 1, 196601, 65536, 0, 262137, 65536, 1, 196602, 131072, 0, 262138, 131072, 1, 196603, 196608, 0, 262139, 196608, 1, 196604, 262144, 0, 262140, 262144, 1, 327702, 65536, 0, 393238, 65536, 1, 327703, 131072, 0, 393239, 131072, 1)
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource("2_fl0av")
@@ -72,11 +306,11 @@ collision_layer = 2
 collision_mask = 0
 
 [node name="Floor" type="CollisionShape2D" parent="Walls"]
-position = Vector2(128, 136)
+position = Vector2(139, 136)
 shape = SubResource("Shape_floor")
 
 [node name="LeftWall" type="CollisionShape2D" parent="Walls"]
-position = Vector2(4, 72)
+position = Vector2(-8, 62)
 shape = SubResource("Shape_wall")
 
 [node name="RightWall" type="CollisionShape2D" parent="Walls"]
@@ -125,11 +359,27 @@ prompt_offset = Vector2(50, -50)
 position = Vector2(0, 122)
 script = ExtResource("dock_1")
 
+[node name="Body" type="Sprite2D" parent="Dock"]
+position = Vector2(-36, 14)
+texture = ExtResource("11_saxlx")
+
 [node name="Boat" type="Node2D" parent="."]
-position = Vector2(-24, 126)
+position = Vector2(-37, 125.505)
 script = ExtResource("boat_1")
-sprite_moving = ExtResource("boat_mov")
 sprite_stopped = ExtResource("boat_stop")
+moving_speed = 2.0
+deck_offset = Vector2(10, 4)
+bob_speed = 0.0
+spray_on = false
+
+[node name="Body" type="AnimatedSprite2D" parent="Boat"]
+sprite_frames = SubResource("SpriteFrames_k561r")
+autoplay = "default"
+frame = 3
+frame_progress = 0.92938
+
+[node name="BodyStopped" type="Sprite2D" parent="Boat"]
+texture = ExtResource("boat_stop")
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_geiau")

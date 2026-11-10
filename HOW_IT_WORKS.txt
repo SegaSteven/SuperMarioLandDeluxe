@@ -1326,8 +1326,12 @@ NODES IN load_room.tscn
              Draw over those two PNGs (keep them the same size), or pick your
              own. Sprite Origin = the pixel on the waterline under the middle
              of the boat. Deck Offset = where Mario's feet go. Moving Speed =
-             how fast counts as moving. Or add a "Body" Sprite2D /
-             AnimatedSprite2D child to do it your own way.
+             how fast counts as moving. Or add your own children (what your
+             load room uses now): "Body" (Sprite2D / AnimatedSprite2D) is
+             shown while the boat moves, "BodyStopped" (Sprite2D) once it
+             stops at the dock.
+             WHERE IT STOPS: where you put the Boat node in the scene (Intro's
+             Dock At Scene Position, on). Untick it to use Boat Dock X.
              Sound: Engine Sound (Assets/SFX/boat_engine.wav, loops while
              moving, pitch follows the speed), Engine Volume / Pitch Slow /
              Pitch Fast, Stop Sound (Assets/SFX/boat_stop.wav, the splash).
