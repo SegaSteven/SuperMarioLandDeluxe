@@ -13,6 +13,9 @@ class_name PipeSide
 @export_file("*.tscn") var destination_scene: String = ""
 @export var destination_spawn: Vector2 = Vector2.ZERO
 @export var transition_pattern: String = "squares"
+## How Mario comes out at the other end, after the screen fade. Auto = up out of a pipe if he
+## lands standing on one, nothing if he arrives in mid-air (dropping into a room).
+@export_enum("Auto", "Up", "Down", "Left", "Right", "None") var exit_animation: String = "Auto"
 @export_group("Old setup (still works)")
 @export var scene_overground: PackedScene
 @export var spawn_point: Vector2
@@ -25,7 +28,8 @@ func has_destination() -> bool:
 
 
 func travel() -> void:
-	GameManager.travel_to(destination_scene, destination_spawn, {"pattern": transition_pattern, "speed": 4})
+	GameManager.travel_to(destination_scene, destination_spawn, {"pattern": transition_pattern, "speed": 4,
+		"pipe_exit": "" if exit_animation == "None" else exit_animation.to_lower()})
 
 
 ## Old handler some level scenes connect to. Travel is handled by the pipe now.

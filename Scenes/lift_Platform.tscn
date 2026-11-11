@@ -9,10 +9,9 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iy0wy"]
 size = Vector2(8, 8)
 
-[node name="Lift" type="StaticBody2D"]
+[node name="Lift" type="AnimatableBody2D"]
 collision_layer = 2
 physics_material_override = SubResource("PhysicsMaterial_dfhtw")
-constant_linear_velocity = Vector2(0, -20)
 script = ExtResource("1_8gw7x")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

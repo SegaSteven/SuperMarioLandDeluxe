@@ -7,6 +7,7 @@
 size = Vector2(16.017, 7.8834)
 
 [node name="FallingSlab" type="Area2D"]
+z_index = 3
 script = ExtResource("1_3fvw4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

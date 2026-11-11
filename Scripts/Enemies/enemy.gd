@@ -249,6 +249,21 @@ func die_from_hit(from_direction: float = 1.0) -> void:
 	get_tree().create_timer(4.0).timeout.connect(queue_free)
 
 
+## Blown up (the boss switch): gives its points (or `points` if given, for shots worth 0),
+## leaves a Blast where it was and is gone.
+func blow_up(points: int = -1, blast_scene: PackedScene = null) -> void:
+	if is_dead:
+		return
+	_begin_death()
+	award_score(points if points >= 0 else score)
+	var at := sprite.global_position if sprite else global_position
+	if blast_scene:
+		var b := blast_scene.instantiate() as Node2D
+		b.global_position = at
+		get_tree().current_scene.add_child(b)
+	queue_free()
+
+
 func _begin_death() -> void:
 	is_dead = true
 	_active = true   # keep processing so the death animation plays even if off-screen

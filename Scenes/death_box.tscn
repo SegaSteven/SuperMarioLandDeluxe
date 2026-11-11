@@ -7,3 +7,4 @@ size = Vector2(41.4343, 12.6821)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_qmapu")
+debug_color = Color(0.45, 0, 0, 0.65)

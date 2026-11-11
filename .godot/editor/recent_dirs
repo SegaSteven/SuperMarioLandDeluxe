@@ -1,3 +1,4 @@
+res://Resources/CollisionShapes
 res://Scripts
 res://Assets/Tilesets
 res://Scripts/Cutscene
@@ -12,7 +13,6 @@ res://Scripts/Level_Scripts
 res://TileSets
 res://Scripts/World_Scripts
 res://Scenes/WorldScenes
-res://Resources/CollisionShapes
 res://Assets/Audio/New
 C:/Users/Steven PC/Documents/sml-test redux 17032025/Exports
 res://Scripts/Core

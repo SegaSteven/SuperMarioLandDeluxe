@@ -6,7 +6,10 @@
 [sub_resource type="LabelSettings" id="LabelSettings_wbuau"]
 font = ExtResource("1_63re2")
 font_size = 6
-font_color = Color(0, 0, 0, 1)
+font_color = Color(1, 1, 1, 1)
+shadow_size = 0
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(1, 1)
 
 [node name="PointsLabel" type="Label"]
 offset_right = 20.0

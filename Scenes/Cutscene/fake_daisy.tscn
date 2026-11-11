@@ -1,0 +1,56 @@
+[gd_scene load_steps=12 format=3]
+
+[ext_resource type="Script" path="res://Scripts/Cutscene/fake_daisy.gd" id="1_fd"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/FakeDaisy/door_closed.png" id="2_dc"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/FakeDaisy/door_opening_1.png" id="3_d1"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/FakeDaisy/door_opening_2.png" id="4_d2"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/FakeDaisy/door_opening_3.png" id="5_d3"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/FakeDaisy/door_open.png" id="6_do"]
+[ext_resource type="Texture2D" uid="uid://dfuqivwe7q30g" path="res://Assets/Cutscenes/Daisy_idle.png" id="7_di"]
+[ext_resource type="Texture2D" uid="uid://du4pkan1qfg1i" path="res://Assets/Cutscenes/Daisy_arms.png" id="8_da"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_door"]
+animations = [{
+"frames": [{"duration": 1.0, "texture": ExtResource("2_dc")}],
+"loop": false, "name": &"closed", "speed": 5.0
+}, {
+"frames": [{"duration": 1.0, "texture": ExtResource("2_dc")}, {"duration": 1.0, "texture": ExtResource("3_d1")}, {"duration": 1.0, "texture": ExtResource("4_d2")}, {"duration": 1.0, "texture": ExtResource("5_d3")}, {"duration": 1.0, "texture": ExtResource("6_do")}],
+"loop": false, "name": &"opening", "speed": 6.0
+}, {
+"frames": [{"duration": 1.0, "texture": ExtResource("6_do")}],
+"loop": false, "name": &"open", "speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_door"]
+size = Vector2(16, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_daisy"]
+animations = [{
+"frames": [{"duration": 1.0, "texture": ExtResource("7_di")}],
+"loop": true, "name": &"idle", "speed": 5.0
+}, {
+"frames": [{"duration": 1.0, "texture": ExtResource("8_da")}],
+"loop": true, "name": &"arms_out", "speed": 5.0
+}]
+
+[node name="FakeDaisy" type="Node2D"]
+script = ExtResource("1_fd")
+
+[node name="Door" type="StaticBody2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Door"]
+position = Vector2(0, -16)
+sprite_frames = SubResource("SpriteFrames_door")
+animation = &"closed"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Door"]
+position = Vector2(0, -16)
+shape = SubResource("RectangleShape2D_door")
+
+[node name="Daisy" type="AnimatedSprite2D" parent="."]
+position = Vector2(72, -8)
+sprite_frames = SubResource("SpriteFrames_daisy")
+animation = &"idle"
+flip_h = true

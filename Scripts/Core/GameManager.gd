@@ -22,6 +22,9 @@ var pre_level: String = ""
 var player: CharacterBody2D
 var player_mode: PlayerUpdated.PlayerMode = PlayerUpdated.PlayerMode.SMALL
 var spawn_point: Vector2 = Vector2.ZERO
+## Set by a pipe as Mario goes through it: how he comes out at the other end
+## ("auto", "up", "down", "left", "right", or "" for no animation). Used once, then cleared.
+var pipe_exit: String = ""
 var current_checkpoint: Checkpoint      # the checkpoint node touched (only valid until the scene reloads)
 
 # The last checkpoint touched in the level being played. Kept when Mario dies (the level
@@ -195,10 +198,13 @@ func travel_to(scene: String, spawn: Vector2 = Vector2.ZERO, transition: Diction
 		player_mode = player.player_mode
 	spawn_point = spawn
 	OverworldMan.spawn_point = spawn
+	pipe_exit = transition.get("pipe_exit", "")
 	# Pipes and doors inside a level keep the checkpoint; going to a map forgets it
 	if scene.contains("WorldScenes") or scene.ends_with("_map.tscn"):
 		clear_checkpoint()
-	SceneManager.change_scene(scene, transition)
+	var options := transition.duplicate()
+	options.erase("pipe_exit")
+	SceneManager.change_scene(scene, options)
 
 
 func handle_game_over():

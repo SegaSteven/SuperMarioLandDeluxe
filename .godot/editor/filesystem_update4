@@ -1,4 +1,4 @@
-res://Scenes/LoadRoom/load_room.tscn
+res://Scenes/Levels/1-2.tscn
 res://addons/scene_manager/Dissolve2d.gdshader
 res://TileSets/Birabuto.tres
 res://pause.tres
@@ -10,8 +10,6 @@ res://Scenes/goomba.tscn
 res://Scenes/WorldScenes/world_map.tscn
 res://Scenes/koopa.tscn
 res://Scenes/Enemies/SML/batadon.tscn
-res://Scenes/castle_scenept1.tscn
-res://Scenes/LoadRoom/save_ufo.tscn
-res://Scenes/LoadRoom/ladder.tscn
-res://Scenes/LoadRoom/sam_cannon.tscn
-res://Scripts/LoadRoom/load_room_boat.gd
+res://Scenes/LoadRoom/load_room.tscn
+res://Resources/CollisionShapes/koopa_full_collision_shape.tres
+res://Scripts/Enemies/SML/koopa.gd

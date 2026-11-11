@@ -3,8 +3,10 @@ extends Area2D
 class_name StarCoin
 ## A special coin - put 3 in each level (New Super Mario Bros style).
 ##
-## Setup: instance res://Scenes/star_coin.tscn in a level and set Coin Number to 1, 2 or 3.
-## Each level needs one of each number. They work in underground rooms too.
+## Setup: instance res://Scenes/star_coin.tscn in a level, then select the level's root node and
+## drag the coins into its Star Coin 1 / 2 / 3 boxes (Inspector, "Star Coins"). The box a coin
+## is in decides which one it is - that overrides Coin Number below. Coins in an underground
+## room go in that room's own boxes. (A coin that isn't in any box uses its Coin Number.)
 ##   - Collected coins only save when you FINISH the level (either exit). Die and they come back.
 ##   - A coin you already saved on an earlier run shows see-through. Grabbing it again just
 ##     gives points.
@@ -21,6 +23,11 @@ var _already_saved: bool = false
 
 
 func _ready() -> void:
+	# Wait a moment so the level can tell us which coin we are (Star Coin 1 / 2 / 3 boxes)
+	_setup.call_deferred()
+
+
+func _setup() -> void:
 	collision_layer = 0
 	collision_mask = Layers.bit(Layers.PLAYER)
 	body_entered.connect(_on_body_entered)

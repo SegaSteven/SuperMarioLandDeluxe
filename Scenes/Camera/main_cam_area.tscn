@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Scripts/Camera/main_cam_area.gd" id="1_cam"]
+
+[node name="MainCamArea" type="ReferenceRect"]
+offset_right = 2400.0
+offset_bottom = 144.0
+mouse_filter = 2
+script = ExtResource("1_cam")

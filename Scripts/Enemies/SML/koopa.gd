@@ -23,8 +23,9 @@ enum KoopaState { WALKING, SHELL, EXPLODING }
 const SHELL_SHAPE = preload("res://Resources/CollisionShapes/koopa_shell_collision_shape.tres")
 const FULL_SHAPE = preload("res://Resources/CollisionShapes/koopa_full_collision_shape.tres")
 const EXPLODE_SHAPE = preload("res://Resources/CollisionShapes/koopa_explode_collision_shape.tres")
-const SHELL_SHAPE_POSITION = Vector2(0, 6)
-const EXPLODE_SHAPE_POSITION = Vector2(0, 3)
+const SHELL_SHAPE_POSITION = Vector2(0, 4)
+const EXPLODE_SHAPE_POSITION = Vector2(0, 3.5)
+const FULL_SHAPE_POSITION = Vector2(0, 1)
 
 var state: KoopaState = KoopaState.WALKING
 var _hurt_player_already: bool = false
@@ -33,6 +34,7 @@ var _hurt_player_already: bool = false
 func _on_ready() -> void:
 	if body_shape:
 		body_shape.shape = FULL_SHAPE
+		_set_shape(FULL_SHAPE, FULL_SHAPE_POSITION)
 
 
 func _alive_physics(delta: float) -> void:

@@ -20,6 +20,7 @@ size = Vector2(6, 6)
 
 [node name="BossFireball" type="CharacterBody2D"]
 script = ExtResource("1_s")
+sprite_faces_left = false
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_f")

@@ -370,7 +370,13 @@ replace the frames in each animation (keep the animation names).
   Goombo ............ goomba.tscn          walks; stomp it
   Nokobon ........... koopa.tscn           see section 9
   Fly ............... Enemies/fly.tscn     small, small, BIG hops at Mario
-  Bunbun ............ Enemies/bun_bun.tscn flies in a wave, drops spears
+  Bunbun ............ Enemies/bun_bun.tscn flies in a straight line, stops over
+                      Mario and drops a spear. The spear (arrow_drop.tscn) only
+                      hits Mario - it falls straight through the level. Stomp: Mario bounces off, the dead
+                      frame sinks 4 px for 0.5 s (no collision), then it flips
+                      upside down, hops up 8 px / 16 px left and falls off screen
+                      (Dead Time, Dead Drop, Arc Height, Arc Distance, Arc Time,
+                      Arc Direction in the Inspector)
   Piranha Plant ..... Enemies/parana_plant_pipe.tscn  pops out of its pipe;
                       stays hidden while Mario is right next to the pipe
   Gao ............... SML/gao.tscn         statue, doesn't move, spits fire
@@ -793,11 +799,8 @@ boxes when you make a new enemy.
 
   - (Done - see section 28: the .tmp crash files, the old map tile scripts,
     Pyramid_player.gd and other unused files have been deleted.)
-  - The pipe spawn points stored in 1-1's level script (spawn_point1/2 =
-    -29, 21) look odd. Now's a good time to set each pipe's own Destination
-    Spawn instead (section 11).
-  - Level scripts (1-1.gd, 1-2.gd...) are nearly identical. Once all your
-    pipes use Destination Scene, they can all share one script.
+  - (Done: every pipe has its own Destination Scene / Spawn, and all the
+    levels share one script - section 38.)
   - Replace placeholder art: Assets/Sprites/Enemies/Placeholders/,
     Assets/Sprites/StarCoin/, the example boss, and the sub (VehicleSprite).
   - The in-level HUD doesn't show star coins yet (only the map does). The
@@ -1299,6 +1302,12 @@ he started on the ground.
 33. THE LOAD ROOM'S SPEEDBOAT INTRO
 ================================================================================
 
+LOAD ROOM MUSIC: the load room's Music node plays Assets/Audio/New/SAVEROOM.wav
+(back to the original). LoadRoom2.mp3 is still in Assets/Audio/New, set to loop,
+if you want to swap it in again. To swap it, drop a new file on
+the Music node's Stream, select the file in the FileSystem dock, tick Loop in
+the Import tab and press Reimport.
+
 Every time you come into the load room from the title screen:
   1. The room starts looking at the sea, the dock and the edge of the room.
   2. After a short wait (so the squares wipe has finished) the speedboat comes
@@ -1434,9 +1443,465 @@ from where it was. (Action doesn't close this one.)
 PAUSE MUSIC: put your track at res://Assets/Audio/pause_music.wav (or .ogg /
 .mp3) and every level plays it while paused. Or set Pause Music on a level's
 root node (the level script) to give that level its own.
+Now in: Assets/Audio/pause_music.mp3 (SMLE_IDEA_PAUSE_1), Loop ticked in its
+Import settings. It plays from the start each time you pause and stops when you
+unpause; the level music carries on from where it was.
 
 HOW IT'S WIRED: every level already calls swap_pause_state() when Pause is
 pressed (in its _input). That's in Scripts/Core/LevelData.gd and now opens
 the box (OptionsMenu.open_paused). The old "Pause" bar node is just hidden.
 The animation settings are on the box (Scripts/UI/options_menu.gd):
 grow_steps (3), grow_step_time (0.05 s), start_size (12 x 12).
+
+
+================================================================================
+38. ONE LEVEL SCRIPT FOR EVERY LEVEL
+================================================================================
+
+Every level and underground room now uses Scripts/Level_Scripts/basic_level.gd
+(1-1, 1-2, 1-3, all four underground rooms, the switch palaces). The seven old
+per-level scripts (1-1.gd, 1-1U1.gd, 1-1U2.gd, 1-2.gd, 1_3.gd, 1-3U1.gd,
+1-3U2.gd) were nearly the same and have been deleted - pipes, vines and exit
+doors carry their own destinations, so no level needs its own code.
+
+What it does when a level starts: Mario to the checkpoint / spawn point, the
+camera snaps to him, the star music swap, Pause opens the Paused box, and:
+  Play Start Flash  on  = the quick flash, then the UI and the level music
+                          (overground levels)
+                    off = no flash, the music is left alone (underground
+                          rooms - their LevelMusic plays by itself)
+  Start Delay       how long the flash lasts before the UI / music (0.2 s)
+
+A NEW LEVEL: put basic_level.gd on the root node, fill in its UI, Player and
+Level Music boxes (like the existing levels), untick Play Start Flash for an
+underground room. Give every pipe a Destination Scene and Destination Spawn -
+a pipe with no destination does nothing now (the old per-level pipe code that
+used to catch it is gone).
+
+
+================================================================================
+39. COMING OUT OF A PIPE, AND THE START FLASH
+================================================================================
+
+COMING OUT OF A PIPE (Scripts/Player/States/pipe_exit.gd - the PipeExit state)
+When Mario goes through a pipe, he comes out the other end the same way he went
+in: once the screen fade has finished he slides up out of the pipe (16 px over
+1 second, the same as going in), then you can move.
+  - Each pipe (PipeD1, PipeD2, PipeSide) has Exit Animation in the Inspector,
+    under Destination:
+      Auto   - up out of the pipe if he lands on a pipe (a pipe node or pipe
+               tiles). If he arrives in mid-air (dropping into an underground
+               room) or on a platform like the Fallwait Block, there's no
+               animation - he just drops in like before.
+      Up / Down / Left / Right - always slide out that way.
+      None   - no animation.
+  - Set Destination Spawn to where Mario should END UP (standing on top of the
+    pipe). He starts inside the pipe and slides out to there. If the spawn is a
+    bit low and inside the pipe itself, he's lifted to the top of it first
+    (1-3's two exits were inside their pipes and Mario used to get stuck).
+  - The part of Mario still inside the pipe is cut off at the pipe's opening,
+    so it works for pipes drawn with tiles too.
+  - It doesn't play after losing a life (Mario starts at the checkpoint).
+
+THE START FLASH
+The black flash at the start of a level (Camera2D/Flash) is moved onto its own
+screen layer when the level starts and stretched over the whole screen, so it
+covers everything even when the camera is held at the left edge of the level
+(it used to be off to one side if you died near the start). Edit it in the
+level as before - colour etc. - the size and position don't matter any more.
+
+
+================================================================================
+40. CAMERA AREAS: MAIN (RED), SKY (BLUE) AND CAVE (GREEN)
+================================================================================
+
+Scenes/Camera/main_cam_area.tscn  - MainCamArea  (red outline)
+Scenes/Camera/sky_cam_area.tscn   - SkyCamArea   (blue outline)
+Scenes/Camera/cave_cam_area.tscn  - CaveCamArea  (green outline)
+(scripts in Scripts/Camera/)
+
+They're boxes you place and resize in the 2D editor. Only their EDGES are
+coloured - no tint over the level - and they don't show in the game.
+
+THE RULES
+  Red - MainCamArea (one per level)
+    - The normal camera area. Inside it the camera works like it always has:
+      it follows Mario left and right (keeping him near the middle) and stops
+      at the red box's edges. The red box IS the camera limits now - you don't
+      need to type limits on the Camera2D any more.
+    - Falling off the BOTTOM of the red box loses a life (the death line),
+      like the original game - unless there's a green box below that spot.
+  Blue - SkyCamArea (a secret above)
+    - Walking past it does nothing, so it stays secret.
+    - Overlap it over the red box's TOP edge by about 16 pixels.
+    - When Mario, going up, gets within 3 pixels of the main camera's top
+      edge while touching the blue box, the camera switches to it: it glides
+      fully up, so Mario is at the bottom of the screen, and stays put. It
+      can't show anything outside the blue box.
+    - No death line: if Mario falls he drops back into the red area. The
+      camera glides back as he falls within 3 pixels of the blue box's bottom
+      edge.
+  Green - CaveCamArea (a secret below)
+    - Overlap it over the red box's BOTTOM edge by about 16 pixels.
+    - The same going down: within 3 pixels of the main camera's bottom edge
+      while touching the green box (e.g. falling down a hole), the camera
+      glides fully down, so Mario is at the top of the screen, and stays put.
+      Going back up within 3 pixels of the green box's top edge glides back.
+    - Over a green box, the death line moves to the BOTTOM of the green box -
+      so falling down the hole takes him into the cave instead of killing him,
+      and falling out of the bottom of the cave loses a life.
+  Going back
+    - Walking out of the side of a blue / green box also glides back to normal.
+    - Which way Mario is moving decides it, so the camera never flickers
+      between two areas.
+    - Two blue (or two green) boxes side by side: walking from one into the
+      other switches straight across.
+    - A blue / green box taller than one screen: within 3 pixels of that
+      screen's edge moves the camera on another full step the same way.
+  Every switch is one smooth glide (0.6 seconds, easing in and out): the
+  camera moves in a straight line - diagonally if it has to - from where it is
+  to its spot in the new area, and the new area's edges only apply once it
+  gets there. On the way it can show a little outside the boxes; cover that
+  with sprite art. Mario always stays on screen while it glides, at any speed.
+  DeathBoxes still work as before - keep them for pits that aren't at the very
+  bottom of the screen. Remove the DeathBox over a hole that leads to a cave.
+  DeathBoxes (Scenes/death_box.tscn) show as DARK RED boxes in the editor so
+  they're easy to spot (and in the game with Debug > Visible Collision Shapes).
+
+HOW TO
+  1. Each level (1-1, 1-2, 1-3) already has a MainCamArea, set to the camera
+     limits it had. To change where the camera stops, select MainCamArea and
+     drag its edges (or set Position / Size in the Inspector).
+  2. A secret above: drag Scenes/Camera/sky_cam_area.tscn into the level. Put
+     it over the top of the red box, overlapping the red box's top edge by
+     about 16 pixels (the overlap is where Mario touches it to switch).
+     Make it at least one screen big (256 x 144). Build the secret inside it
+     (above y 0) and give Mario a way up (a vine block...).
+  3. A secret below: drag Scenes/Camera/cave_cam_area.tscn in, under the bottom
+     of the red box, overlapping its bottom edge by about 16 pixels, at least
+     256 x 144. Make a hole in the ground above it, delete any DeathBox over
+     that hole, and build the cave inside the green box.
+  4. A new level: drag Scenes/Camera/main_cam_area.tscn in and size it to the
+     whole level (top at y 0, bottom at y 144 for the normal screen height).
+     Levels without one (like the underground rooms) still use the Camera2D's
+     own limits.
+
+INSPECTOR
+  MainCamArea   Switch Margin  how close (pixels) to the edge Mario has to get
+                               to switch (3 - try 2 to 4)
+                Move Time      seconds the camera's glide takes - smaller is
+                               faster (0.6)
+                Death Line     falling off the bottom loses a life
+  CaveCamArea   Death At Bottom  falling out of its bottom loses a life
+  All of them   Edge Width     how thick the coloured outline is
+
+
+================================================================================
+41. CHECKPOINT SPRITE, STAR COIN BOXES AND THE MAP'S COINS
+================================================================================
+
+CHECKPOINT SPRITE (Scenes/checkpoint.tscn, Scripts/checkpoint.gd)
+Each checkpoint now has an AnimatedSprite2D child called Sprite, with
+placeholder frames in Assets/Sprites/Checkpoint/ - swap in your own. It uses
+three animations:
+  idle      - before Mario touches it (can loop)
+  activate  - plays ONCE when he touches it (keep Loop off)
+  active    - the 1-frame sprite it switches to afterwards. It stays like
+              this after losing a life (Mario restarts there).
+  - A checkpoint with Spawnpoint ticked is the START of the level, so its
+    sprite is hidden.
+  - A checkpoint is now just a MARKER on the ground - no trigger box, nothing
+    to stretch. Mario gets it as soon as he passes its x position, at any
+    height (even over the top of the screen). In the editor a dashed line shows
+    that point, labelled CHECKPOINT (or START for a Spawnpoint one).
+  - Level start: tick Spawnpoint - it's active from the moment the level starts
+    (unless Mario has reached a later one), sprite hidden, line says START.
+  - The checkpoints in 1-1, 1-2 and 1-3 sit on the ground, unstretched.
+  - Different animation names? Change them under Sprite in the checkpoint's
+    Inspector (Anim Idle / Anim Activate / Anim Active).
+
+STAR COIN BOXES (the level script, Scripts/Level_Scripts/basic_level.gd)
+Select a level's root node: under "Star Coins" in the Inspector there are
+three boxes, Star Coin 1, Star Coin 2 and Star Coin 3. Drag the level's coins
+from the Scene dock into them - the box a coin is in decides whether it's the
+1st, 2nd or 3rd coin (it overrides the coin's own Coin Number), and that's the
+order the map shows them in.
+  - When the level runs, the Output panel warns if a box is empty, if one
+    coin is in two boxes, or if a coin in the level isn't in a box.
+  - A coin in an underground room goes in THAT room's boxes. If a level's
+    coins are spread over its rooms, untick Check Star Coins so it doesn't
+    warn about the boxes that are empty on purpose. (Underground rooms and
+    switch palaces have it unticked already.)
+  - Your levels don't have any star coins yet, so they warn "box is empty"
+    until you add them.
+
+THE MAP'S COINS (Scripts/World_Scripts/world_ui.gd)
+The map HUD only shows the star coins you've COLLECTED in the level Mario
+stands on, each in its own place: get coins 1 and 3 and those two show, with
+a gap where coin 2 goes. Tick Show Missing Coins on the WorldUI node to show
+hollow coins in the places of the ones still to find. How many places there
+are is still set by Star Coins In Level on each MapNode.
+
+
+================================================================================
+42. SCORE POP-UPS, PIRANHA PLANTS, SLABS, LIFTS AND GANCHAN
+================================================================================
+
+SCORE POP-UPS (Scenes/points_label.tscn, Scripts/points_label.gd)
+The points that show when Mario kills an enemy - any way: stomp, superball,
+star, kick - float straight up 32 pixels, then vanish. White text with a black
+shadow 1 pixel down and to the right (LabelSettings in points_label.tscn). Coins and star coins use
+the same label. Rise (32) and Rise Time (0.8 s) are on the script.
+
+PIRANHA PLANTS (Scripts/Enemies/SML/parana_plant.gd)
+  - They won't come out while Mario is inside their WATCH AREA: a box around
+    the pipe - Watch Width 48 (the pipe + 16 each side), from Watch Above 40
+    pixels over the pipe's top down to Watch Below 32 under it. So standing
+    next to the pipe, on it, or jumping just over it keeps the plant in.
+    Tick Show Watch Area to see the box in the game.
+  - They pop out at random: each wait inside the pipe is a random time
+    between Wait Min (1.5 s) and Wait Max (4 s), and every plant starts on its
+    own random timer. Rise Time = how fast it comes out (smaller = faster).
+  - Superballs kill them (100 points).
+
+FALLING SLABS (1-3: Scenes/FallingSlab.tscn, Scripts/falling_slab.gd)
+When Mario walks under one it shakes for Drop Delay (1 s), then falls ALL the
+way down and off the screen, slowly (Fall Gravity 100, Max Fall Speed 43.5) - it doesn't stop if he moves away. Landing on Mario
+hurts him (small Mario loses a life); tick Kill Instantly to always kill. It
+falls through the ground and pipes on purpose, so it stays an Area2D. It's
+drawn in front of the pipes (z_index 3).
+
+HIDDEN BLOCKS AND LIFTS (1-3)
+  - A hidden block now shows itself AND gives its item in the same bump (it
+    used to only show itself, so 1-3's lifts never came out).
+  - The lift (Scripts/lift_Platform.gd) is an AnimatableBody2D moved with the
+    physics, so Mario rides it properly - e.g. running against the wall next to
+    1-3's first lift keeps him on it. It rises at Speed (-10 = 10 px/s up),
+    carrying Mario up onto the top of the level. Once it's out of the top of
+    the main camera area (MainCamArea) it vanishes - if Mario is still on it,
+    he drops back down.
+  - 1-3's lift at the very start (x 20) works from below. The one at x 1204 is
+    on top of a brick: break the brick (Super Mario) to reach it.
+
+GANCHAN (Scripts/Enemies/SML/ganchan.gd) - Easton's boulders
+  - Enemy: touching its side hurts Mario. Can't be destroyed (a star smashes it).
+  - Platform: it's solid on top - Mario can stand on it and ride it as it rolls
+    and bounces.
+  - Crush: if it comes down on Mario it hurts him (Crush Kills = always kill).
+  - Hiyoihoi (the Easton boss) throws them - the same Ganchan scene, so his
+    work the same way. Settings: Rideable, Side Hurts, Crush Kills.
+
+
+================================================================================
+43. THE TEST LEVEL (AND RUN ANIMATION TIMING)
+================================================================================
+
+RUN ANIMATION (unchanged): small_run, big_run, bunny_run and speed_run are 15
+frames a second, fire_run and shooting_run 10, sped up with Mario's speed
+(speed / 40, between 0.6x and 3x) in Scripts/player_animated_sprite.gd. So
+walking (60 px/s) = 1.5x and running with the button held (90 px/s) = 2.25x:
+small / big 22.5 fps walking, 33.75 fps running.
+
+TEST LEVEL: Scenes/Levels/Test/test_run.tscn - 4000 pixels of flat ground with
+a tick every 16 px along the ground and height rulers every 512 px (marked
+every 8 px, numbered every 16). Open it and press F6 to try Mario's running
+and jumping. Measured there: a tap jump is 16 px high, a full jump 48 px
+(3 tiles of 16), the same with a run-up. Delete the Test folder whenever you
+like - nothing else uses it.
+
+
+================================================================================
+44. 1-3'S ENEMIES (MATCHED TO THE ORIGINAL GAME)
+================================================================================
+
+Placed by the order of the original 1-3 (Mario Wiki's enemy list and Thonky's
+walkthrough), matched to the landmarks in your layout. Original counts (Normal
+mode): Piranha Plant 7, falling blocks 6, Gao 3, Bombshell Koopa 1, boss King
+Totomesu.
+  Added (Scenes/Levels/1_3.tscn, new Enemies node):
+    Gao            x 1240   right of the second set of three ? blocks
+    Bombshell Koopa x 1600  walking in the pyramid section
+    Gao2           x 2072   by the lava pits
+    Gao3           x 2224   "farther right", before the boss
+    FallingSlab6   x 1072   ceiling over the first ? blocks (6 slabs in all)
+  Already there: the piranha plant pipes (yours has 9), the hidden-block lifts.
+  Not built yet: King Totomesu's arena and the fake-Daisy Fly at the end (the
+  level currently ends at x ~2408 after the lava).
+
+
+================================================================================
+45. THE FAKE DAISY CUTSCENE (END OF A CASTLE LEVEL)
+================================================================================
+
+Scene: res://Scenes/Cutscene/fake_daisy.tscn   Script: Scripts/Cutscene/fake_daisy.gd
+Reusable - drop one at the end of 1-3, 2-3, 3-3 (or anywhere else).
+
+WHAT HAPPENS (like the original):
+  1. Mario lands on the BossSwitch: Mario, the enemies and their shots all
+     freeze like the game is paused while the level end music plays
+     (the switch's Freeze Sound: Assets/Audio/12 Level End.mp3); once it's finished everything on screen
+     blows up (section 46). Then the time left is counted into the score, and
+     once that's done (Start Delay, 0.5 s, later) the Door goes up (its
+     "opening" animation + doorway.wav). Mario stays frozen until the door is
+     all the way up and through the pan, then unfreezes (drops off the button)
+     and walks in.
+  2. The camera pans over to the fake Daisy room - the PINK DaisyCamArea
+     (Pan Delay 0.3 s after the door, Pan Time 0.75 s) - and stays there,
+     centred on the gap between Mario (where he stops) and Daisy, so Daisy is
+     just off centre (Pan To; Pan Offset nudges it).
+  3. Once the pan has finished (Walk After Pan), the Princess Daisy (credits)
+     music starts and Mario
+     walks in by himself from wherever he is - left or right of her, however
+     far - and stops Stop Distance (28 px) before Daisy, facing her.
+     MUSIC TIMING: the credits song switches at 8 s, so Daisy changes exactly
+     when the music reaches Change At Music Time (8 s). Mario walks faster if he
+     has to (up to Max Walk Speed, 90 = his run) so the message, the pauses and
+     her arms-out pose fit in before then; if he's early she waits for the 8 s.
+     Untick Sync To Music to just use Walk Speed and the pauses.
+  4. OH! DAISY types out letter by letter at the top of the screen.
+  5. Daisy holds her arms out; the music stops the moment her sprite changes,
+     and she flashes into the monster (daisytransform.wav) as the faker music
+     (Change Music: Assets/Audio/Original/Oh! Daisy.wav) plays once.
+  6. The monster hops off the screen: one hop a second, 36 px high, 24 px along.
+     The level waits for the faker music to end before leaving.
+  7. Finish Delay later the level counts as beaten and the wipe goes to the map.
+
+SETTING ONE UP:
+  1. Instance fake_daisy.tscn. Its origin is the bottom of the door's opening.
+  2. Door Position / Daisy Position move the door and Daisy (or right-click the
+     node > Editable Children and drag them). In the editor a pink dashed line
+     shows where Mario stops.
+  3. Boss Switch: drag the level's BossSwitch in (don't also put an exit door in
+     its Reveal Nodes - the cutscene ends the level).
+  4. Add res://Scenes/Camera/daisy_cam_area.tscn (pink outline), stretch it
+     around the room (at least 256 x 144) and drag it into Daisy Cam Area.
+     While the cutscene has the camera, the MainCamArea's switching and death
+     line are off, and Mario may be off screen until he walks in.
+  5. Monster Scene: the enemy Daisy turns into - any enemy .tscn (fly.tscn by
+     default). Only its look is used; they all hop the same way. Or set Monster
+     Frames + Monster Animation.
+
+EVERYTHING ADJUSTABLE (Inspector groups):
+  Setup     Boss Switch, Daisy Cam Area, Door Position, Daisy Position, Show Guides
+  Timing    Start Delay, Door Open Speed, After Door Pause, Before Message Pause,
+            After Message Pause, Arms Out Time, After Transform Pause, Finish Delay
+  Camera    Pan Camera, Pan Delay, Pan Time, Pan Smooth, Walk After Pan (Mario
+  pan       waits for the pan), Pan To (between Mario and Daisy / Daisy / middle
+            of the pink box), Pan Offset
+  Mario     Walk Speed, Stop Distance, Follow Floor (keeps his feet on slopes /
+            steps), Face Daisy
+  Message   Message, Seconds Per Letter, Letter Sound, colour, Font Size, Shadow
+            (colour / offset), Message Position, Message Align, Message Stays
+  Daisy     idle / arms animation names, Daisy Faces Left
+  Monster   Monster Scene / Frames / Animation, Monster Flip, Flashes, Flash Time,
+            Hop Height, Hop Distance, Hop Direction (1 right / -1 left), Hop Every,
+            Hop Air Time, Hop Count (0 = until off screen)
+  Sounds    Door Sound, Music, Music Volume, Music Starts (door opens / pan
+            starts / Mario walks / Mario stops / message), Music Stops On Change,
+            Change Music (the faker music) + volume, Wait For Change Music,
+            Sync To Music, Change At Music Time, Max Walk Speed,
+            Jingle (extra sound as the message starts, empty), Transform Sound,
+            Hop Sound, SFX Volume
+  Finishing Counts As Win, Go To, Spawn Point, Unlocks, Transition Pattern / Speed
+  Signals: door_opened, mario_arrived, transformed, finished. start() runs it.
+
+YOUR ART (placeholders now):
+  Door/AnimatedSprite2D  closed / opening (plays once) / open - placeholders in
+                         Assets/Sprites/FakeDaisy/door_*.png, 16x32.
+  Daisy                  idle and arms_out (Assets/Cutscenes/Daisy_idle.png,
+                         Daisy_arms.png).
+
+
+================================================================================
+46. THE BOSS SWITCH BLOWS EVERYTHING UP
+================================================================================
+
+Pressing the BossSwitch (Scenes/Enemies/Bosses/boss_switch.tscn) now blows up
+every enemy on the screen - bosses too, and all their shots (fireballs,
+bubbles, spears, boulders...). Each turns into a little Blast and gives its
+points (its own Score; a boss gives its Score too). Shots and anything else
+worth 0 give Shot Points (100). A boss off the screen is still beaten and falls,
+like before.
+
+ORDER: Mario touches it -> Mario, enemies and shots freeze, like the game is
+paused, for exactly as long as Freeze Sound (12 Level End.mp3, the level end music)
+plays - that's the switch's only sound ->
+once it's finished it all blows up ("blasted") -> the time bonus is
+counted into the score (Time Bonus Delay 0.5 s, then the count) -> "done" (the
+FakeDaisy starts from it). Mario stays frozen (Hold Mario) until the cutscene
+walks him in; with no cutscene connected he gets his controls back straight
+after the count. He can't be hurt while frozen.
+
+PRESSING IT: Mario has to land on top of it (jump onto it) - walking into its
+side does nothing (untick Press From Above Only to allow that). He freezes
+standing on it and drops back to the floor when the cutscene walks him in.
+
+Settings on the BossSwitch: Press From Above Only; group Freeze: Freeze Sound,
+Freeze Time (0 = the freeze is just the sound's length; only used to make it
+longer or if there's no sound), Hold Mario.
+Settings on the BossSwitch, group Blow Up:
+  Blow Up On Screen  on/off
+  Blast Scene        res://Scenes/Effects/blast.tscn
+  Shot Points        100
+  Blast Stagger      seconds between each blast (0 = all at once)
+  Screen Margin      counts as on screen this far past the edges (8 px)
+  Blast Sound        nokobomb.wav (plays once)
+
+YOUR ART (8 x 8 placeholders, like a block):
+  The switch   Assets/Sprites/BossSwitch/switch_up.png and switch_pressed.png
+               (AnimatedSprite2D animations "default" and "pressed").
+  The blast    Assets/Sprites/Blast/blast_1..4.png (blast.tscn, animation
+               "default", plays once at 12 fps, then it's removed).
+For code: any enemy has blow_up(points, blast_scene); a Boss's blow_up also
+does everything defeat() does (signal, Reveal On Defeat, On Defeat Go To).
+
+FIREBALL FIX: boss_fireball.tscn (used by bosses, Gao, Pompon Flower, Tatanga,
+Roketon, Yurarin Boo, Dragonzamasu, Nyololin) now faces the way it flies - its
+art looks right, so Sprite Faces Left is off. Aimed and thrown shots face their
+real direction too.
+
+
+================================================================================
+47. BOSS ARENAS (BossCamArea, ORANGE) AND THE END OF 1-3
+================================================================================
+
+res://Scenes/Camera/boss_cam_area.tscn - an orange outline box, like the other
+camera areas. Draw it around the part of the level Mario is kept in for the
+boss (inside the MainCamArea).
+  - When Mario is standing Lock After (48 px) inside it, the camera slides over
+    (Lock Time 0.4 s) and LOCKS, and invisible walls go up at the box's left
+    and right edges (Wall Left / Wall Right) - he can't run or jump back out.
+  - The box can be narrower than a screen: the camera shows it against the
+    main area's edge.
+  - WIDESCREEN: the Game Boy screen was 160 x 144, this game's is 256 x 144,
+    so make an arena the full 256 wide (the original arena plus the extra).
+  - Falling into lava / off the bottom still loses a life as normal.
+  - Boss Music (optional) replaces the level music when it locks.
+  - The FakeDaisy cutscene takes the camera from here when the switch is done;
+    Mario walks through the arena wall into the Daisy room.
+  - lock() / unlock_walls() for level scripts; "locked" signal.
+
+1-3's END (set up from your arena):
+  BossCamArea   x 2152 - 2408 - one full screen, from the short bridge over
+                the first lava pit to the end of the level
+  BossSwitch    (2380, 92) - on top of the right-hand pedestal, where your
+                placeholder switch tile was (that one tile is removed so the
+                real switch sits there)
+  FakeDaisy     origin (2392, 96) - the door stands on the pedestal right of the
+                switch; Daisy at +72 px in the room beyond
+  DaisyCamArea  x 2408 - 2664 (pink) - the fake Daisy room. IT HAS NO TILES YET:
+                build the room there (floor at y 96 matches the pedestal), then
+                move Daisy / the door with Door Position / Daisy Position.
+  The green pipe column at the end of the level (x 2408) is removed.
+  Still to add: King Totomesu himself (any Boss in the arena is blown up by the
+  switch).
+
+================================================================================
+48. MUDA TILESET
+================================================================================
+
+Assets/Tilesets/Muda.png was made from Muda.aseprite (Godot can't read
+.aseprite) and added to TileSets/main.tres as source 2 - 50 tiles of 8 x 8, no
+collision set yet: in the TileSet editor, paint physics on the solid ones. If
+you change Muda.aseprite, export it over Muda.png (File > Export) and the
+tileset picks it up.

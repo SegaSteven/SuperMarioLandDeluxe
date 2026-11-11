@@ -79,6 +79,22 @@ func play_climb(player_mode: int, moving: bool) -> void:
 	speed_scale = 1.0 if moving else 0.0
 
 
+## Run animation speed for every form: 15 fps base (set on each *_run animation), played at
+## Walk Fps at walking speed and Run Fps at full running speed (run button held).
+@export var walk_fps: float = 22.0
+@export var run_fps: float = 30.0
+
+
+## Frames per second for the run animation at this speed (px/s), from Mario's walk / run speeds.
+func _run_fps(speed: float) -> float:
+	var body := get_parent()
+	var walk: float = body.max_walk_speed if body and "max_walk_speed" in body else 60.0
+	var run: float = body.max_run_speed if body and "max_run_speed" in body else 90.0
+	if speed <= walk:
+		return maxf(walk_fps * speed / walk, 8.0)
+	return lerpf(walk_fps, run_fps, clampf((speed - walk) / maxf(run - walk, 1.0), 0.0, 1.0))
+
+
 func trigger_animation(velocity: Vector2, direction: float, player_mode: int, shoot_pose: bool = false) -> void:
 	update_prefix(player_mode)
 
@@ -114,7 +130,7 @@ func trigger_animation(velocity: Vector2, direction: float, player_mode: int, sh
 	# Running / walking
 	if absf(velocity.x) > 1.0:
 		play_action("run")
-		speed_scale = clampf(absf(velocity.x) / 40.0, 0.6, 3.0)
+		speed_scale = _run_fps(absf(velocity.x)) / maxf(sprite_frames.get_animation_speed(animation), 1.0)
 		return
 
 	# Crouch (not small Mario)

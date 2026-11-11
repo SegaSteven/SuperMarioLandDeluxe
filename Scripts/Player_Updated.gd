@@ -107,6 +107,7 @@ const DEFAULT_STATES = {
 	&"Air": preload("res://Scripts/Player/States/air.gd"),
 	&"Transform": preload("res://Scripts/Player/States/transform.gd"),
 	&"Pipe": preload("res://Scripts/Player/States/pipe.gd"),
+	&"PipeExit": preload("res://Scripts/Player/States/pipe_exit.gd"),
 	&"Dead": preload("res://Scripts/Player/States/dead.gd"),
 	&"Vehicle": preload("res://Scripts/Player/States/vehicle.gd"),
 	&"BunnyFloat": preload("res://Scripts/Player/States/bunny_float.gd"),

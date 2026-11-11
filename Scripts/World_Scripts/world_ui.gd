@@ -1,8 +1,11 @@
 extends CanvasLayer
 
 class_name WorldUI
-## Map HUD: level name, area name, lives, and the 3 star coins for the level Mario stands on
-## (filled = collected, hollow = still to find). Only updates when something changes.
+## Map HUD: level name, area name, lives, and the star coins collected in the level Mario stands
+## on. Each coin has its own place (1st, 2nd, 3rd - set by the level's Star Coin boxes), and
+## only the coins you've collected show: got coins 1 and 3 = those two show, with a gap where
+## coin 2 goes. Tick Show Missing Coins to show hollow coins for the ones still to find.
+## Only updates when something changes.
 
 const COIN_FILLED := preload("res://Assets/Sprites/StarCoin/star_coin_filled.png")
 const COIN_EMPTY := preload("res://Assets/Sprites/StarCoin/star_coin_empty.png")
@@ -11,6 +14,8 @@ const COIN_EMPTY := preload("res://Assets/Sprites/StarCoin/star_coin_empty.png")
 ## own HBoxContainer called "StarCoins" to world_ui.tscn and it will be used instead.
 @export var coins_position: Vector2 = Vector2(186, 16)
 @export var coin_spacing: int = 1
+## Show a hollow coin in the places of coins you haven't collected yet (off = leave them empty).
+@export var show_missing_coins: bool = false
 
 @onready var level_name = $LevelName
 @onready var world_area = $WorldArea
@@ -63,6 +68,8 @@ func _process(_delta: float) -> void:
 	for i in _coin_icons.size():
 		_coin_icons[i].visible = i < total
 		_coin_icons[i].texture = COIN_FILLED if got[i] else COIN_EMPTY
+		# Keeps its place in the row even when it isn't showing
+		_coin_icons[i].self_modulate.a = 1.0 if (got[i] or show_missing_coins) else 0.0
 
 
 func update_level_name():

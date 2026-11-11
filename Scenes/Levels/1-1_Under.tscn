@@ -1,6 +1,6 @@
 [gd_scene load_steps=16 format=3 uid="uid://rccofgi2ew23"]
 
-[ext_resource type="Script" uid="uid://cuc04ec6q3577" path="res://Scripts/Level_Scripts/1-1U1.gd" id="1_813xr"]
+[ext_resource type="Script" uid="uid://c1xgf6h1nnvx" path="res://Scripts/Level_Scripts/basic_level.gd" id="1_813xr"]
 [ext_resource type="AudioStream" uid="uid://dkvyq0vuwbrvm" path="res://Assets/Audio/Original/Pipe Room.wav" id="1_ligrk"]
 [ext_resource type="Texture2D" uid="uid://bvk171culi5t0" path="res://Assets/Tilesets/Global.png" id="2_7axt7"]
 [ext_resource type="Texture2D" uid="uid://cgadwoljj5s5o" path="res://Assets/Sprites/Backgrounds/Underground.png" id="2_nspi3"]
@@ -101,11 +101,12 @@ sources/0 = SubResource("TileSetAtlasSource_44jf6")
 [node name="1-1 Under 1" type="Node" node_paths=PackedStringArray("ui", "player", "level_music") groups=["scene_manager_entity_nodes"]]
 process_mode = 3
 script = ExtResource("1_813xr")
-spawn_point = Vector2(335.824, 108)
 ui = NodePath("Camera2D/UI")
 player = NodePath("Player")
 level_music = NodePath("LevelMusic")
 metadata/entity_name = "1-1u1"
+play_start_flash = false
+check_star_coins = false
 
 [node name="Pausable" type="Node2D" parent="."]
 process_mode = 1
@@ -153,6 +154,8 @@ WorldName = "1-1"
 
 [node name="PipeSide" parent="." instance=ExtResource("7_38cdg")]
 position = Vector2(83.9852, 120.024)
+destination_scene = "uid://dsjsrcqx7wfav"
+destination_spawn = Vector2(223.912, 108)
 scene_overground = ExtResource("11_ouicc")
 spawn_point = Vector2(223.912, 108)
 start_from_pipe_exit = 1
@@ -207,7 +210,6 @@ position = Vector2(35.8172, 108)
 [node name="FallwaitBlock" parent="." instance=ExtResource("12_sbfm1")]
 position = Vector2(-29.6307, 33.6614)
 
-[connection signal="scene_under_change" from="Player" to="." method="_on_player_scene_under_change"]
 [connection signal="body_entered" from="Coins/CollectableCoin" to="Player" method="_on_collectable_coin_19_body_entered"]
 [connection signal="body_entered" from="Coins/CollectableCoin2" to="Player" method="_on_collectable_coin_19_body_entered"]
 [connection signal="body_entered" from="Coins/CollectableCoin3" to="Player" method="_on_collectable_coin_19_body_entered"]

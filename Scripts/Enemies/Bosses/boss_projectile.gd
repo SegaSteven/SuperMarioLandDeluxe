@@ -28,7 +28,8 @@ func _on_ready() -> void:
 		velocity = global_position.direction_to(aim_at) * speed
 	else:
 		velocity = Vector2(direction * speed, -throw_up_speed)
-	_face(direction)
+	# Face the way it's actually flying (aimed / thrown shots too)
+	_face(int(signf(velocity.x)) if absf(velocity.x) > 0.01 else direction)
 	_play_sfx("Fire")
 	get_tree().create_timer(lifetime).timeout.connect(queue_free)
 

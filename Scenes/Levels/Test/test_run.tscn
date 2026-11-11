@@ -1,0 +1,70 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://Scripts/Level_Scripts/basic_level.gd" id="1_lvl"]
+[ext_resource type="PackedScene" path="res://Scenes/player.tscn" id="2_player"]
+[ext_resource type="Script" path="res://Scripts/camera_2d.gd" id="3_cam"]
+[ext_resource type="PackedScene" path="res://Scenes/UI.tscn" id="4_ui"]
+[ext_resource type="Script" path="res://Scripts/Test/test_ruler.gd" id="5_ruler"]
+[ext_resource type="PackedScene" path="res://Scenes/Camera/main_cam_area.tscn" id="6_main"]
+
+[sub_resource type="RectangleShape2D" id="Ground_shape"]
+size = Vector2(4000, 16)
+
+[node name="TestRun" type="Node" node_paths=PackedStringArray("ui", "player", "level_music")]
+script = ExtResource("1_lvl")
+ui = NodePath("Camera2D/UI")
+player = NodePath("Player")
+level_music = NodePath("LevelMusic")
+play_start_flash = false
+check_star_coins = false
+
+[node name="Sky" type="ColorRect" parent="."]
+offset_right = 4000.0
+offset_bottom = 144.0
+color = Color(0.35, 0.6, 0.95, 1)
+
+[node name="Ground" type="StaticBody2D" parent="."]
+position = Vector2(2000, 136)
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
+shape = SubResource("Ground_shape")
+
+[node name="GroundArt" type="ColorRect" parent="Ground"]
+offset_left = -2000.0
+offset_top = -8.0
+offset_right = 2000.0
+offset_bottom = 8.0
+color = Color(0.8, 0.7, 0.45, 1)
+
+[node name="Ruler" type="Node2D" parent="."]
+script = ExtResource("5_ruler")
+
+[node name="Player" parent="." instance=ExtResource("2_player")]
+position = Vector2(40, 120)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+limit_left = 0
+limit_top = 0
+limit_right = 4000
+limit_bottom = 144
+limit_smoothed = true
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+drag_left_margin = 0.32
+drag_top_margin = 0.14
+drag_right_margin = 0.0
+drag_bottom_margin = 0.4
+script = ExtResource("3_cam")
+
+[node name="UI" parent="Camera2D" instance=ExtResource("4_ui")]
+WorldName = "TEST"
+
+[node name="LevelMusic" type="AudioStreamPlayer" parent="."]
+
+[node name="MainCamArea" parent="." instance=ExtResource("6_main")]
+offset_right = 4000.0
+offset_bottom = 144.0

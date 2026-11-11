@@ -1,10 +1,10 @@
 [gd_scene load_steps=16 format=3 uid="uid://b1aah7uj0ifmk"]
 
-[ext_resource type="Script" path="res://Scripts/Level_Scripts/1-1U2.gd" id="1_ui3p4"]
+[ext_resource type="Script" uid="uid://c1xgf6h1nnvx" path="res://Scripts/Level_Scripts/basic_level.gd" id="1_ui3p4"]
 [ext_resource type="Texture2D" uid="uid://cgadwoljj5s5o" path="res://Assets/Sprites/Backgrounds/Underground.png" id="2_oewkn"]
 [ext_resource type="AudioStream" uid="uid://dkvyq0vuwbrvm" path="res://Assets/Audio/Original/Pipe Room.wav" id="2_qek16"]
 [ext_resource type="Texture2D" uid="uid://bvk171culi5t0" path="res://Assets/Tilesets/Global.png" id="3_3yeno"]
-[ext_resource type="Script" path="res://Scripts/camera_2d.gd" id="4_o84ei"]
+[ext_resource type="Script" uid="uid://decrtemqpdib1" path="res://Scripts/camera_2d.gd" id="4_o84ei"]
 [ext_resource type="AudioStream" uid="uid://ca12j5b15rehi" path="res://Assets/SFX/pause.wav" id="7_76jwu"]
 [ext_resource type="PackedScene" uid="uid://cy62lavp30u4a" path="res://Scenes/pause.tscn" id="7_bj8rh"]
 [ext_resource type="PackedScene" uid="uid://b3e2uv1pq2x1o" path="res://Scenes/player.tscn" id="8_084np"]
@@ -102,11 +102,12 @@ metadata/__load_path__ = "res://Scenes/main.tscn"
 [node name="1-1 Under 2" type="Node" node_paths=PackedStringArray("ui", "player", "level_music") groups=["scene_manager_entity_nodes"]]
 process_mode = 3
 script = ExtResource("1_ui3p4")
-spawn_point = Vector2(1783.98, 108)
 ui = NodePath("Camera2D/UI")
 player = NodePath("Player")
 level_music = NodePath("LevelMusic")
 metadata/entity_name = "1-1u2"
+play_start_flash = false
+check_star_coins = false
 
 [node name="Pausable" type="Node2D" parent="."]
 process_mode = 1
@@ -174,6 +175,8 @@ WorldName = "1-1"
 
 [node name="PipeSide" parent="." instance=ExtResource("10_pbey2")]
 position = Vector2(84.04, 48)
+destination_scene = "uid://dsjsrcqx7wfav"
+destination_spawn = Vector2(1144.03, 108)
 scene_overground = SubResource("Resource_2a3m1")
 spawn_point = Vector2(1144.03, 108)
 start_from_pipe_exit = 2
@@ -246,4 +249,3 @@ position = Vector2(75.865, 44)
 [node name="FallwaitBlock" parent="." instance=ExtResource("11_yobsn")]
 position = Vector2(-29.1351, 34)
 
-[connection signal="scene_under_change" from="Player" to="." method="_on_player_scene_under_change"]

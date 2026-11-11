@@ -218,8 +218,23 @@ func take_damage(amount: int) -> void:
 
 ## Knocks the boss out (it flips over and falls off-screen). Safe to call more than once.
 func defeat() -> void:
-	if is_defeated:
+	if not _mark_defeated():
 		return
+	super.die_from_hit(float(-direction_to_player()))
+
+
+## Beaten by being blown up (the boss switch): same as defeat(), but it explodes instead of
+## falling off the screen.
+func blow_up(points: int = -1, blast_scene: PackedScene = null) -> void:
+	if not _mark_defeated():
+		return
+	super.blow_up(points, blast_scene)
+
+
+## Everything that happens when the boss is beaten, however it goes. False if it already was.
+func _mark_defeated() -> bool:
+	if is_defeated:
+		return false
 	is_defeated = true
 	defeated.emit(self)
 	if on_defeat_go_to != "":
@@ -229,7 +244,7 @@ func defeat() -> void:
 		if n:
 			n.visible = true
 			n.process_mode = Node.PROCESS_MODE_INHERIT
-	super.die_from_hit(float(-direction_to_player()))
+	return true
 
 
 func _go_after_defeat() -> void:

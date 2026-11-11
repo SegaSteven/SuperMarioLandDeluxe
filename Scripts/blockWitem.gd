@@ -19,10 +19,10 @@ func bump(player_mode: PlayerUpdated.PlayerMode) -> void:
 		$HitHardBlock.play()
 		return
 	if invisible:
+		# A hidden block shows itself AND gives its item in the same bump (e.g. 1-3's lifts)
 		animated_sprite_2d.visible = true
 		invisible = false
-	else:
-		spawn_item()
+	spawn_item()
 	super.bump(player_mode)
 	make_empty()
 
